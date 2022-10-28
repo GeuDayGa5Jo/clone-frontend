@@ -6,11 +6,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-
       <ThemeProvider theme={theme}>
-        <Router />
+        <Routers />
       </ThemeProvider>
-
     </>
   );
 }
