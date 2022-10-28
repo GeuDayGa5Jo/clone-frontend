@@ -81,7 +81,7 @@ const StButton = styled.button`
           color: ${(props) => props.fontC || "#1d9bf0;"};
           border-radius: 35px;
           font-size: 20px;
-          width: 405px;
+          width: ${(props) => props.wd || "405px"};
           height: 55px;
           font-weight: 700;
           margin: 0 auto;
