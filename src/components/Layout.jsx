@@ -1,23 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import Header from "./Header";
 
-const Layout = ({ children }) => {
-  return <Layoutdiv>{children}</Layoutdiv>;
+const Layout = () => {
+  return (
+    <LayoutDiv>
+      <Header />
+    </LayoutDiv>
+  );
 };
 
 export default Layout;
 
-const Layoutdiv = styled.div`
-  /* display: flex;
-<<<<<<< HEAD
-flex-direction: column;
-align-items: center;
-width: 100%;
-height: 100vh; */
-=======
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100vh; */
->>>>>>> de0df13a8dcaa4d936f09d3a003256564c7790c7
+const LayoutDiv = styled.div`
+  width: 1200px;
+  display: flex;
+  border: 1px dashed gray;
+  justify-content: left;
+  margin: 0 auto;
+  height: 100vh;
 `;

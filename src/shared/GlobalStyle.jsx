@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    max-width: 1200px;
   }
 
   html {
