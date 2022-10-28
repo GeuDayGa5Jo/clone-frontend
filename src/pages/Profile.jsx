@@ -1,16 +1,16 @@
 import React from "react";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
-import HomeList from "../features/home/HomeList";
+import ContentList from "../features/Profile/ContentList";
 
-const Main = () => {
+const Profile = () => {
   return (
     <Layout>
       <Header></Header>
-      <HomeList></HomeList>
+      <ContentList></ContentList>
       <Banner></Banner>
     </Layout>
   );
 };
 
-export default Main;
+export default Profile;
