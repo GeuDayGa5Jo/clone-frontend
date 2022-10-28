@@ -90,6 +90,18 @@ const StButton = styled.button`
             background-color: rgba(29, 155, 240, 0.1);
           }
         `;
+      case "next-btn":
+        return css`
+          background-color: rgba(47, 47, 47, 0.5);
+          border-radius: 35px;
+          color: white;
+          font-size: 23px;
+          width: 100%;
+          height: 65px;
+          font-weight: 700;
+          margin: 0 auto;
+        `;
+
       default:
         return css`
           width: 50px;
