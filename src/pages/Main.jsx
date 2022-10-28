@@ -1,4 +1,5 @@
 import React from "react";
+import LoginBtns from "../components/LoginBtns";
 
 const Login = () => {
   return (

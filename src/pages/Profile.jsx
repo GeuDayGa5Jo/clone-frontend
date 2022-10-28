@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ContentList from "../features/Profile/ContentList";
+import Layout from "../components/Layout";
 
 const Profile = () => {
   return (
