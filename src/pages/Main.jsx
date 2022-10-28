@@ -1,11 +1,12 @@
 import React from "react";
+import Button from "../elem/Button";
 
-const Login = () => {
+const Main = () => {
   return (
     <div>
-      <LoginBtns></LoginBtns>
+      <Button>hi</Button>
     </div>
   );
 };
 
-export default Login;
+export default Main;
