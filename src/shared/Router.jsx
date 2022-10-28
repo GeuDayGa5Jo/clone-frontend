@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
 
-const Router = () => {
+const page = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -18,4 +18,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default page;
