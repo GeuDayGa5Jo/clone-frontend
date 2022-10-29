@@ -192,6 +192,7 @@ export default Header;
 const Box = styled.div`
   height: 100%;
   width: 280px;
+  background-color: white;
   display: flex;
   flex-direction: column;
   position: fixed;

@@ -100,6 +100,7 @@ export default Banner;
 
 const Container = styled.div`
   width: 300px;
+  background-color: white;
   position: fixed;
   right: 0px;
   height: 100%;
