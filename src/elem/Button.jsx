@@ -23,9 +23,9 @@ const StButton = styled.button`
           background-color: rgb(15, 20, 25);
           border-radius: 25px;
           color: white;
-          font-size: 18px;
-          width: 110px;
-          height: 45px;
+          font-size: 13px;
+          width: 77px;
+          height: 32px;
           font-weight: 700;
         `;
       case "tweet-sm":

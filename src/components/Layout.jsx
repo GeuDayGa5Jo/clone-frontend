@@ -15,10 +15,18 @@ const Layout = () => {
 export default Layout;
 
 const LayoutDiv = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 1200px;
-  display: flex;
-  border: 1px dashed gray;
-  justify-content: left;
-  margin: 0 auto;
+  /* border: 1px dashed gray; */
   height: 100vh;
+  @media screen and (max-width: 1292px) {
+    Header {
+      p {
+        display: none;
+        opacity: 0;
+      }
+    }
+  }
 `;

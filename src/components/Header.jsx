@@ -197,11 +197,18 @@ const Box = styled.div`
   margin-left: 60px;
   position: fixed;
   border-right: 1px solid #ebebebd5;
+  @media screen and (max-width: 1292px) {
+    p {
+      display: none;
+      opacity: 0;
+    }
+  }
 `;
 
 const Size2 = styled.div`
   width: 24px;
   height: 24px;
+
   /* & :hover {
     color: white;
   } */
@@ -217,6 +224,10 @@ const Category = styled.div`
     text-align: left;
     justify-content: left;
   }
+  /* @media screen and (max-width: 1292px) {
+    position: fixed;
+    left: 0;
+  } */
 `;
 
 const Size = styled.button`
@@ -232,6 +243,7 @@ const Size = styled.button`
   align-items: center;
   &:hover {
     background-color: #dddddd88;
+    transition: all 0.5s;
     cursor: pointer;
   }
 `;
@@ -252,6 +264,7 @@ const BlueSize = styled.button`
   align-items: center;
   & :hover {
     cursor: pointer;
+    transition: all 0.5s;
   }
 `;
 
@@ -270,6 +283,7 @@ const BlueBird = styled.button`
   justify-content: center;
   align-items: center;
   & :hover {
+    transition: all 0.5s;
     background-color: #afd1f7;
     cursor: pointer;
   }
@@ -281,7 +295,6 @@ const Profile = styled.div`
   padding: 15px;
   display: flex;
   justify-content: flex-start;
-
   & p {
     text-align: lefts;
     color: black;
@@ -298,6 +311,7 @@ const Bottom = styled.div`
   bottom: 30px;
   justify-content: center;
   & div:hover {
+    transition: all 0.5s;
     background-color: #dddddd88;
     border-radius: 50px;
     cursor: pointer;
