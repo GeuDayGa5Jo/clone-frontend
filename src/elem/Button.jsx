@@ -82,7 +82,7 @@ const StButton = styled.button`
           border-radius: 35px;
           font-size: 20px;
           width: ${(props) => props.wd || "405px"};
-          height: 55px;
+          height: ${(props) => props.hg || "55px"};
           font-weight: 700;
           margin: 0 auto;
           border: 0.5px solid rgb(203, 206, 211);
