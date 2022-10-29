@@ -66,9 +66,9 @@ const StContainer = styled.div`
   flex-direction: column;
   background-color: white;
   margin: 0 auto;
-  width: 700px;
-  padding: 5px 30px;
+  width: 960px;
 `;
+
 const StListHeader = styled.div`
   display: flex;
   justify-content: space-between;
