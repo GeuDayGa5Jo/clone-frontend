@@ -28,7 +28,7 @@ export const Select = styled.select`
   margin: 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: ${(props) => props.wd};
-  height: ${(props) => props.hg || "75px"};
+  height: ${(props) => props.hg || "55px"};
   border-radius: 4px;
   font-size: 17px;
   padding: 15px;

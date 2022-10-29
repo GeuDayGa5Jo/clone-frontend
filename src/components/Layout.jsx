@@ -3,18 +3,14 @@ import styled from "styled-components";
 import Banner from "./Banner";
 import Header from "./Header";
 
-const Layout = () => {
-  return (
-    <LayoutDiv>
-      <Header />
-      <Banner />
-    </LayoutDiv>
-  );
+const Layout = ({ children }) => {
+  return <Layoutdiv>{children}</Layoutdiv>;
 };
 
 export default Layout;
 
-const LayoutDiv = styled.div`
+const Layoutdiv = styled.div`
+  display: flex;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
