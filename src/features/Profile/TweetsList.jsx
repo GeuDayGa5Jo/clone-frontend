@@ -8,7 +8,6 @@ const TweetsList = () => {
       <MenuBar>
         <GridBox>
           <button>Tweets</button>
-
           <button>Tweets & replies</button>
           <button>Media</button>
           <button>Like</button>
