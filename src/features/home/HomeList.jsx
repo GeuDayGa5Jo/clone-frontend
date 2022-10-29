@@ -1,7 +1,12 @@
 import React from "react";
+import Button from "../../elem/Button";
 
 const HomeList = () => {
-  return <div>HomeList</div>;
+  return (
+    <>
+      <Button>로그인하세요</Button>
+    </>
+  );
 };
 
 export default HomeList;
