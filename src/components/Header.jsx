@@ -194,10 +194,9 @@ const Box = styled.div`
   width: 280px;
   display: flex;
   flex-direction: column;
-  margin-left: 60px;
   position: fixed;
   border-right: 1px solid #ebebebd5;
-  @media screen and (max-width: 1292px) {
+  @media screen and (max-width: 1290px) {
     p {
       display: none;
       opacity: 0;
@@ -208,7 +207,6 @@ const Box = styled.div`
 const Size2 = styled.div`
   width: 24px;
   height: 24px;
-
   /* & :hover {
     color: white;
   } */
