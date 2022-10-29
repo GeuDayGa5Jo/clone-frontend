@@ -164,12 +164,12 @@ const Header = () => {
       </BlueSize>
       <Bottom>
         <Profile>
-          <p>프로필 사진임</p>
+          <ImgFile src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"></ImgFile>
           <User>
             <p>
               소영
               <br />
-              @soyoungmanmanse
+              @soyoung
             </p>
           </User>
           <svg
@@ -289,8 +289,9 @@ const BlueBird = styled.button`
 
 const Profile = styled.div`
   width: 100%;
-  height: 50px;
+  height: 60px;
   padding: 15px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: flex-start;
   & p {
@@ -319,4 +320,11 @@ const Bottom = styled.div`
 const User = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const ImgFile = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  margin-right: 10px;
 `;

@@ -26,7 +26,6 @@ const StButton = styled.button`
           font-size: 13px;
           width: 77px;
           height: 32px;
-          font-weight: 700;
         `;
       case "tweet-sm":
         return css`

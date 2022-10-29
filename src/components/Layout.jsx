@@ -1,7 +1,5 @@
-import React from "react";
+import React, { Children } from "react";
 import styled from "styled-components";
-import Banner from "./Banner";
-import Header from "./Header";
 
 const Layout = ({ children }) => {
   return <Layoutdiv>{children}</Layoutdiv>;
