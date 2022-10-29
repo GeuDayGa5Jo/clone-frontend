@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SignUpNav from "../components/SignUpNav";
 import Button from "../elem/Button";
 import SelectBox from "../elem/SelectBox";
+import Header from "./Header";
 import LoginModal from "./LoginModal";
 import LogoutModal from "./LogoutModal";
 import SignUpModal from "./SignUpModal";
@@ -30,6 +31,7 @@ const Example = () => {
       {/* <LogoutModal></LogoutModal> */}
       {/* <SignUpModal></SignUpModal> */}
       <LoginModal></LoginModal>
+      {/* <Header></Header> */}
     </Stdiv>
   );
 };

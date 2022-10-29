@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { RiHome7Line } from "react-icons/ri";
+// import { RiHome7Line } from "react-icons/ri";
 
 const Header = () => {
   return (
