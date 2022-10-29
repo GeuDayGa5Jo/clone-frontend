@@ -32,11 +32,11 @@ const StButton = styled.button`
           background-color: #1d9bf0;
           border-radius: 27px;
           color: white;
-          font-size: 19px;
-          width: 110px;
-          height: 55px;
+          font-size: 16px;
+          width: 80px;
+          height: 45px;
           font-weight: 700;
-          margin: 0 auto;
+          margin: ${(props) => props.mg || "0 auto"};
         `;
       case "tweet-lg":
         return css`
@@ -47,7 +47,7 @@ const StButton = styled.button`
           width: 310px;
           height: 70px;
           font-weight: 700;
-          margin: 0 auto;
+          margin: ${(props) => props.mg || "0 auto"};
         `;
       case "logout-btn":
         return css`
