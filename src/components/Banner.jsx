@@ -8,7 +8,6 @@ const Banner = () => {
       <SearchBox>
         <input type="text" name="serch" placeholder="Serch Twitter" />
       </SearchBox>
-
       <BannerBox>
         <h2>You might like</h2>
         <UserCard>
@@ -16,31 +15,32 @@ const Banner = () => {
           <p>
             덕수
             <br />
-            @soyoungmanmanse
+            @soyoung
           </p>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
+          <ImgFile src="https://pbs.twimg.com/profile_images/1354264571800821768/_P1OPiGw_400x400.jpg"></ImgFile>
           <p>
-            덕수
+            동물짤 모으는 나...
             <br />
-            @soyoungmanmanse
+            @miyari_s
           </p>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
+          <ImgFile src="https://pbs.twimg.com/profile_images/1377788434870202370/WRLz9Nqz_400x400.jpg"></ImgFile>
           <p>
-            덕수
+            대환장 갤러리
             <br />
-            @soyoungmanmanse
+            @bighwanjang1
           </p>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
-          <p>더보기</p>
+          <p>Show more</p>
         </UserCard>
       </BannerBox>
-
       <BannerBox2>
         <h2>Trends for you</h2>
         <TopicCard>
@@ -116,7 +116,7 @@ const SearchBox = styled.div`
     border-radius: 20px;
     padding: 10px;
     margin: 0 auto;
-    background-color: #eff3f4;
+    background-color: rgb(247, 249, 249);
   }
 `;
 
@@ -126,11 +126,12 @@ const BannerBox = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
-  background-color: #eff3f4;
+  background-color: rgb(247, 249, 249);
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat (4, 1fr);
   & p {
     margin-right: 20px;
+    text-align: left;
   }
   & h2 {
     margin-left: 10px;
@@ -144,9 +145,9 @@ const BannerBox2 = styled.div`
   height: 500px;
   margin-left: 20px;
   border-radius: 10px;
-  background-color: #eff3f4;
+  background-color: rgb(247, 249, 249);
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat (7, 1fr);
   & h2 {
     margin-left: 10px;
     padding: 10px;
@@ -170,13 +171,15 @@ const UserCard = styled.div`
 
 const TopicCard = styled.div`
   width: 90%;
-  height: 50px;
-  margin-left: 40px;
+  margin-left: 25px;
 `;
 
 const ImgFile = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 45px;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
   margin-right: 10px;
 `;
+
+// border-color: rgb(247, 249, 249);
+// background-color: rgb(247, 249, 249);
