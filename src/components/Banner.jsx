@@ -12,29 +12,29 @@ const Banner = () => {
         <h2>You might like</h2>
         <UserCard>
           <ImgFile src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"></ImgFile>
-          <p>
+          <div>
             덕수
             <br />
             @soyoung
-          </p>
+          </div>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
           <ImgFile src="https://pbs.twimg.com/profile_images/1354264571800821768/_P1OPiGw_400x400.jpg"></ImgFile>
-          <p>
+          <div>
             동물짤 모으는 나...
             <br />
             @miyari_s
-          </p>
+          </div>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
           <ImgFile src="https://pbs.twimg.com/profile_images/1377788434870202370/WRLz9Nqz_400x400.jpg"></ImgFile>
-          <p>
+          <div>
             대환장 갤러리
             <br />
             @bighwanjang1
-          </p>
+          </div>
           <Button theme="follow">Follow</Button>
         </UserCard>
         <UserCard>
@@ -44,52 +44,52 @@ const Banner = () => {
       <BannerBox2>
         <h2>Trends for you</h2>
         <TopicCard>
-          <p>
+          <div>
             Traending in South Korea
             <br />
             <h3>Front-end</h3>
             100K Tweets
-          </p>
+          </div>
         </TopicCard>
         <TopicCard>
-          <p>
+          <div>
             Traending in South Korea
             <br />
             <h3>다잇수할</h3>
             60.5K Tweets
-          </p>
+          </div>
         </TopicCard>
         <TopicCard>
-          <p>
+          <div>
             Music · Trending
             <br />
             <h3>백예린</h3>
             20.4K Tweets
-          </p>
+          </div>
         </TopicCard>
         <TopicCard>
-          <p>
+          <div>
             Traending in South Korea
             <br />
             <h3>항해99</h3>
             10K Tweets
-          </p>
+          </div>
         </TopicCard>
         <TopicCard>
-          <p>
+          <div>
             Traending in South Korea
             <br />
             <h3>D반 화이팅</h3>
             5K Tweets
-          </p>
+          </div>
         </TopicCard>
         <TopicCard>
-          <p>
+          <div>
             Traending in South Korea
             <br />
             <h3>취뽀하자🫶🏻</h3>
             2056 Tweets
-          </p>
+          </div>
         </TopicCard>
       </BannerBox2>
     </Container>
