@@ -3,28 +3,29 @@ import styled from "styled-components";
 
 const TweetCard = () => {
   return (
-    <div>
+    <CardBox>
+      <Dot>
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+        >
+          <g>
+            <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+          </g>
+        </svg>
+      </Dot>
       <Card>
         <ImgFile src="https://pbs.twimg.com/profile_images/1585648241298636800/tii40Gv2_400x400.jpg"></ImgFile>
         <UserBox>
-          <Dot>
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
-            >
-              <g>
-                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
-              </g>
-            </svg>
-          </Dot>
           <TextBox>
             <h3>덕수덕수야덕수야덕수야덕수야</h3>
             <p>@soyoung</p>
           </TextBox>
           <span>무슨 일이 일어나고 있나요?</span>
         </UserBox>
-
+      </Card>{" "}
+      <Menu>
         <MenuIcon>
           <svg
             viewBox="0 0 24 24"
@@ -58,28 +59,31 @@ const TweetCard = () => {
             </g>
           </svg>
         </MenuIcon>
-      </Card>
-    </div>
+      </Menu>
+    </CardBox>
   );
 };
 
 export default TweetCard;
 
-const Card = styled.div`
+const CardBox = styled.div`
   background-color: #ffffff;
   border-bottom: 1px solid #e9e9e9;
+`;
+
+const Card = styled.div`
   margin-top: 20px;
   display: flex;
   & h3 {
     width: 100%;
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 15px;
     vertical-align: auto;
   }
   & p {
     margin-left: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 15px;
     color: #536471;
   }
@@ -110,11 +114,30 @@ const UserBox = styled.div`
 
 const Dot = styled.div`
   width: 20px;
+  float: right;
+  margin-right: 10px;
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
-const MenuIcon = styled.div`
+const MenuIcon = styled.button`
   width: 20px;
   position: grid;
   grid-template-columns: repeat(3, 1fr);
   display: inline-flex;
+  border: none;
+  background-color: transparent;
+
+  & :hover {
+    cursor: pointer;
+  }
+`;
+
+const Menu = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
