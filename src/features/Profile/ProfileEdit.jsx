@@ -57,13 +57,13 @@ const ProfileEdit = () => {
 export default ProfileEdit;
 
 const MainBox = styled.div`
-  height: 100vh;
+  height: 470px;
   background-color: white;
 `;
 
 const HeaderBox = styled.div`
   width: 100%;
-  height: 6%;
+  height: 50px;
   background-color: #ffffff;
   display: flex;
   & svg {

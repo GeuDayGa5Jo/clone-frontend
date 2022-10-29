@@ -16,8 +16,8 @@ export default ContentList;
 
 const Box = styled.div`
   width: 620px;
-  height: 100vh;
-  background-color: #f0f0f097;
+  height: 100%;
+  background-color: #ffffff;
   position: fixed;
   left: 280px;
 `;
