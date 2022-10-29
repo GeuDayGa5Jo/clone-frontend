@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     text-decoration: none;
     outline : none;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Apple SD Gothic Neo",'Noto Sans KR', sans-serif;
   }
 
   body {
@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     /* justify-content: center; */
     max-width: 1200px;
+    position:relative;
   }
 
   html {

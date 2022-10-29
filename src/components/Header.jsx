@@ -194,7 +194,6 @@ const Box = styled.div`
   width: 280px;
   display: flex;
   flex-direction: column;
-  margin-left: 60px;
   position: fixed;
   border-right: 1px solid #ebebebd5;
   @media screen and (max-width: 1292px) {
