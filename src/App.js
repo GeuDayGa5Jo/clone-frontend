@@ -7,9 +7,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-
       <ThemeProvider theme={theme}>
         <Page />
+        <Routers />
       </ThemeProvider>
     </>
   );
