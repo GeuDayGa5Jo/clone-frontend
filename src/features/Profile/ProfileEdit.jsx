@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ProfileEdit = () => {
   return (
-    <div>
+    <MainBox>
       <HeaderBox>
         <svg
           viewBox="0 0 24 24"
@@ -15,7 +15,7 @@ const ProfileEdit = () => {
           </g>
         </svg>
         <div>
-          <h2>덕수</h2>
+          <h2>짱구 그 잡채</h2>
           <p>9 Tweets</p>
         </div>
       </HeaderBox>
@@ -28,16 +28,38 @@ const ProfileEdit = () => {
         </ProfileFile>
       </HeaderFile>
       <Text>
-        <h2>덕수</h2>
+        <button>Edit profile</button>
+        <h2>짱구 그 잡채</h2>
         <p>@soyoung</p>
         <p>안녕하세요?</p>
       </Text>
-      Joined October 2022 2 Following 0 Followers
-    </div>
+      <DownText>
+        <p>
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-1d4mawv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"
+          >
+            <g>
+              <path d="M7 4V3h2v1h6V3h2v1h1.5C19.89 4 21 5.12 21 6.5v12c0 1.38-1.11 2.5-2.5 2.5h-13C4.12 21 3 19.88 3 18.5v-12C3 5.12 4.12 4 5.5 4H7zm0 2H5.5c-.27 0-.5.22-.5.5v12c0 .28.23.5.5.5h13c.28 0 .5-.22.5-.5v-12c0-.28-.22-.5-.5-.5H17v1h-2V6H9v1H7V6zm0 6h2v-2H7v2zm0 4h2v-2H7v2zm4-4h2v-2h-2v2zm0 4h2v-2h-2v2zm4-4h2v-2h-2v2z"></path>
+            </g>
+          </svg>
+          Joined October 2022
+        </p>
+        <p>
+          <span>2</span> Following <span>0</span> Followers
+        </p>
+      </DownText>
+    </MainBox>
   );
 };
 
 export default ProfileEdit;
+
+const MainBox = styled.div`
+  height: 100vh;
+  background-color: white;
+`;
 
 const HeaderBox = styled.div`
   width: 100%;
@@ -60,7 +82,7 @@ const HeaderBox = styled.div`
 const HeaderFile = styled.div`
   width: 100%;
   height: 180px;
-  background-color: gray;
+  background-color: #cfd9de;
   position: relative;
   & input[type="file"] {
     width: 100%;
@@ -86,8 +108,9 @@ const ProfileFile = styled.div`
   width: 120px;
   height: 120px;
   border-radius: 120px;
+  border: 2px solid #f3f3f3;
   z-index: 20px;
-  background-color: #ababab;
+  background-color: white;
   position: absolute;
   bottom: -50px;
   left: 15px;
@@ -110,9 +133,48 @@ const ProfileFile = styled.div`
 `;
 
 const Text = styled.div`
-  margin-left: 40px;
+  margin-left: 10px;
   margin-top: 80px;
+  & h2 {
+    margin-bottom: 5px;
+  }
   & p {
-    font-size: 14px;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+  & button {
+    border: 1px solid #dbdbdbd3;
+    background-color: white;
+    position: absolute;
+    right: 30px;
+    top: 260px;
+    width: 120px;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+`;
+
+const DownText = styled.div`
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 15px;
+  color: #536471;
+  font-weight: 600;
+  & span {
+    color: black;
+    font-weight: 600;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  & svg {
+    width: 20px;
+    fill: #536471;
+    margin-right: 3px;
+  }
+  & p {
+    display: flex;
+    justify-content: left;
   }
 `;

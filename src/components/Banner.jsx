@@ -160,8 +160,12 @@ const UserCard = styled.div`
   height: 50px;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
-  text-align: center;
+  justify-content: left;
+  text-align: left;
+  & button {
+    position: fixed;
+    right: 25px;
+  }
   /* & :hover {
     width: 100%;
     height: 100%;
@@ -172,6 +176,7 @@ const UserCard = styled.div`
 const TopicCard = styled.div`
   width: 90%;
   margin-left: 25px;
+  align-items: left;
 `;
 
 const ImgFile = styled.img`
@@ -179,6 +184,7 @@ const ImgFile = styled.img`
   height: 40px;
   border-radius: 40px;
   margin-right: 10px;
+  display: flex;
 `;
 
 // border-color: rgb(247, 249, 249);
