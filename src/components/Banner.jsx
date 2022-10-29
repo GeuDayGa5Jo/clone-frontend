@@ -12,6 +12,7 @@ const Banner = () => {
       <BannerBox>
         <h2>You might like</h2>
         <UserCard>
+          <ImgFile src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"></ImgFile>
           <p>
             덕수
             <br />
@@ -110,7 +111,7 @@ const SearchBox = styled.div`
   width: 90%;
   padding: 20px;
   & input {
-    width: 100%;
+    width: 270px;
     border: none;
     border-radius: 20px;
     padding: 10px;
@@ -171,4 +172,11 @@ const TopicCard = styled.div`
   width: 90%;
   height: 50px;
   margin-left: 40px;
+`;
+
+const ImgFile = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  margin-right: 10px;
 `;
