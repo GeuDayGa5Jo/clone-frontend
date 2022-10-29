@@ -21,9 +21,9 @@ const StInput = styled.input`
         return css`
           display: flex;
           width: 100%;
-          height: 75px;
+          height: 55px;
           border-radius: 6px;
-          font-size: 24px;
+          font-size: 18px;
           padding: 0 10px;
           border: 1px solid rgba(0, 0, 0, 0.2);
           margin: ${(props) => props.mg};

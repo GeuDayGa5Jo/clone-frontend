@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Footer from "../elem/Footer";
+import SignUpModal from "../components/SignUpModal";
 
 const Main = () => {
+  //모달창 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
+  const showModal = () => {
+    setModalOpen(true);
+  };
   return (
     <MainLayout>
       <StContainer>
@@ -37,6 +43,7 @@ const Main = () => {
               bgColor="#1d9bf0"
               fontC="white"
               hg="45px"
+              onClick={showModal}
             >
               이메일로 가입하기
             </Button>
@@ -58,6 +65,7 @@ const Main = () => {
         </StLoginContent>
       </StContainer>
       <Footer></Footer>
+      {modalOpen && <SignUpModal setModalOpen={setModalOpen} />}
     </MainLayout>
   );
 };

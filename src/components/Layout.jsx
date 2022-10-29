@@ -2,12 +2,12 @@ import React, { Children } from "react";
 import styled from "styled-components";
 
 const Layout = ({ children }) => {
-  return <LayoutDiv>{children}</LayoutDiv>;
+  return <Layoutdiv>{children}</Layoutdiv>;
 };
 
 export default Layout;
 
-const LayoutDiv = styled.div`
+const Layoutdiv = styled.div`
   display: flex;
   position: absolute;
   left: 50%;

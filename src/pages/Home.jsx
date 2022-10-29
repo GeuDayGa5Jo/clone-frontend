@@ -6,11 +6,13 @@ import HomeList from "../features/home/HomeList";
 
 const Home = () => {
   return (
-    <Layout>
-      <Header></Header>
-      <HomeList></HomeList>
-      <Banner></Banner>
-    </Layout>
+    <>
+      <Layout>
+        <Header></Header>
+        <HomeList></HomeList>
+        <Banner></Banner>
+      </Layout>
+    </>
   );
 };
 
