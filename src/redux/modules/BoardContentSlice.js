@@ -14,7 +14,6 @@ export const addBoardContent = createAsyncThunk(
     console.log("payload 콘솔로그 =>", payload);
     try {
       await addBoardContentApi(payload);
-      return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
       return thunkAPI.rejectWithValue(err);

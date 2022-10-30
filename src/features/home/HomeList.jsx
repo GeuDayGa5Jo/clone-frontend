@@ -21,8 +21,8 @@ const HomeList = () => {
   const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
-    const value = e.target.value;
-    setContent(value);
+
+    setContent(e.target.value);
   };
 
   //게시글 작성
@@ -58,55 +58,68 @@ const HomeList = () => {
           <FontAwesomeIcon icon={faStar} />
         </span>
       </StListHeader>
-      <WritingContainer>
-        <ImgBox>
-          <img
-            src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"
-            alt=""
-          />
-        </ImgBox>
-        <WritingBox onClick={onAddContentHandler}>
-          <StTextArea
-            ref={textRef}
-            row={1}
-            placeholder="What's happening?"
-            maxLength={150}
-            onChange={handleResizeHeight}
-            value={content.boardContent}
-          ></StTextArea>
-          <IconBox>
-            <Icon>
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-10ptun7 r-1d4mawv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1janqcz"
-              >
-                <g>
-                  <path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-.25 10.48L10.5 17.5l-2-1.5v-3.5L7.5 9 5.03 7.59c1.42-2.24 3.89-3.75 6.72-3.84L11 6l-2 .5L8.5 9l5 1.5-1.75 1.73zM17 14v-3l-1.5-3 2.88-1.23c1.17 1.42 1.87 3.24 1.87 5.23 0 1.3-.3 2.52-.83 3.61L17 14z"></path>
-                </g>
-              </svg>
-            </Icon>
-            <p>Everyone can reply</p>
-          </IconBox>
-          <BtnBox>
-            {/* <ImageLayout> */}
-            <ImageLabel htmlFor="file">
-              <ImagePreview src="https://i.pinimg.com/originals/d2/4f/89/d24f89d6afaec9d3a55d47fed799800e.jpg" />
-            </ImageLabel>
-            <ImageInput
-              id="addFile"
-              type="file"
-              name="imageUrl"
-              placeholder="업로드"
-              accept={"image/*"}
-              onChange={imgFileHandler}
+      <Container>
+        <WritingContainer>
+          <ImgBox>
+            <img
+              src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"
+              alt=""
             />
-
-            {/* </ImageLayout> */}
-            <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
-          </BtnBox>
-        </WritingBox>
-      </WritingContainer>
+          </ImgBox>
+          <WritingBox onClick={onAddContentHandler}>
+            <StTextArea
+              ref={textRef}
+              row={1}
+              placeholder="What's happening?"
+              maxLength={150}
+              onChange={handleResizeHeight}
+              value={content.boardContent}
+            ></StTextArea>
+            <ImagePreview
+              src={previewImage === "" ? content?.imgUrl : previewImage}
+            />
+          </WritingBox>
+        </WritingContainer>
+        <IconBox>
+          <Icon>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-10ptun7 r-1d4mawv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1janqcz"
+            >
+              <g>
+                <path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-.25 10.48L10.5 17.5l-2-1.5v-3.5L7.5 9 5.03 7.59c1.42-2.24 3.89-3.75 6.72-3.84L11 6l-2 .5L8.5 9l5 1.5-1.75 1.73zM17 14v-3l-1.5-3 2.88-1.23c1.17 1.42 1.87 3.24 1.87 5.23 0 1.3-.3 2.52-.83 3.61L17 14z"></path>
+              </g>
+            </svg>
+          </Icon>
+          <p>Everyone can reply</p>
+        </IconBox>
+      </Container>
+      <BtnBox>
+        <ImageLayout>
+          <ImageLabel htmlFor="file" />
+          <ImageInput
+            id="addFile"
+            type="file"
+            name="imageUrl"
+            placeholder="업로드"
+            accept={"image/*"}
+            onChange={imgFileHandler}
+          />
+          <ImageButton>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03"
+            >
+              <g>
+                <path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"></path>
+              </g>
+            </svg>
+          </ImageButton>
+        </ImageLayout>
+        <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
+      </BtnBox>
     </StContainer>
   );
 };
@@ -117,8 +130,13 @@ const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  margin: 0 auto;
-  width: 960px;
+  width: 700px;
+  & img {
+    display: inline-block;
+    content: "";
+    border: none;
+    border: 0;
+  }
 `;
 
 const StListHeader = styled.div`
@@ -138,9 +156,8 @@ const WritingContainer = styled.div`
   display: flex;
   width: 100%;
   margin-top: 15px;
-  /* background-color: gray; */
-  border-bottom: 1px solid #e9e9e9;
-  max-height: 300px;
+
+
   > div:first-child {
     border: 1px solid rgba(0, 0, 0, 0.1);
     width: 60px;
@@ -151,7 +168,7 @@ const WritingContainer = styled.div`
     align-items: center;
     overflow: hidden;
   }
-  img {
+  img:nth-child(1) {
     object-fit: scale-down;
     width: 50px;
     height: 50px;
@@ -166,11 +183,11 @@ const WritingBox = styled.form`
   flex-direction: column;
   min-width: 80%;
   max-width: 80%;
+  border-bottom: 1px solid #e9e9e9;
 `;
 
 const StTextArea = styled.textarea`
-  min-width: 75%;
-  max-width: 75%;
+
   padding: 20px;
   border: 0;
   font-size: 20px;
@@ -178,11 +195,14 @@ const StTextArea = styled.textarea`
 
 const BtnBox = styled.div`
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   color: ${(props) => props.theme.mainC};
   padding: 0 20px;
   margin-bottom: 10px;
+
+  border-bottom: 1px solid #e9e9e9;
 `;
 
 const ImgBox = styled.div`
@@ -197,9 +217,11 @@ const BlueButton = styled.button`
   width: 90px;
   height: 40px;
   font-weight: 700;
-  margin: 0 auto;
+  margin-right: 92px;
+  margin-top: 15px;
   border: none;
   cursor: pointer;
+  margin-bottom: 15px;
 `;
 
 const Icon = styled.div`
@@ -209,50 +231,29 @@ const Icon = styled.div`
 
 const IconBox = styled.div`
   width: 400px;
+  /* height: 100%; */
   display: flex;
   & p {
     margin-left: 10px;
     font-weight: 700;
     font-size: 15px;
+    border: none;
     color: #1d9bf0;
   }
 `;
 
-const ImageLabel = styled.label`
-  height: 15px;
-  width: 15px;
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-  // height: 30px;
-  // width: 30px;
-  // z-index: 1;
-  // background-color: transparent;
-`;
-
-const ImagePreview = styled.img`
+const ImageLabel = styled.label``;
+const ImageLayout = styled.div`
   position: relative;
-  top: 20;
-  left: 20;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  border-radius: 50%;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  resize: none;
+  margin-top: 20px;
+  margin-left: 48px;
 `;
 
-// export const ImageLayout = styled.div`
-//   position: relative;
-//   border-radius: 100%;
-//   height: 30px;
-//   width: 30px;
-//   overflow: hidden;
-//   resize: none;
-//   margin: 20px 0 40px 0;
-//   border: 1px solid #ccc;
-// `;
-
-export const ImageInput = styled.input`
+const ImageInput = styled.input`
   width: 30px;
   height: 30px;
   opacity: 0;
@@ -261,3 +262,22 @@ export const ImageInput = styled.input`
   left: 0;
   z-index: 2;
 `;
+
+const ImageButton = styled.div`
+  fill: #1d9bf0;
+  width: 20px;
+  height: 20px;
+`;
+
+export const ImagePreview = styled.img`
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  outline: 1px solid white;
+  outline-offset: -1px;
+`;
+
+export const Container = styled.div``;
