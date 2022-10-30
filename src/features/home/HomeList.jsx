@@ -1,16 +1,30 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Button from "../../elem/Button";
 
 const HomeList = () => {
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
-  const handleResizeHeight = () => {
+  const dispatch = useDispatch();
+
+  const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
+    setBoardContent(e.target.value);
   };
+
+  //게시글 작성
+
+  const [boardContent, setBoardContent] = useState("");
+  const onAddContentHandler = (e) => {
+    // e.preventDefault();
+    // dispatch();
+    // setBoardContent("");
+  };
+
+  console.log("게시글 작성 중=>", boardContent);
 
   return (
     <StContainer>
@@ -51,7 +65,7 @@ const HomeList = () => {
           </IconBox>
           <BtnBox>
             <FontAwesomeIcon icon={faImage} size="lg" />
-            <BlueButton>Tweet</BlueButton>
+            <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
           </BtnBox>
         </WritingBox>
       </WritingContainer>
@@ -151,6 +165,7 @@ const BlueButton = styled.button`
   font-weight: 700;
   margin: 0 auto;
   border: none;
+  cursor: pointer;
 `;
 
 const Icon = styled.div`
