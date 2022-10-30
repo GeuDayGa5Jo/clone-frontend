@@ -4,8 +4,8 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 const HomeList = () => {
-  const [value, setValue] = useState("");
-  console.log(value);
+  const [boardContent, setBoardContent] = useState("");
+  console.log("게시글 작성 중=>", boardContent);
 
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
@@ -13,19 +13,16 @@ const HomeList = () => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
     const value = e.target.value;
-    setValue(value);
+    setBoardContent(value);
   };
 
   //게시글 작성
 
-  const [boardContent, setBoardContent] = useState("");
   const onAddContentHandler = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     // dispatch();
-    // setBoardContent("");
+    setBoardContent("");
   };
-
-  console.log("게시글 작성 중=>", boardContent);
 
   return (
     <StContainer>
@@ -42,14 +39,14 @@ const HomeList = () => {
             alt=""
           />
         </ImgBox>
-        <WritingBox>
+        <WritingBox onClick={onAddContentHandler}>
           <StTextArea
             ref={textRef}
             row={1}
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
-            valeu={value}
+            valeu={boardContent}
           ></StTextArea>
           <IconBox>
             <Icon>
