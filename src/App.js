@@ -8,7 +8,6 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        F
         <Page />
         <Routers />
       </ThemeProvider>

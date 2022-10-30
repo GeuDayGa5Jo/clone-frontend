@@ -1,12 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // import { RiHome7Line } from "react-icons/ri";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Box>
       <BlueBird>
-        <Size>
+        <Size
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <Size2>
             <svg
               viewBox="0 0 24 24"
@@ -23,7 +30,11 @@ const Header = () => {
 
       <Category>
         <Size>
-          <Size2>
+          <Size2
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -34,7 +45,13 @@ const Header = () => {
               </g>
             </svg>
           </Size2>
-          <p>HOME</p>
+          <p
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            HOME
+          </p>
         </Size>
       </Category>
       <Category>
@@ -119,7 +136,11 @@ const Header = () => {
       </Category>
       <Category>
         <Size>
-          <Size2>
+          <Size2
+            onClick={() => {
+              navigate("/profile/1");
+            }}
+          >
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -130,7 +151,13 @@ const Header = () => {
               </g>
             </svg>
           </Size2>
-          <p>Prodile</p>
+          <p
+            onClick={() => {
+              navigate("/profile/1");
+            }}
+          >
+            Profile
+          </p>
         </Size>
       </Category>
       <Category>
@@ -192,6 +219,7 @@ export default Header;
 const Box = styled.div`
   height: 100%;
   width: 280px;
+  background-color: white;
   display: flex;
   flex-direction: column;
   /* position: fixed; */
