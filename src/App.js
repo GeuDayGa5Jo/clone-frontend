@@ -1,7 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./shared/GlobalStyle";
 import Page from "./shared/Router";
-import Routers from "./shared/Router";
 
 function App() {
   return (
@@ -9,7 +8,6 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Page />
-        <Routers />
       </ThemeProvider>
     </>
   );

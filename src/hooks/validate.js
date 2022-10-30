@@ -1,48 +1,44 @@
-// export default function validate({
-//   username,
-//   title,
-//   content,
-//   comment,
-//   isUseCommentForm,
-// }) {
-//   const errors = {};
+export default function validate({
+  memberName,
+  memberEmail,
+  memberPassword,
+  memberPasswordConfirm,
+}) {
+  const errors = {};
 
-//   if (isUseCommentForm) {
-//     if (!username) {
-//       errors.username = "작성자가 입력되지 않았습니다.";
-//     } else if (username.length < 2) {
-//       errors.username = "2자 이상의 이름을 작성해주세요.";
-//     } else if (username.length > 7) {
-//       errors.username = "7자 이상 작성은 불가능 합니다.";
-//     }
-//     if (!comment) {
-//       errors.comment = "댓글이 입력되지 않았습니다.";
-//     } else if (comment.length >= 200) {
-//       errors.comment = "200자 이상 작성은 불가능 합니다.";
-//     }
-//   } else {
-//     if (!username) {
-//       errors.username = "작성자가 입력되지 않았습니다.";
-//     } else if (username.length < 2) {
-//       errors.username = "2자 이상의 이름을 작성해주세요.";
-//     } else if (username.length >= 20) {
-//       errors.username = "20자 이상 작성은 불가능 합니다.";
-//     }
+  if (memberName) {
+    if (!memberName) {
+      errors.memberName = "이름 입력되지 않았습니다.";
+    } else if (memberName.length < 2) {
+      errors.memberName = "2자 이상의 이름을 작성해주세요.";
+    } else if (memberName.length > 20) {
+      errors.memberName = "20자 이상 작성은 불가능 합니다.";
+    }
+    //     if (!memberEmail) {
+    //       errors.memberEmail = "댓글이 입력되지 않았습니다.";
+    //     } else if (memberEmail.length >= 200) {
+    //       errors.memberEmail = "200자 이상 작성은 불가능 합니다.";
+    //     }
+    //   } else {
+    //     if (!memberPassword) {
+    //       errors.memberPassword = "작성자가 입력되지 않았습니다.";
+    //     } else if (memberPassword.length < 2) {
+    //       errors.memberPassword = "2자 이상의 이름을 작성해주세요.";
+    //     } else if (memberPassword.length >= 20) {
+    //       errors.memberPassword = "20자 이상 작성은 불가능 합니다.";
+    //     }
 
-//     if (!title) {
-//       errors.title = "제목이 입력되지 않았습니다.";
-//     } else if (title.length < 5) {
-//       errors.title = "5자 이상의 제목을 작성해주세요.";
-//     } else if (title.length >= 40) {
-//       errors.title = "40자 이상 작성은 불가능 합니다.";
-//     }
-//     if (!content) {
-//       errors.content = "내용이 입력되지 않았습니다.";
-//     }
-//   }
+    //     if (!memberPasswordConfirm) {
+    //       errors.memberPasswordConfirm = "제목이 입력되지 않았습니다.";
+    //     } else if (memberPasswordConfirm.length < 5) {
+    //       errors.memberPasswordConfirm = "5자 이상의 제목을 작성해주세요.";
+    //     } else if (memberPasswordConfirm.length >= 40) {
+    //       errors.memberPasswordConfirm = "40자 이상 작성은 불가능 합니다.";
+    //     }
+  }
 
-//   return errors;
-// }
+  return errors;
+}
 
 // if (!username) {
 //     errors.username = "이메일이 입력되지 않앗습니다.";

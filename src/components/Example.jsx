@@ -14,7 +14,7 @@ const Example = () => {
       const { data } = await axios.post(
         "http://13.124.191.202:8080/member/login",
         {
-          memberEmail: "dudgh123@naver.com",
+          memberEmail: "dudgh12@naver.com",
           memberPassword: "abc",
           // memberName: "정영호",
           // DOB: "01/02/2021",
@@ -25,10 +25,14 @@ const Example = () => {
       console.log(e);
     }
   };
-  test();
+
+  const onClick = () => {
+    test();
+  };
 
   return (
     <Stdiv>
+      <button onClick={onClick}>Click</button>
       {/* <Button theme="follow">Follow</Button>
 
       <Button theme="tweet-sm">Tweet</Button>
@@ -43,7 +47,7 @@ const Example = () => {
       <SignUpNav>Hi</SignUpNav> */}
 
       {/* <LogoutModal></LogoutModal> */}
-      <SignUpModal></SignUpModal>
+      {/* <SignUpModal></SignUpModal> */}
       {/* <LoginModal></LoginModal> */}
       {/* <Header></Header> */}
     </Stdiv>

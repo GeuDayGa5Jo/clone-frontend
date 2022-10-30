@@ -91,7 +91,7 @@ const StButton = styled.button`
         `;
       case "next-btn":
         return css`
-          background-color: rgba(47, 47, 47, 0.5);
+          background-color: rgba(47, 47, 47, 1);
           border-radius: 35px;
           color: white;
           font-size: 23px;
