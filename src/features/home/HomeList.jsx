@@ -2,14 +2,26 @@ import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import Button from "../../elem/Button";
 
 const HomeList = () => {
+  const [boardContent, setBoardContent] = useState("");
+  console.log("게시글 작성 중=>", boardContent);
+
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
   const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
+    const value = e.target.value;
+    setBoardContent(value);
+  };
+
+  //게시글 작성
+
+  const onAddContentHandler = (e) => {
+    e.preventDefault();
+    // dispatch();
+    setBoardContent("");
   };
 
   return (
@@ -27,13 +39,14 @@ const HomeList = () => {
             alt=""
           />
         </ImgBox>
-        <WritingBox>
+        <WritingBox onClick={onAddContentHandler}>
           <StTextArea
             ref={textRef}
             row={1}
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
+            valeu={boardContent}
           ></StTextArea>
           <IconBox>
             <Icon>
@@ -51,7 +64,7 @@ const HomeList = () => {
           </IconBox>
           <BtnBox>
             <FontAwesomeIcon icon={faImage} size="lg" />
-            <BlueButton>Tweet</BlueButton>
+            <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
           </BtnBox>
         </WritingBox>
       </WritingContainer>
@@ -147,6 +160,7 @@ const BlueButton = styled.button`
   font-weight: 700;
   margin: 0 auto;
   border: none;
+  cursor: pointer;
 `;
 
 const Icon = styled.div`
