@@ -30,9 +30,11 @@ const Main = () => {
           </StSentence>
 
           <BtBox>
-            <Button theme="login-btn" wd="100%" fontC="#949494" hg="45px">
-              Google로 로그인
-            </Button>
+            <Link to={"/profile/1"}>
+              <Button theme="login-btn" wd="100%" fontC="#949494" hg="45px">
+                Google로 로그인
+              </Button>
+            </Link>
             <Button theme="login-btn" wd="100%" fontC="black" hg="45px">
               Apple로 로그인하기
             </Button>

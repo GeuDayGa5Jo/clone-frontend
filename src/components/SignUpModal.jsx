@@ -1,5 +1,7 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Input from "../elem/Input";
@@ -7,6 +9,7 @@ import SelectBox from "../elem/SelectBox";
 import useForm from "../hooks/useForm";
 
 const SignUpModal = (props) => {
+  const navigate = useNavigate();
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
       memberName: "",
@@ -16,6 +19,7 @@ const SignUpModal = (props) => {
       day: 0,
       year: 0,
     },
+
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
       // alert("작성한 내용을 포스팅 합니다.");
@@ -26,6 +30,15 @@ const SignUpModal = (props) => {
   return (
     <StModal>
       <StModalBody {...props}>
+        <StSpan>
+          <Button bgColor="white">
+            <FontAwesomeIcon
+              icon={faTimes}
+              size="lg"
+              onClick={() => props.setModalOpen(false)}
+            ></FontAwesomeIcon>
+          </Button>
+        </StSpan>
         <StSentence>
           <Stdiv>계정을 생성하세요</Stdiv>
         </StSentence>
@@ -84,7 +97,6 @@ const SignUpModal = (props) => {
               value={values.year}
             ></SelectBox>
           </StSelectBox>
-
           <BtBox>
             <Button theme="next-btn" type="submit">
               완료
@@ -122,7 +134,7 @@ const StModalBody = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 60px;
+  padding: 40px;
 `;
 
 const StSentence = styled.div`
@@ -148,6 +160,7 @@ const StSpan = styled.span`
   font-weight: ${(props) => props.fw};
   margin-bottom: 10px;
   color: ${(props) => props.color || "#666666"};
+  background-color: ${(props) => props.bgC};
 `;
 const StSelectBox = styled.div`
   display: flex;
