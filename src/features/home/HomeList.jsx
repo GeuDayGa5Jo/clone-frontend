@@ -1,18 +1,19 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const HomeList = () => {
+  const [value, setValue] = useState("");
+  console.log(value);
+
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
-  const dispatch = useDispatch();
-
   const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
-    setBoardContent(e.target.value);
+    const value = e.target.value;
+    setValue(value);
   };
 
   //게시글 작성
@@ -48,6 +49,7 @@ const HomeList = () => {
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
+            valeu={value}
           ></StTextArea>
           <IconBox>
             <Icon>

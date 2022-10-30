@@ -1,5 +1,7 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Input from "../elem/Input";
@@ -7,25 +9,41 @@ import SelectBox from "../elem/SelectBox";
 import useForm from "../hooks/useForm";
 
 const SignUpModal = (props) => {
-  const { values, errors, submitting, handleChange, handleSubmit } = useForm({
-    initialValues: {
-      memberName: "",
-      memberEmail: "",
-      memberPassword: "",
-      month: 0,
-      day: 0,
-      year: 0,
-    },
-    onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      // alert("작성한 내용을 포스팅 합니다.");
-    },
-    // validate,
-  });
+  const { values, errors, submitting, handleChange, handleSubmit, goHome } =
+    useForm({
+      initialValues: {
+        memberName: "",
+        memberEmail: "",
+        memberPassword: "",
+        memberPasswordConfirm: "",
+        month: 0,
+        day: 0,
+        year: 0,
+      },
+
+      onSubmit: (values) => {
+        // alert(JSON.stringify(values, null, 2));
+        // alert("작성한 내용을 포스팅 합니다.");
+      },
+      // validate,
+    });
+
+  if (submitting) {
+    props.setModalOpen(false);
+  }
 
   return (
     <StModal>
       <StModalBody {...props}>
+        <StSpan>
+          <Button bgColor="white">
+            <FontAwesomeIcon
+              icon={faTimes}
+              size="lg"
+              onClick={() => props.setModalOpen(false)}
+            ></FontAwesomeIcon>
+          </Button>
+        </StSpan>
         <StSentence>
           <Stdiv>계정을 생성하세요</Stdiv>
         </StSentence>
@@ -34,24 +52,42 @@ const SignUpModal = (props) => {
             name="memberName"
             theme="signup"
             placeholder="이름"
-            mg="0 0 40px 0"
+            mg="0 0 20px 0"
             onChange={handleChange}
             value={values.memberName}
           />
-          <StSpan></StSpan>
+          <StSpan>{errors.memberName}</StSpan>
           <Input
             name="memberEmail"
             theme="signup"
             placeholder="이메일"
-            mg="0 0 40px 0"
+            mg="0 0 20px 0"
             onChange={handleChange}
             value={values.memberEmail}
           />
-          <StSpan></StSpan>
+          <StSpan>{errors.memberEmail}</StSpan>
+          <Input
+            name="memberPassword"
+            theme="signup"
+            placeholder="비밀번호"
+            mg="0 0 20px 0"
+            onChange={handleChange}
+            value={values.memberPassword}
+          />
+          <StSpan>{errors.memberPassword}</StSpan>
+          <Input
+            name="memberPasswordConfirm"
+            theme="signup"
+            placeholder="비밀번호 확인"
+            mg="0 0 20px 0"
+            onChange={handleChange}
+            value={values.memberPasswordConfirm}
+          />
+          <StSpan>{errors.memberPasswordConfirm}</StSpan>
           <StSpan fontsize="20px" fw="600">
             생년월일
           </StSpan>
-          <StSpan fontsize="18px">
+          <StSpan fontsize="14px">
             이 정보는 공개적으로 표시되지 않습니다. 비즈니스, 반려동물 등 계정
             주제에 상관없이 나의 연령을 확인하세요.
           </StSpan>
@@ -84,11 +120,17 @@ const SignUpModal = (props) => {
               value={values.year}
             ></SelectBox>
           </StSelectBox>
-
           <BtBox>
-            <Button theme="next-btn" type="submit">
-              완료
-            </Button>
+            <Link to={"/home"}>
+              <Button
+                theme="next-btn"
+                type="submit"
+                onClick={() => props.setModalOpen(false)}
+                disabled={submitting}
+              >
+                완료
+              </Button>
+            </Link>
           </BtBox>
         </form>
       </StModalBody>
@@ -122,7 +164,7 @@ const StModalBody = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 60px;
+  padding: 40px;
 `;
 
 const StSentence = styled.div`
@@ -131,9 +173,9 @@ const StSentence = styled.div`
   justify-content: flex-start;
 `;
 const Stdiv = styled.div`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 `;
 
 const BtBox = styled.div`
@@ -148,11 +190,12 @@ const StSpan = styled.span`
   font-weight: ${(props) => props.fw};
   margin-bottom: 10px;
   color: ${(props) => props.color || "#666666"};
+  background-color: ${(props) => props.bgC};
 `;
 const StSelectBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   margin-top: 20px;
 `;
