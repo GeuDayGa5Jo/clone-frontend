@@ -1,11 +1,20 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addBoardContent } from "../../redux/modules/BoardContentSlice";
+
+//alt+shift+아래 = 복사!!! mac이에요!!!
 
 const HomeList = () => {
-  const [boardContent, setBoardContent] = useState("");
-  console.log("게시글 작성 중=>", boardContent);
+  const dispatch = useDispatch();
+  const [content, setContent] = useState({
+    boardContent: "",
+    imageUrl: "",
+  });
+
+  console.log("게시글 작성 중=>", content);
 
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
@@ -13,15 +22,32 @@ const HomeList = () => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
     const value = e.target.value;
-    setBoardContent(value);
+    setContent(value);
   };
 
   //게시글 작성
-
   const onAddContentHandler = (e) => {
     e.preventDefault();
-    // dispatch();
-    setBoardContent("");
+    dispatch(addBoardContent(content));
+    setContent("");
+  };
+
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploadImageForm, setUploadImageForm] = useState(null);
+
+  const imgFileHandler = (e) => {
+    setUploadImageForm(e.target.files[0]);
+
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        setPreviewImage([...previewImage, previewImgUrl]);
+      }
+    };
   };
 
   return (
@@ -46,7 +72,7 @@ const HomeList = () => {
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
-            valeu={boardContent}
+            value={content.boardContent}
           ></StTextArea>
           <IconBox>
             <Icon>
@@ -63,7 +89,20 @@ const HomeList = () => {
             <p>Everyone can reply</p>
           </IconBox>
           <BtnBox>
-            <FontAwesomeIcon icon={faImage} size="lg" />
+            {/* <ImageLayout> */}
+            <ImageLabel htmlFor="file">
+              <ImagePreview src="https://i.pinimg.com/originals/d2/4f/89/d24f89d6afaec9d3a55d47fed799800e.jpg" />
+            </ImageLabel>
+            <ImageInput
+              id="addFile"
+              type="file"
+              name="imageUrl"
+              placeholder="업로드"
+              accept={"image/*"}
+              onChange={imgFileHandler}
+            />
+
+            {/* </ImageLayout> */}
             <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
           </BtnBox>
         </WritingBox>
@@ -181,4 +220,48 @@ const IconBox = styled.div`
     font-size: 15px;
     color: #1d9bf0;
   }
+`;
+
+const ImageLabel = styled.label`
+  height: 15px;
+  width: 15px;
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+  // height: 30px;
+  // width: 30px;
+  // z-index: 1;
+  // background-color: transparent;
+`;
+
+const ImagePreview = styled.img`
+  position: relative;
+  top: 20;
+  left: 20;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
+`;
+
+// export const ImageLayout = styled.div`
+//   position: relative;
+//   border-radius: 100%;
+//   height: 30px;
+//   width: 30px;
+//   overflow: hidden;
+//   resize: none;
+//   margin: 20px 0 40px 0;
+//   border: 1px solid #ccc;
+// `;
+
+export const ImageInput = styled.input`
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 `;
