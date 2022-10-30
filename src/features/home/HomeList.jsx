@@ -1,15 +1,20 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../../elem/Button";
 
 const HomeList = () => {
+  const [value, setValue] = useState("");
+  console.log(value);
+
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
-  const handleResizeHeight = () => {
+  const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
+    const value = e.target.value;
+    setValue(value);
   };
 
   return (
@@ -34,6 +39,7 @@ const HomeList = () => {
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
+            valeu={value}
           ></StTextArea>
           <IconBox>
             <Icon>

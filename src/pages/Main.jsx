@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Footer from "../elem/Footer";
@@ -30,9 +30,11 @@ const Main = () => {
           </StSentence>
 
           <BtBox>
-            <Button theme="login-btn" wd="100%" fontC="#949494" hg="45px">
-              Google로 로그인
-            </Button>
+            <Link to={"/home"}>
+              <Button theme="login-btn" wd="100%" fontC="#949494" hg="45px">
+                Google로 로그인
+              </Button>
+            </Link>
             <Button theme="login-btn" wd="100%" fontC="black" hg="45px">
               Apple로 로그인하기
             </Button>

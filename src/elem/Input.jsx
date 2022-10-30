@@ -21,7 +21,7 @@ const StInput = styled.input`
         return css`
           display: flex;
           width: 100%;
-          height: 55px;
+          height: 35px;
           border-radius: 6px;
           font-size: 18px;
           padding: 0 10px;
