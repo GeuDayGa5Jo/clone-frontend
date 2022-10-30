@@ -5,16 +5,11 @@ import styled from "styled-components";
 import Button from "../../elem/Button";
 
 const HomeList = () => {
-  const [value, setValue] = useState("");
-  console.log(value);
-
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
   const handleResizeHeight = (e) => {
     textRef.current.style.height = "auto";
     textRef.current.style.height = textRef.current.scrollHeight + "px";
-    const value = e.target.value;
-    setValue(value);
   };
 
   return (
@@ -39,7 +34,6 @@ const HomeList = () => {
             placeholder="What's happening?"
             maxLength={150}
             onChange={handleResizeHeight}
-            valeu={value}
           ></StTextArea>
           <IconBox>
             <Icon>
@@ -94,8 +88,7 @@ const WritingContainer = styled.div`
   margin-top: 15px;
   /* background-color: gray; */
   border-bottom: 1px solid #e9e9e9;
-  min-height: 80px;
-  max-height: 160px;
+  max-height: 300px;
   > div:first-child {
     border: 1px solid rgba(0, 0, 0, 0.1);
     width: 60px;
@@ -124,14 +117,11 @@ const WritingBox = styled.form`
 `;
 
 const StTextArea = styled.textarea`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 80px;
-  max-height: 160px;
+  min-width: 75%;
+  max-width: 75%;
   padding: 20px;
   border: 0;
   font-size: 20px;
-  resize: none;
 `;
 
 const BtnBox = styled.div`

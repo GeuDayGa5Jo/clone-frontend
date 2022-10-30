@@ -2,7 +2,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const Button = (props) => {
-  return <StButton {...props}>{props.children}</StButton>;
+  return (
+    <StButton {...props} disabled={props.disabled}>
+      {props.children}
+    </StButton>
+  );
 };
 
 export default Button;
@@ -91,7 +95,7 @@ const StButton = styled.button`
         `;
       case "next-btn":
         return css`
-          background-color: rgba(47, 47, 47, 1);
+          background-color: rgba(0, 0, 0, 0.7);
           border-radius: 35px;
           color: white;
           font-size: 23px;

@@ -5,6 +5,8 @@ import validate from "./validate";
 
 // 초깃값과 addPost할 thunk함수를 준다.
 function useForm({ initialValues, onSubmit, isModalOpen }) {
+  const navigate = useNavigate();
+
   // const dispatch = useDispatch();
   // values를 초깃값으로 세팅
   const [values, setValues] = useState(initialValues);
@@ -23,7 +25,6 @@ function useForm({ initialValues, onSubmit, isModalOpen }) {
     event.preventDefault();
 
     setErrors(validate(values));
-    console.log(errors);
     // 다시 초기값으로 세팅
     // setValues(initialValues);
   };
@@ -44,7 +45,9 @@ function useForm({ initialValues, onSubmit, isModalOpen }) {
         delete values.year;
         delete values.month;
         delete values.day;
-        isModalOpen(false);
+        navigate("/home");
+        console.log(values);
+
         // form의 input 값들을 dispatch해준다.
         // 수정일때랑 그냥 작성할때 action을 다르게 dispatch
 
