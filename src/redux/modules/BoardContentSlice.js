@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { addBoardContentApi } from "./API/BoardContentAPI";
+import { ServerUrl } from "../../server";
 
 const initialState = {
   boardContent: [],
@@ -8,18 +9,28 @@ const initialState = {
   error: null,
 };
 
-export const addBoardContent = createAsyncThunk(
-  "post/addBoardContent",
-  async (payload, thunkAPI) => {
-    console.log("payload 콘솔로그 =>", payload);
-    try {
-      await addBoardContentApi(payload);
-    } catch (err) {
-      console.log("error");
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
+export const addBoardContent = async (payload) => {
+  console.log("paylod console.log=>", payload);
+  const frm = new FormData();
+  frm.append("content", payload.boardContent);
+  frm.append("file", payload.imageFile);
+  console.log("frm console.log=>", frm);
+  await axios
+    .post(`${ServerUrl}/auth/boards/create`, frm, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("accessToken"),
+        "Content-Type": "multipart/form-data",
+        // "Content-Type": "application/json",
+      },
+    })
+    .then(function a(response) {
+      alert("게시되었습니다.");
+      window.location.replace("/");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 export const BoardContentSlice = createSlice({
   name: "boardContent",

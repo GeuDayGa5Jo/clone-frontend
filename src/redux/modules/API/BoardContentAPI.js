@@ -3,5 +3,6 @@ import { ServerUrl } from "../../../server";
 
 //게시글 작성
 export const addBoardContentApi = async (payload) => {
+  console.log("API payload=>", payload);
   await axios.post(`${ServerUrl}/auth/boards/create`, payload);
 };
