@@ -45,7 +45,7 @@ const Banner = () => {
         <h2>Trends for you</h2>
         <TopicCard>
           <div>
-            Traending in South Korea
+            Trending in South Korea
             <br />
             <h3>Front-end</h3>
             100K Tweets
@@ -53,7 +53,7 @@ const Banner = () => {
         </TopicCard>
         <TopicCard>
           <div>
-            Traending in South Korea
+            Trending in South Korea
             <br />
             <h3>다잇수할</h3>
             60.5K Tweets
@@ -69,7 +69,7 @@ const Banner = () => {
         </TopicCard>
         <TopicCard>
           <div>
-            Traending in South Korea
+            Trending in South Korea
             <br />
             <h3>항해99</h3>
             10K Tweets
@@ -77,7 +77,7 @@ const Banner = () => {
         </TopicCard>
         <TopicCard>
           <div>
-            Traending in South Korea
+            Trending in South Korea
             <br />
             <h3>D반 화이팅</h3>
             5K Tweets
