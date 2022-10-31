@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { __loginThunk, __signUpThunk } from "../redux/modules/userSlice";
@@ -7,6 +7,7 @@ import validate from "./validate";
 
 // 초깃값과 addPost할 thunk함수를 준다.
 function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
+  const error = useSelector((state) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const dispatch = useDispatch();
@@ -50,11 +51,12 @@ function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
           delete values.day;
           delete values.memberPasswordConfirm;
           dispatch(__signUpThunk(values));
-          console.log(values);
+
+          // }
         } else if (!isSignUp) {
+          //로그인인 경우
           dispatch(__loginThunk(values));
         }
-        navigate("/home");
 
         // form의 input 값들을 dispatch해준다.
         // 수정일때랑 그냥 작성할때 action을 다르게 dispatch

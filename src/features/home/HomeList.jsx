@@ -37,18 +37,18 @@ const HomeList = () => {
     // dispatch(__addBoardThunk(content));
     const accessToken = localStorage.getItem("Authorization");
     const formData = new FormData();
-    formData.append("file", uploadImageForm);
+    formData.append("imageFile", uploadImageForm);
     formData.append("boardContent", content.boardContent);
 
     let entries = formData.entries();
     for (const pair of entries) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    console.log(formData.get("file"));
+    console.log(formData.get("imageFile"));
     console.log(formData.get("boardContent"));
 
     axios
-      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
+      .post(`http://13.124.191.202:8080/auth/boards/create`, formData, {
         headers: {
           Authorization: accessToken,
           "Content-Type": "multipart/form-data",
