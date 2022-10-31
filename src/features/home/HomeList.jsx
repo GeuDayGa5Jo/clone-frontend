@@ -1,21 +1,27 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { addBoardContent } from "../../redux/modules/BoardContentSlice";
+import {
+  addBoardContent,
+  __addBoardThunk,
+} from "../../redux/modules/BoardContentSlice";
+import { ServerUrl } from "../../server";
 
 //alt+shift+아래 = 복사!!! mac이에요!!!
 
 const HomeList = () => {
   const dispatch = useDispatch();
-  const [content, setContent] = useState({
+  const init = {
     boardContent: "",
     imageFile: "",
-  });
+  };
+  const [content, setContent] = useState(init);
 
-  console.log("게시글 작성 중=>", content);
-
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploadImageForm, setUploadImageForm] = useState(null);
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
   const handleResizeHeight = (e) => {
@@ -28,21 +34,36 @@ const HomeList = () => {
   //게시글 작성
   const onAddContentHandler = (e) => {
     e.preventDefault();
-    dispatch(addBoardContent({ ...content }));
-    setContent({
-      boardContent: "",
-      imageFile: "",
-    });
-  };
+    // dispatch(__addBoardThunk(content));
+    const accessToken = localStorage.getItem("Authorization");
+    const formData = new FormData();
+    formData.append("file", uploadImageForm);
+    formData.append("boardContent", content.boardContent);
 
-  const [previewImage, setPreviewImage] = useState("");
-  const [uploadImageForm, setUploadImageForm] = useState(null);
-  console.log("previewImage !! =>", previewImage);
-  console.log("업로드이미지 폼 콘솔로그=>", uploadImageForm);
+    let entries = formData.entries();
+    for (const pair of entries) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+    console.log(formData.get("file"));
+    console.log(formData.get("boardContent"));
+
+    axios
+      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(function (response) {
+        alert("게시되었습니다.");
+      })
+      .catch(function (error) {
+        console.log(error.response);
+      });
+  };
 
   const imgFileHandler = (e) => {
     setUploadImageForm(e.target.files[0]);
-    setContent({ ...content, imageFile: { uploadImageForm } });
 
     let reader = new FileReader();
     if (e.target.files[0]) {
@@ -111,7 +132,7 @@ const HomeList = () => {
               type="file"
               name="imageFile"
               placeholder="업로드"
-              accept={"image/*"}
+              accept="image/*"
               onChange={imgFileHandler}
             />
             <ImageButton>
