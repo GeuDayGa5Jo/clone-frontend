@@ -9,6 +9,7 @@ import SelectBox from "../elem/SelectBox";
 import useForm from "../hooks/useForm";
 
 const SignUpModal = (props) => {
+  const isSignUp = true;
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
       memberName: "",
@@ -24,7 +25,7 @@ const SignUpModal = (props) => {
       // alert(JSON.stringify(values, null, 2));
       // alert("작성한 내용을 포스팅 합니다.");
     },
-
+    isSignUp,
     // validate,
   });
 

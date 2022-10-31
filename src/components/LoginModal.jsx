@@ -2,8 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
+import Input from "../elem/Input";
+import useForm from "../hooks/useForm";
 
 const LoginModal = () => {
+  const { values, errors, submitting, handleChange, handleSubmit } = useForm({
+    initialValues: {
+      memberEmail: "",
+      memberPassword: "",
+    },
+
+    onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      // alert("작성한 내용을 포스팅 합니다.");
+    },
+
+    // validate,
+  });
   return (
     <StModal>
       <StModalBody>
@@ -22,9 +37,38 @@ const LoginModal = () => {
             Apple로 로그인하기
           </Button>
           <StLoginDivier>또는</StLoginDivier>
-          <Button theme="login-btn" wd="100%" bgColor="#1d9bf0" fontC="white">
-            로그인
-          </Button>
+          <form onSubmit={handleSubmit}>
+            <Input
+              type="email"
+              name="memberEmail"
+              theme="signup"
+              placeholder="이메일"
+              mg="0 0 10px 0"
+              onChange={handleChange}
+              value={values.memberEmail}
+            />
+            <StSpan>{errors.memberEmail}</StSpan>
+            <Input
+              type="password"
+              name="memberPassword"
+              theme="signup"
+              placeholder="비밀번호"
+              mg="0 0 10px 0"
+              onChange={handleChange}
+              value={values.memberPassword}
+            />
+            <StSpan>{errors.memberPassword}</StSpan>
+            <Button
+              theme="login-btn"
+              wd="100%"
+              bgColor="#1d9bf0"
+              fontC="white"
+              type="submit"
+              disabled={submitting}
+            >
+              로그인
+            </Button>
+          </form>
           <StSpan fontsize="18px">
             계정이 없으신가요? <Link> 가입하기</Link>
           </StSpan>
