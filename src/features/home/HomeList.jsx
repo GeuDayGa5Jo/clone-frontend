@@ -14,7 +14,7 @@ const HomeList = () => {
     imageFile: "",
   });
 
-  console.log("게시글 작성 중=>", content);
+  // console.log("게시글 작성 중=>", content);
 
   // 자동으로 텍스트 줄에 따라 길어지는 textarea
   const textRef = useRef();
@@ -37,12 +37,12 @@ const HomeList = () => {
 
   const [previewImage, setPreviewImage] = useState("");
   const [uploadImageForm, setUploadImageForm] = useState(null);
-  console.log("previewImage !! =>", previewImage);
-  console.log("업로드이미지 폼 콘솔로그=>", uploadImageForm);
+  // console.log("previewImage !! =>", previewImage);
+  // console.log("업로드이미지 폼 콘솔로그=>", uploadImageForm);
 
   const imgFileHandler = (e) => {
     setUploadImageForm(e.target.files[0]);
-    setContent({ ...content, imageFile: { uploadImageForm } });
+    setContent({ ...content, imageFile: e.target.files[0] });
 
     let reader = new FileReader();
     if (e.target.files[0]) {
