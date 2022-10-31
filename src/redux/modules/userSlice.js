@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { isDev, serverUrl } from ".";
+import { ServerUrl } from "../../server";
+import { userApis } from "./API/UserAPI";
 
 export const __signUpThunk = createAsyncThunk(
   "SIGN_UP",
-  async (arg, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(`${serverUrl}/todos`, arg);
+      const { data } = await userApis.signup(payload);
+      console.log(payload);
       console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
@@ -14,7 +16,21 @@ export const __signUpThunk = createAsyncThunk(
     }
   }
 );
-
+// password1!
+export const __loginThunk = createAsyncThunk(
+  "LOGIN",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await userApis.login(payload);
+      localStorage.setItem("Authorization", res.headers.authorization);
+      localStorage.setItem("Refresh-Token", res.headers["Refresh-Token"]);
+      console.log(res.data);
+      return thunkAPI.fulfillWithValue(res.data);
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
+    }
+  }
+);
 const initialState = {
   user: {},
   error: null,

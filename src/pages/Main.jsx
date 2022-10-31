@@ -4,12 +4,17 @@ import styled from "styled-components";
 import Button from "../elem/Button";
 import Footer from "../elem/Footer";
 import SignUpModal from "../components/SignUpModal";
+import LoginModal from "../components/LoginModal";
 
 const Main = () => {
   //모달창 노출 여부 state
-  const [modalOpen, setModalOpen] = useState(false);
-  const showModal = () => {
-    setModalOpen(true);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const showSignUpModal = () => {
+    setSignUpModalOpen(true);
+  };
+  const showLoginUpModal = () => {
+    setLoginModalOpen(true);
   };
   return (
     <MainLayout>
@@ -45,7 +50,7 @@ const Main = () => {
               bgColor="#1d9bf0"
               fontC="white"
               hg="45px"
-              onClick={showModal}
+              onClick={showSignUpModal}
             >
               이메일로 가입하기
             </Button>
@@ -60,6 +65,7 @@ const Main = () => {
               bgColor="white"
               fontC="#1d9bf0"
               hg="45px"
+              onClick={showLoginUpModal}
             >
               로그인
             </Button>
@@ -67,7 +73,8 @@ const Main = () => {
         </StLoginContent>
       </StContainer>
       <Footer></Footer>
-      {modalOpen && <SignUpModal setModalOpen={setModalOpen} />}
+      {signUpModalOpen && <SignUpModal setModalOpen={setSignUpModalOpen} />}
+      {loginModalOpen && <LoginModal setModalOpen={setLoginModalOpen} />}
     </MainLayout>
   );
 };
