@@ -17,6 +17,7 @@ api.interceptors.request.use(function (config) {
   //   const accessToken = localStorage.getItem("Authorization");
   // console.log(accessToken);
   //   config.headers.Authorization = accessToken;
+  console.log(ServerUrl);
   return config;
 });
 
