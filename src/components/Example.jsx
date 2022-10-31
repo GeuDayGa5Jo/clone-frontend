@@ -32,7 +32,7 @@ const Example = () => {
 
   return (
     <Stdiv>
-      <button onClick={onClick}>Click</button>
+      {/* <button onClick={onClick}>Click</button> */}
       {/* <Button theme="follow">Follow</Button>
 
       <Button theme="tweet-sm">Tweet</Button>
@@ -47,7 +47,7 @@ const Example = () => {
       <SignUpNav>Hi</SignUpNav> */}
 
       {/* <LogoutModal></LogoutModal> */}
-      {/* <SignUpModal></SignUpModal> */}
+      <SignUpModal></SignUpModal>
       {/* <LoginModal></LoginModal> */}
       {/* <Header></Header> */}
     </Stdiv>

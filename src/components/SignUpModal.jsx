@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
@@ -9,28 +9,25 @@ import SelectBox from "../elem/SelectBox";
 import useForm from "../hooks/useForm";
 
 const SignUpModal = (props) => {
-  const { values, errors, submitting, handleChange, handleSubmit, goHome } =
-    useForm({
-      initialValues: {
-        memberName: "",
-        memberEmail: "",
-        memberPassword: "",
-        memberPasswordConfirm: "",
-        month: 0,
-        day: 0,
-        year: 0,
-      },
+  const isSignUp = true;
+  const { values, errors, submitting, handleChange, handleSubmit } = useForm({
+    initialValues: {
+      memberName: "",
+      memberEmail: "",
+      memberPassword: "",
+      memberPasswordConfirm: "",
+      month: 0,
+      day: 0,
+      year: 0,
+    },
 
-      onSubmit: (values) => {
-        // alert(JSON.stringify(values, null, 2));
-        // alert("작성한 내용을 포스팅 합니다.");
-      },
-      // validate,
-    });
-
-  if (submitting) {
-    props.setModalOpen(false);
-  }
+    onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      // alert("작성한 내용을 포스팅 합니다.");
+    },
+    isSignUp,
+    // validate,
+  });
 
   return (
     <StModal>
@@ -49,37 +46,41 @@ const SignUpModal = (props) => {
         </StSentence>
         <form onSubmit={handleSubmit}>
           <Input
+            type="text"
             name="memberName"
             theme="signup"
             placeholder="이름"
-            mg="0 0 20px 0"
+            mg="0 0 10px 0"
             onChange={handleChange}
             value={values.memberName}
           />
           <StSpan>{errors.memberName}</StSpan>
           <Input
+            type="email"
             name="memberEmail"
             theme="signup"
             placeholder="이메일"
-            mg="0 0 20px 0"
+            mg="0 0 10px 0"
             onChange={handleChange}
             value={values.memberEmail}
           />
           <StSpan>{errors.memberEmail}</StSpan>
           <Input
+            type="password"
             name="memberPassword"
             theme="signup"
             placeholder="비밀번호"
-            mg="0 0 20px 0"
+            mg="0 0 10px 0"
             onChange={handleChange}
             value={values.memberPassword}
           />
           <StSpan>{errors.memberPassword}</StSpan>
           <Input
+            type="password"
             name="memberPasswordConfirm"
             theme="signup"
             placeholder="비밀번호 확인"
-            mg="0 0 20px 0"
+            mg="0 0 10px 0"
             onChange={handleChange}
             value={values.memberPasswordConfirm}
           />
@@ -121,16 +122,9 @@ const SignUpModal = (props) => {
             ></SelectBox>
           </StSelectBox>
           <BtBox>
-            <Link to={"/home"}>
-              <Button
-                theme="next-btn"
-                type="submit"
-                onClick={() => props.setModalOpen(false)}
-                disabled={submitting}
-              >
-                완료
-              </Button>
-            </Link>
+            <Button theme="next-btn" type="submit" disabled={submitting}>
+              완료
+            </Button>
           </BtBox>
         </form>
       </StModalBody>
@@ -164,7 +158,7 @@ const StModalBody = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 40px;
+  padding: 20px 40px;
 `;
 
 const StSentence = styled.div`
@@ -188,7 +182,7 @@ const StSpan = styled.span`
   width: 100%;
   font-size: ${(props) => props.fontsize};
   font-weight: ${(props) => props.fw};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: ${(props) => props.color || "#666666"};
   background-color: ${(props) => props.bgC};
 `;

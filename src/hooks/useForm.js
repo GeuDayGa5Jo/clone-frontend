@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { __loginThunk, __signUpThunk } from "../redux/modules/userSlice";
 import validate from "./validate";
 
 // 초깃값과 addPost할 thunk함수를 준다.
-function useForm({ initialValues, onSubmit, isModalOpen }) {
+function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const dispatch = useDispatch();
   // values를 초깃값으로 세팅
   const [values, setValues] = useState(initialValues);
@@ -22,8 +26,7 @@ function useForm({ initialValues, onSubmit, isModalOpen }) {
     setSubmitting(true);
     event.preventDefault();
 
-    setErrors(validate(values));
-    console.log(errors);
+    setErrors(validate({ ...values, isSignUp }));
     // 다시 초기값으로 세팅
     // setValues(initialValues);
   };
@@ -33,21 +36,28 @@ function useForm({ initialValues, onSubmit, isModalOpen }) {
     if (submitting) {
       // 위에 validate로 검증해서 바뀐 errors 객체의 key값이 없으면 onSubmit에 값을 넣어준다.
       if (Object.keys(errors).length === 0) {
-        const sumDate = "".concat(
-          values.month,
-          "/",
-          values.day,
-          "/",
-          values.year
-        );
-        values.DOB = sumDate;
-        delete values.year;
-        delete values.month;
-        delete values.day;
-        isModalOpen(false);
+        if (isSignUp) {
+          const sumDate = "".concat(
+            values.day,
+            "/",
+            values.month,
+            "/",
+            values.year
+          );
+          values.DOB = sumDate;
+          delete values.year;
+          delete values.month;
+          delete values.day;
+          delete values.memberPasswordConfirm;
+          dispatch(__signUpThunk(values));
+          console.log(values);
+        } else if (!isSignUp) {
+          dispatch(__loginThunk(values));
+        }
+        navigate("/home");
+
         // form의 input 값들을 dispatch해준다.
         // 수정일때랑 그냥 작성할때 action을 다르게 dispatch
-
         // dispatch(__addPost({ ...values }));
         // 작성완료 후에는 Home으로 보낸다.
       }

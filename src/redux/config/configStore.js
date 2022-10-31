@@ -4,10 +4,11 @@ import {
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 import boardContent from "../modules/BoardContentSlice";
+import user from "../modules/userSlice";
 
 export const store = configureStore({
-  reducer: { boardContent },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  reducer: { boardContent, user },
+  // middleware: getDefaultMiddleware({
+  //   serializableCheck: false,
+  // }),
 });
