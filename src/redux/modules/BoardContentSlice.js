@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { addBoardContentApi } from "./API/BoardContentAPI";
 import { ServerUrl } from "../../server";
@@ -11,16 +11,19 @@ const initialState = {
 
 export const addBoardContent = async (payload) => {
   console.log("paylod console.log=>", payload);
+
   const frm = new FormData();
-  frm.append("content", payload.boardContent);
-  frm.append("file", payload.imageFile);
+  frm.append("boardContent", payload.boardContent);
+  frm.append("imageFile", payload.imageFile);
+
   console.log("frm console.log=>", frm);
+
   await axios
     .post(`${ServerUrl}/auth/boards/create`, frm, {
       headers: {
         "X-AUTH-TOKEN": localStorage.getItem("accessToken"),
         "Content-Type": "multipart/form-data",
-        // "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
     })
     .then(function a(response) {
@@ -37,18 +40,18 @@ export const BoardContentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [addBoardContent.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [addBoardContent.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      console.log("post 액션 페이로드=>", action.payload);
-      state.content.push(action.payload);
-    },
-    [addBoardContent.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [addBoardContent.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [addBoardContent.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   console.log("post 액션 페이로드=>", action.payload);
+    //   state.content.push(action.payload);
+    // },
+    // [addBoardContent.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
 });
 
