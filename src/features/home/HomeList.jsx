@@ -157,7 +157,6 @@ const WritingContainer = styled.div`
   width: 100%;
   margin-top: 15px;
 
-
   > div:first-child {
     border: 1px solid rgba(0, 0, 0, 0.1);
     width: 60px;
@@ -187,7 +186,6 @@ const WritingBox = styled.form`
 `;
 
 const StTextArea = styled.textarea`
-
   padding: 20px;
   border: 0;
   font-size: 20px;

@@ -13,7 +13,7 @@ export const addBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("payload 콘솔로그 =>", payload);
     try {
-      await addBoardContentApi(payload);
+      await addBoardContentApi({ payload });
     } catch (err) {
       console.log("error");
       return thunkAPI.rejectWithValue(err);
