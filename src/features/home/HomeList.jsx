@@ -1,11 +1,13 @@
 import { faImage, faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import HomeCard from "../../components/HomeCard";
 import {
   addBoardContent,
+  getBoardContent,
   __addBoardThunk,
 } from "../../redux/modules/BoardContentSlice";
 import { ServerUrl } from "../../server";
@@ -14,6 +16,12 @@ import { ServerUrl } from "../../server";
 
 const HomeList = () => {
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.boardContent);
+
+  const board = data.boardContent;
+
+  console.log("homelist data 나와=>", data);
+
   const init = {
     boardContent: "",
     imageFile: "",
@@ -37,14 +45,14 @@ const HomeList = () => {
     // dispatch(__addBoardThunk(content));
     const accessToken = localStorage.getItem("Authorization");
     const formData = new FormData();
-    formData.append("file", uploadImageForm);
+    formData.append("imageFile", uploadImageForm);
     formData.append("boardContent", content.boardContent);
 
     let entries = formData.entries();
     for (const pair of entries) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    console.log(formData.get("file"));
+    console.log(formData.get("imageFile"));
     console.log(formData.get("boardContent"));
 
     axios
@@ -76,6 +84,10 @@ const HomeList = () => {
       }
     };
   };
+
+  useEffect(() => {
+    dispatch(getBoardContent());
+  }, [dispatch]);
 
   return (
     <StContainer>
@@ -150,6 +162,10 @@ const HomeList = () => {
           <BlueButton onClick={onAddContentHandler}>Tweet</BlueButton>
         </BtnBox>
       </form>
+
+      {board?.map((board) => {
+        return <HomeCard key={board?.id} board={board} />;
+      })}
     </StContainer>
   );
 };

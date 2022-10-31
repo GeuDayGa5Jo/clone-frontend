@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     /* justify-content: center; */
     max-width: 1200px;
-    overflow:hidden;
+    /* overflow:hidden; */
   }
 
   html {

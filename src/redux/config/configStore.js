@@ -8,7 +8,7 @@ import user from "../modules/userSlice";
 
 export const store = configureStore({
   reducer: { boardContent, user },
-  // middleware: getDefaultMiddleware({
-  //   serializableCheck: false,
-  // }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
