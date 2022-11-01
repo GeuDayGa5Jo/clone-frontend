@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Button from "../elem/Button";
 import Input from "../elem/Input";
 import useForm from "../hooks/useForm";
+import { __addCommentThunk } from "../redux/modules/commentSlice";
 import { clearUserState } from "../redux/modules/userSlice";
 import HomeCard from "./HomeCard";
 
@@ -16,9 +17,11 @@ const CommentModal = ({ setModalOpen, board }) => {
   const dispatch = useDispatch();
   const { user, error, isSuccess } = useSelector((state) => state.user);
   const init = {
-    boardContent: "",
-    imageFile: "",
+    commentContent: "",
+    boardId: board.boardId,
   };
+
+  console.log(board);
   const [content, setContent] = useState(init);
 
   const textRef = useRef();
@@ -41,6 +44,13 @@ const CommentModal = ({ setModalOpen, board }) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
+
+  const onCommentHandler = (e) => {
+    e.preventDefault();
+    dispatch(__addCommentThunk(content));
+    alert("댓글이 작성되었습니다.");
+    setModalOpen(false);
+  };
 
   return createPortal(
     <StModal>
@@ -66,9 +76,9 @@ const CommentModal = ({ setModalOpen, board }) => {
                 <StTextArea
                   ref={textRef}
                   row={1}
-                  placeholder="What's happening?"
+                  placeholder="내 답글을 트윗합니다."
                   maxLength={150}
-                  name="boardContent"
+                  name="commentContent"
                   onChange={handleResizeHeight}
                   value={content.boardContent}
                 ></StTextArea>
@@ -101,7 +111,7 @@ const CommentModal = ({ setModalOpen, board }) => {
                 </svg>
               </ImageButton>
             </ImageLayout>
-            <BlueButton>답글</BlueButton>
+            <BlueButton onClick={onCommentHandler}>답글</BlueButton>
           </BtnBox>
         </form>
       </StModalBody>

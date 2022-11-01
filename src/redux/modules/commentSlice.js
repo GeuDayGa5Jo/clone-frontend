@@ -7,16 +7,17 @@ import { userApis } from "./API/UserAPI";
 
 export const __addCommentThunk = createAsyncThunk(
   "ADD_COMMENT",
-  async (payload, thunkAPI) => {
+  async ({ commentContent, boardId }, thunkAPI) => {
     try {
-      const res = await commentApis.addComment(payload);
+      console.log(commentContent, boardId);
+      const res = await commentApis.addComment(commentContent, boardId);
       console.log(res);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
       // 에러가 발생할경우 alert로 백엔드에서 전송한 메시지를 띄워주어 멈추게 한다.
       //중복된 아이디 입니다.
       // alert(e["response"].data);
-
+      console.log(e);
       return thunkAPI.rejectWithValue(e["response"].data);
     }
   }
