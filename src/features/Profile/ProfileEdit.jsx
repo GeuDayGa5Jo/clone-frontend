@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 
 const ProfileEdit = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state);
+  console.log("user =>", user);
 
   const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
 

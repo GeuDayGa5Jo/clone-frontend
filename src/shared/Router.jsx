@@ -14,7 +14,6 @@ const Page = () => {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/home" element={<Home />} />
         <Route path="/example" element={<Example />} />
-        <Route path="/settings" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );

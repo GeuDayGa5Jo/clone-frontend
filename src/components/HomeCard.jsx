@@ -16,6 +16,7 @@ const HomeCard = ({ board, id }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+
   const navigate = useNavigate();
 
   return (
