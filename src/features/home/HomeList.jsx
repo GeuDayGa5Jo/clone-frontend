@@ -23,7 +23,7 @@ const HomeList = () => {
 
   const board = data.boardContent;
 
-  // console.log("homelist data 나와=>", data);
+  console.log("homelist data 나와=>", data);
 
   const init = {
     boardContent: "",

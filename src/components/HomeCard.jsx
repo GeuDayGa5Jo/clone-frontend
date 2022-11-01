@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
+import CommentModal from "./CommentModal";
 
 const HomeCard = ({ board, id }, props) => {
   const [dropdown, setDropdown] = useState(false);
@@ -15,6 +16,12 @@ const HomeCard = ({ board, id }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const onClickComment = () => {
+    setModalOpen(true);
+  };
 
   return (
     <CardBox>
@@ -76,7 +83,7 @@ const HomeCard = ({ board, id }, props) => {
         </UserBox>
       </Card>
       <Menu>
-        <MenuIcon>
+        <MenuIcon onClick={onClickComment}>
           <svg
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -110,6 +117,7 @@ const HomeCard = ({ board, id }, props) => {
           </svg>
         </MenuIcon>
       </Menu>
+      {isModalOpen && <CommentModal setModalOpen={setModalOpen} />}
     </CardBox>
   );
 };

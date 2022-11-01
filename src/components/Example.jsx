@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SignUpNav from "../components/SignUpNav";
 import Button from "../elem/Button";
 import SelectBox from "../elem/SelectBox";
+import CommentModal from "./CommentModal";
 import Header from "./Header";
 import LoginModal from "./LoginModal";
 import LogoutModal from "./LogoutModal";
@@ -47,8 +48,9 @@ const Example = () => {
       <SignUpNav>Hi</SignUpNav> */}
 
       {/* <LogoutModal></LogoutModal> */}
-      <SignUpModal></SignUpModal>
+      {/* <SignUpModal></SignUpModal> */}
       {/* <LoginModal></LoginModal> */}
+      {/* <CommentModal></CommentModal> */}
       {/* <Header></Header> */}
     </Stdiv>
   );
