@@ -7,17 +7,14 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
 
-const HomeCard = ({ board }, props) => {
+const HomeCard = ({ board, id }, props) => {
   const [dropdown, setDropdown] = useState(false);
-  const { id } = useParams();
+  // const { id } = useParams();
   const dispatch = useDispatch();
 
-  const deleteBoardContent = () => {
-    const params = {
-      id,
-    };
-    dispatch(delBoardContent(params));
-  };
+  // const deleteBoardContent = () => {
+  //   dispatch(delBoardContent(id));
+  // };
 
   return (
     <CardBox>
@@ -59,7 +56,8 @@ const HomeCard = ({ board }, props) => {
           <br />
           <DropButton
             onClick={() => {
-              deleteBoardContent(id);
+              dispatch(delBoardContent(id));
+              window.location.replace("/home");
             }}
           >
             삭제

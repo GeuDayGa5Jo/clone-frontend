@@ -15,6 +15,8 @@ export const getBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getBoardContentApi();
+      // window.location.reload();
+      console.log("res=>", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
@@ -26,11 +28,9 @@ export const getBoardContent = createAsyncThunk(
 export const delBoardContent = createAsyncThunk(
   "post/delComment",
   async (params, thunkAPI) => {
-    const { id } = params;
-    console.log("id=>", id);
     try {
-      const response = await delBoardContentApi(id);
-      return thunkAPI.fulfillWithValue(id);
+      const response = await delBoardContentApi(params);
+      return thunkAPI.fulfillWithValue(params);
     } catch (err) {
       console.log("error ::::::", err.response);
       return thunkAPI.rejectWithValue("<<", err);
@@ -49,7 +49,7 @@ export const BoardContentSlice = createSlice({
     },
     [getBoardContent.fulfilled]: (state, action) => {
       state.isLoading = false;
-
+      console.log("get action => ", action.payload);
       state.boardContent = action.payload;
     },
     [getBoardContent.rejected]: (state, action) => {

@@ -65,7 +65,7 @@ const HomeList = () => {
     console.log(formData.get("boardContent"));
 
     axios
-      .post("http://54.180.156.158:8080/auth/boards/create", formData, {
+      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
         headers: {
           Authorization: accessToken,
           "Content-Type": "multipart/form-data",
@@ -175,7 +175,9 @@ const HomeList = () => {
       </form>
 
       {board?.map((board) => {
-        return <HomeCard key={board?.id} board={board} />;
+        return (
+          <HomeCard key={board.boardId} id={board.boardId} board={board} />
+        );
       })}
     </StContainer>
   );

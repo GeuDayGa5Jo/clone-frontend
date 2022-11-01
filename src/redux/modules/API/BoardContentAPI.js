@@ -13,6 +13,12 @@ export const getBoardContentApi = async (payload) => {
 };
 
 //게시글 삭제하기
-export const delBoardContentApi = async (id) => {
-  await axios.delete(`${ServerUrl}/auth/boards/{id}/delete`);
+export const delBoardContentApi = async (boardId) => {
+  const res = await axios.delete(`${ServerUrl}/auth/boards/${boardId}/delete`, {
+    headers: {
+      Authorization: localStorage.getItem("Authorization"),
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 };
