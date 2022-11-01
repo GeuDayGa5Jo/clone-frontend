@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import HomeCard from "../../components/HomeCard";
 import {
   addBoardContent,
   getBoardContent,
   __addBoardThunk,
+  delBoardContent,
 } from "../../redux/modules/BoardContentSlice";
 import { ServerUrl } from "../../server";
 
@@ -16,16 +18,23 @@ import { ServerUrl } from "../../server";
 
 const HomeList = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const data = useSelector((state) => state.boardContent);
 
   const board = data.boardContent;
 
-  console.log("homelist data 나와=>", data);
+  // console.log("homelist data 나와=>", data);
 
   const init = {
     boardContent: "",
     imageFile: "",
   };
+
+  const deleteBoardContent = () => {
+    const params = { id };
+    dispatch(delBoardContent(params));
+  };
+
   const [content, setContent] = useState(init);
 
   const [previewImage, setPreviewImage] = useState("");
@@ -56,18 +65,20 @@ const HomeList = () => {
     console.log(formData.get("boardContent"));
 
     axios
-      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
+      .post("http://54.180.156.158:8080/auth/boards/create", formData, {
         headers: {
           Authorization: accessToken,
           "Content-Type": "multipart/form-data",
         },
       })
       .then(function (response) {
+        dispatch(getBoardContent());
         alert("게시되었습니다.");
       })
       .catch(function (error) {
         console.log(error.response);
       });
+    setContent(init);
   };
 
   const imgFileHandler = (e) => {

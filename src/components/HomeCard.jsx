@@ -1,21 +1,71 @@
 import React from "react";
 import styled from "styled-components";
 import BoardContentSlice from "../redux/modules/BoardContentSlice";
+import Dropdown from "../components/Dropdown";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { delBoardContent } from "../redux/modules/BoardContentSlice";
 
-const HomeCard = ({ board }) => {
+const HomeCard = ({ board }, props) => {
+  const [dropdown, setDropdown] = useState(false);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const deleteBoardContent = () => {
+    const params = {
+      id,
+    };
+    dispatch(delBoardContent(params));
+  };
+
   return (
     <CardBox>
       <Dot>
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
-        >
-          <g>
-            <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
-          </g>
-        </svg>
+        <Button onClick={(e) => setDropdown(!dropdown)}>
+          {dropdown ? (
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            >
+              <g>
+                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+              </g>
+            </svg>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            >
+              <g>
+                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+              </g>
+            </svg>
+          )}
+        </Button>
       </Dot>
+      <DropBox>
+        <Dropdown visibility={dropdown}>
+          <DropButton
+            onClick={() => {
+              console.log("안녕?");
+            }}
+          >
+            수정
+          </DropButton>
+          <br />
+          <br />
+          <DropButton
+            onClick={() => {
+              deleteBoardContent(id);
+            }}
+          >
+            삭제
+          </DropButton>
+        </Dropdown>
+      </DropBox>
       <Card>
         <ImgFile src="https://pbs.twimg.com/profile_images/1585648241298636800/tii40Gv2_400x400.jpg"></ImgFile>
         <UserBox>
@@ -69,6 +119,7 @@ const HomeCard = ({ board }) => {
 export default HomeCard;
 
 const CardBox = styled.div`
+  width: 620px;
   background-color: #ffffff;
   border-bottom: 1px solid #e9e9e9;
 `;
@@ -100,12 +151,13 @@ const ImgFile = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 60px;
+  margin-left: 10px;
   display: flex;
 `;
 
 const TextBox = styled.div`
   width: 100%;
-  display: flex;
+  margin: 0px 10px 10px 5px;
 `;
 
 const UserBox = styled.div`
@@ -118,7 +170,7 @@ const Dot = styled.div`
   width: 20px;
   float: right;
   position: absolute;
-  right: 230px;
+  right: 320px;
   margin-top: 20px;
   margin-right: 10px;
   & :hover {
@@ -153,7 +205,40 @@ export const Thumbnail = styled.img`
   border-radius: 20px;
   margin-bottom: 10px;
   margin-top: 10px;
+  margin-left: 20px;
   background-position: center;
   cursor: pointer;
   object-fit: cover;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const DropButton = styled.button`
+  width: 50px;
+  height: 100%;
+  border: none;
+  margin: 5px 0px 5px 0px;
+  background-color: transparent;
+  position: absolute;
+  cursor: pointer;
+
+  margin-bottom: 20px;
+  &:nth-child(1) {
+    margin-bottom: 25px;
+  }
+`;
+
+const DropBox = styled.div`
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 550px;
+  top: 30px;
+  background-color: transparent;
 `;

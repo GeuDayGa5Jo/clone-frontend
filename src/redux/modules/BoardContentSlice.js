@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import axios from "axios";
-import { addBoardContentApi, getBoardContentApi } from "./API/BoardContentAPI";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+import { delBoardContentApi, getBoardContentApi } from "./API/BoardContentAPI";
 import { ServerUrl } from "../../server";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   boardContent: [],
@@ -14,7 +15,6 @@ export const getBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getBoardContentApi();
-      console.log("get res=>", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
@@ -23,20 +23,20 @@ export const getBoardContent = createAsyncThunk(
   }
 );
 
-// export const delBoardContent = createAsyncThunk(
-//   "post/delComment",
-//   async (payload, thunkAPI) => {
-//     console.log(payload);
-//     try {
-//       const response = await delCommentAPI(payload);
-//       window.location.reload();
-//       return thunkAPI.fulfillWithValue(payload);
-//     } catch (err) {
-//       console.log("error ::::::", err.response);
-//       return thunkAPI.rejectWithValue("<<", err);
-//     }
-//   }
-// );
+export const delBoardContent = createAsyncThunk(
+  "post/delComment",
+  async (params, thunkAPI) => {
+    const { id } = params;
+    console.log("id=>", id);
+    try {
+      const response = await delBoardContentApi(id);
+      return thunkAPI.fulfillWithValue(id);
+    } catch (err) {
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
 
 export const BoardContentSlice = createSlice({
   name: "boardContent",
@@ -49,7 +49,7 @@ export const BoardContentSlice = createSlice({
     },
     [getBoardContent.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log("get action.payload=>", action.payload);
+
       state.boardContent = action.payload;
     },
     [getBoardContent.rejected]: (state, action) => {
