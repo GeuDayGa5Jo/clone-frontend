@@ -117,7 +117,9 @@ const HomeCard = ({ board, id }, props) => {
           </svg>
         </MenuIcon>
       </Menu>
-      {isModalOpen && <CommentModal setModalOpen={setModalOpen} />}
+      {isModalOpen && (
+        <CommentModal board={board} setModalOpen={setModalOpen} />
+      )}
     </CardBox>
   );
 };

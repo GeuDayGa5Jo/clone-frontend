@@ -11,7 +11,7 @@ import useForm from "../hooks/useForm";
 import { clearUserState } from "../redux/modules/userSlice";
 import HomeCard from "./HomeCard";
 
-const CommentModal = ({ setModalOpen }) => {
+const CommentModal = ({ setModalOpen, board }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, error, isSuccess } = useSelector((state) => state.user);
@@ -52,7 +52,7 @@ const CommentModal = ({ setModalOpen }) => {
             onClick={() => setModalOpen(false)}
           ></FontAwesomeIcon>
         </Button>
-        <HomeCard></HomeCard>
+        <HomeCard board={board}></HomeCard>
         <form>
           <Container>
             <WritingContainer>
@@ -70,7 +70,7 @@ const CommentModal = ({ setModalOpen }) => {
                   maxLength={150}
                   name="boardContent"
                   onChange={handleResizeHeight}
-                  //   value={content.boardContent}
+                  value={content.boardContent}
                 ></StTextArea>
                 <ImagePreview
                 //   src={previewImage === "" ? content?.imgUrl : previewImage}
