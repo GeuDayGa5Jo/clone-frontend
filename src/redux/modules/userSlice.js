@@ -51,7 +51,6 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.error = null;
-      state.user = {};
     },
   },
   extraReducers: {

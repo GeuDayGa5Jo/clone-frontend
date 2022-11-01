@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const ProfileEdit = () => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <MainBox>
       <HeaderBox>
@@ -15,7 +18,7 @@ const ProfileEdit = () => {
           </g>
         </svg>
         <div>
-          <h2>짱구 그 잡채</h2>
+          <h2>{user.memberName}</h2>
           <p>9 Tweets</p>
         </div>
       </HeaderBox>
@@ -29,8 +32,8 @@ const ProfileEdit = () => {
       </HeaderFile>
       <Text>
         <button>Edit profile</button>
-        <h2>짱구 그 잡채</h2>
-        <p>@soyoung</p>
+        <h2>{user.memberName}</h2>
+        <p>{user.memberEmail}</p>
         <p>안녕하세요?</p>
       </Text>
       <DownText>

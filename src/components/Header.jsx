@@ -140,7 +140,7 @@ const Header = () => {
         <Size>
           <Size2
             onClick={() => {
-              navigate("/profile/1");
+              navigate(`/profile/${user.memberId}`);
             }}
           >
             <svg
