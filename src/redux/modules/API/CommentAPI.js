@@ -16,15 +16,15 @@ api.interceptors.request.use(function (config) {
   // .find((row) => row.startsWith("Bearer"));
   // Authorization: localStorage.getItem("Authorization"),
 
-  // const accessToken = localStorage.getItem("Authorization");
+  const accessToken = localStorage.getItem("Authorization");
   // console.log(accessToken);
-  // config.headers.Authorization = accessToken;
+  config.headers.Authorization = accessToken;
   console.log(ServerUrl);
   return config;
 });
 
-export const userApis = {
-  login: (payload) => api.post(`/member/login`, payload),
-
-  signup: (payload) => api.post(`/member/signup`, payload),
+export const commentApis = {
+  //   login: (payload) => api.post(`/member/login`, payload),
+  //   signup: (payload) => api.post(`/member/signup`, payload),
+  addComment: (payload) => api.post(`/auth/comments/create`, payload),
 };
