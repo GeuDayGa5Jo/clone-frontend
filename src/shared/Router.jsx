@@ -4,6 +4,7 @@ import Example from "../components/Example";
 import Home from "../pages/Home";
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
+import { EditProfile } from "../components/EditProfile";
 
 const Page = () => {
   return (
@@ -13,6 +14,7 @@ const Page = () => {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/home" element={<Home />} />
         <Route path="/example" element={<Example />} />
+        <Route path="/settings" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );

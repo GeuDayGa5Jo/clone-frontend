@@ -1,9 +1,18 @@
 import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { EditProfile } from "../../components/EditProfile";
 
 const ProfileEdit = () => {
   const user = useSelector((state) => state.user.user);
+
+  const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
+
+  const showEditProfileModal = () => {
+    setEditProfileModalOpen(true);
+  };
 
   return (
     <MainBox>
@@ -31,7 +40,7 @@ const ProfileEdit = () => {
         </ProfileFile>
       </HeaderFile>
       <Text>
-        <button>Edit profile</button>
+        <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{user.memberName}</h2>
         <p>{user.memberEmail}</p>
         <p>안녕하세요?</p>
@@ -53,6 +62,9 @@ const ProfileEdit = () => {
           <span>2</span> Following <span>0</span> Followers
         </p>
       </DownText>
+      {EditProfileModalOpen && (
+        <EditProfile setModalOpen={setEditProfileModalOpen} />
+      )}
     </MainBox>
   );
 };

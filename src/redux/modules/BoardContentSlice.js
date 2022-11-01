@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import { delBoardContentApi, getBoardContentApi } from "./API/BoardContentAPI";
 import { ServerUrl } from "../../server";
@@ -16,7 +16,7 @@ export const getBoardContent = createAsyncThunk(
     try {
       const res = await getBoardContentApi();
       // window.location.reload();
-      console.log("res=>", res);
+      // console.log("res=>", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
@@ -30,6 +30,7 @@ export const delBoardContent = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await delBoardContentApi(params);
+      console.log("response=>", response);
       return thunkAPI.fulfillWithValue(params);
     } catch (err) {
       console.log("error ::::::", err.response);
@@ -53,6 +54,23 @@ export const BoardContentSlice = createSlice({
       state.boardContent = action.payload;
     },
     [getBoardContent.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    // 게시글 삭제
+
+    [delBoardContent.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [delBoardContent.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      console.log("del action => ", current(state.boardContent));
+      state.boardContent = state.boardContent.filter(
+        (content) => content.boardId !== action.payload
+      );
+    },
+    [delBoardContent.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
