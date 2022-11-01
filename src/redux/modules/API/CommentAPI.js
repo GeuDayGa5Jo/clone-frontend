@@ -24,7 +24,6 @@ api.interceptors.request.use(function (config) {
 });
 
 export const commentApis = {
-  //   login: (payload) => api.post(`/member/login`, payload),
-  //   signup: (payload) => api.post(`/member/signup`, payload),
-  addComment: (payload) => api.post(`/auth/comments/create`, payload),
+  addComment: (commentContent, boardId) =>
+    api.post(`/auth/comments/${boardId}/create`, { commentContent }),
 };
