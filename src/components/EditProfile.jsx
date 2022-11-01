@@ -1,10 +1,29 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 
 export const EditProfile = ({ setModalOpen }) => {
   const navigate = useNavigate();
+
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploadImageForm, setUploadImageForm] = useState(null);
+
+  const imgFileHandler = (e) => {
+    setUploadImageForm(e.target.files[0]);
+
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        setPreviewImage([...previewImage, previewImgUrl]);
+      }
+    };
+  };
 
   return (
     <StModal>
