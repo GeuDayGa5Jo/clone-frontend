@@ -3,9 +3,10 @@ import styled from "styled-components";
 import BoardContentSlice from "../redux/modules/BoardContentSlice";
 import Dropdown from "../components/Dropdown";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
+import { useEffect } from "react";
 
 const HomeCard = ({ board, id }, props) => {
   const [dropdown, setDropdown] = useState(false);
@@ -15,6 +16,7 @@ const HomeCard = ({ board, id }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+  const navigate = useNavigate();
 
   return (
     <CardBox>
@@ -47,17 +49,7 @@ const HomeCard = ({ board, id }, props) => {
         <Dropdown visibility={dropdown}>
           <DropButton
             onClick={() => {
-              console.log("안녕?");
-            }}
-          >
-            수정
-          </DropButton>
-          <br />
-          <br />
-          <DropButton
-            onClick={() => {
               dispatch(delBoardContent(id));
-              window.location.replace("/home");
             }}
           >
             삭제

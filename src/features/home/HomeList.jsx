@@ -57,12 +57,12 @@ const HomeList = () => {
     formData.append("imageFile", uploadImageForm);
     formData.append("boardContent", content.boardContent);
 
-    let entries = formData.entries();
-    for (const pair of entries) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    console.log(formData.get("imageFile"));
-    console.log(formData.get("boardContent"));
+    // let entries = formData.entries();
+    // for (const pair of entries) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
+    // console.log(formData.get("imageFile"));
+    // console.log(formData.get("boardContent"));
 
     axios
       .post("http://13.124.191.202:8080/auth/boards/create", formData, {
@@ -126,6 +126,7 @@ const HomeList = () => {
                 name="boardContent"
                 onChange={handleResizeHeight}
                 value={content.boardContent}
+                type="text"
               ></StTextArea>
               <ImagePreview
                 src={previewImage === "" ? content?.imgUrl : previewImage}

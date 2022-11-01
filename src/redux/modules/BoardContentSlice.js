@@ -56,6 +56,21 @@ export const BoardContentSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    //삭제
+    [delBoardContent.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [delBoardContent.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      console.log("del action => ", action.payload);
+      state.boardContent = state.boardContent.filter(
+        (content) => content.id !== action.payload
+      );
+    },
+    [delBoardContent.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
