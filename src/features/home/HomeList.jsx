@@ -20,7 +20,6 @@ const HomeList = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const data = useSelector((state) => state.boardContent);
-
   const board = data.boardContent;
 
   // console.log("homelist data 나와=>", data);
@@ -98,6 +97,7 @@ const HomeList = () => {
 
   useEffect(() => {
     dispatch(getBoardContent());
+    // dispatch(delBoardContent({ id }));
   }, [dispatch]);
 
   return (

@@ -1,13 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 
-export const EditProfile = () => {
+export const EditProfile = ({ setModalOpen }) => {
+  const navigate = useNavigate();
+
   return (
     <StModal>
       <StModalBody>
         <HeaderTopBox>
           <svg
+            onClick={() => {
+              setModalOpen(false);
+            }}
             viewBox="0 0 24 24"
             aria-hidden="true"
             className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03"
@@ -48,6 +54,7 @@ const StModal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const StModalBody = styled.div`
