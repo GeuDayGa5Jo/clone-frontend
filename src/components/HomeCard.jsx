@@ -17,6 +17,7 @@ const HomeCard = ({ board, id }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+
   const navigate = useNavigate();
 
   const [isModalOpen, setModalOpen] = useState(false);

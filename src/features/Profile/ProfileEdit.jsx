@@ -1,18 +1,26 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
+import { getMyPage } from "../../redux/modules/mypageSlice";
 
 const ProfileEdit = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state);
+  console.log("user =>", user);
 
   const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
 
   const showEditProfileModal = () => {
     setEditProfileModalOpen(true);
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyPage());
+  }, [dispatch]);
 
   return (
     <MainBox>
@@ -32,12 +40,7 @@ const ProfileEdit = () => {
         </div>
       </HeaderBox>
       <HeaderFile>
-        <label htmlFor="file" />
-        <input id="file" type="file" />
-        <ProfileFile>
-          <label htmlFor="file" />
-          <input type="file" />
-        </ProfileFile>
+        <ProfileFile></ProfileFile>
       </HeaderFile>
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
@@ -99,24 +102,6 @@ const HeaderFile = styled.div`
   height: 180px;
   background-color: #cfd9de;
   position: relative;
-  & input[type="file"] {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    cursor: pointer;
-  }
-  label {
-    display: inline-block;
-    color: transparent;
-    vertical-align: middle;
-    background-color: transparent;
-    line-height: 40px;
-    margin-left: 10px;
-  }
 `;
 
 const ProfileFile = styled.div`
@@ -129,22 +114,6 @@ const ProfileFile = styled.div`
   position: absolute;
   bottom: -50px;
   left: 15px;
-  & input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    cursor: pointer;
-  }
-  label {
-    display: inline-block;
-    color: transparent;
-    vertical-align: middle;
-    background-color: transparent;
-    line-height: 40px;
-    margin-left: 10px;
-  }
 `;
 
 const Text = styled.div`
