@@ -20,8 +20,7 @@ const CommentModal = ({ setModalOpen, board }) => {
     commentContent: "",
     boardId: board.boardId,
   };
-
-  console.log(board);
+  const isCommentModal = true;
   const [content, setContent] = useState(init);
 
   const textRef = useRef();
@@ -62,7 +61,7 @@ const CommentModal = ({ setModalOpen, board }) => {
             onClick={() => setModalOpen(false)}
           ></FontAwesomeIcon>
         </Button>
-        <HomeCard board={board}></HomeCard>
+        <HomeCard board={board} isCommentModal={isCommentModal}></HomeCard>
         <form>
           <Container>
             <WritingContainer>
