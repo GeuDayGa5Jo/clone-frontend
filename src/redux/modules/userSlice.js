@@ -10,7 +10,7 @@ export const __signUpThunk = createAsyncThunk(
     try {
       const res = await userApis.signup(payload);
       console.log(res);
-      alert(e["response"].data);
+      alert(["response"].data);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
       //중복된 아이디 입니다.
