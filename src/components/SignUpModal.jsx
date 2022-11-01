@@ -1,16 +1,23 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Input from "../elem/Input";
 import SelectBox from "../elem/SelectBox";
 import useForm from "../hooks/useForm";
+import { clearUserState } from "../redux/modules/userSlice";
 
 const SignUpModal = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, error, isSuccess } = useSelector((state) => state.user);
+  console.log(error);
+
   const isSignUp = true;
+  const setModalOpen = props.setModalOpen;
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
       memberName: "",
@@ -27,8 +34,20 @@ const SignUpModal = (props) => {
       // alert("작성한 내용을 포스팅 합니다.");
     },
     isSignUp,
+    setModalOpen,
     // validate,
   });
+
+  useEffect(() => {
+    if (error && isSuccess) {
+      alert(error);
+      navigate("/");
+    } else if (!error && isSuccess) {
+      alert("정상적으로 가입되셨습니다.");
+      navigate("/home");
+    }
+    return () => dispatch(clearUserState());
+  }, [error, isSuccess, dispatch, navigate]);
 
   return (
     <StModal>

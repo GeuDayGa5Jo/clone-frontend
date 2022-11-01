@@ -6,8 +6,9 @@ import { __loginThunk, __signUpThunk } from "../redux/modules/userSlice";
 import validate from "./validate";
 
 // 초깃값과 addPost할 thunk함수를 준다.
-function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
-  const error = useSelector((state) => state.user.error);
+function useForm({ initialValues, onSubmit, isSignUp, setModalOpen }) {
+  //서버에서 발생한 에러
+  // const error = useSelector((state) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
+    console.log(values);
   };
 
   // submit된다면
@@ -39,23 +41,36 @@ function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
       if (Object.keys(errors).length === 0) {
         if (isSignUp) {
           const sumDate = "".concat(
-            values.day,
-            "/",
+            values.year,
+            "-",
             values.month,
-            "/",
-            values.year
+            "-",
+            values.day
           );
-          values.DOB = sumDate;
+          console.log(values.year, values.month, values.day);
+          values.dob = sumDate;
+          console.log(sumDate);
           delete values.year;
           delete values.month;
           delete values.day;
           delete values.memberPasswordConfirm;
           dispatch(__signUpThunk(values));
 
+          // if (!error) {
+          //   //error가 없으면 home으로 이동
+          //   setModalOpen(false);
+          // }
+
           // }
         } else if (!isSignUp) {
           //로그인인 경우
           dispatch(__loginThunk(values));
+          // if (!error) {
+          //   //error가 없으면 home으로 이동
+          //   setModalOpen(false);
+
+          //   navigate("/home");
+          // }
         }
 
         // form의 input 값들을 dispatch해준다.

@@ -1,14 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Input from "../elem/Input";
 import useForm from "../hooks/useForm";
+import { clearUserState } from "../redux/modules/userSlice";
 
-const LoginModal = () => {
-  // const userId = useSelector((state) => state.user.user);
-
+const LoginModal = ({ setModalOpen }) => {
+  const isSignUp = false;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, error, isSuccess } = useSelector((state) => state.user);
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
       memberEmail: "",
@@ -19,12 +24,33 @@ const LoginModal = () => {
       // alert(JSON.stringify(values, null, 2));
       // alert("작성한 내용을 포스팅 합니다.");
     },
-
+    isSignUp,
+    setModalOpen,
     // validate,
   });
+  useEffect(() => {
+    if (error && isSuccess) {
+      console.log(error, isSuccess);
+      alert(error);
+      // navigate("/");
+    } else if (!error && isSuccess) {
+      console.log(error, isSuccess);
+      alert("로그인 되었습니다.");
+      navigate("/home");
+    }
+    return () => dispatch(clearUserState());
+  }, [error, isSuccess, dispatch, navigate]);
+
   return (
     <StModal>
       <StModalBody>
+        <Button bgColor="white">
+          <FontAwesomeIcon
+            icon={faTimes}
+            size="lg"
+            onClick={() => setModalOpen(false)}
+          ></FontAwesomeIcon>
+        </Button>
         <StSentence>
           <Stdiv>지운 님의 트윗 더보기</Stdiv>
         </StSentence>
@@ -73,7 +99,7 @@ const LoginModal = () => {
             </Button>
           </form>
           <StSpan fontsize="18px">
-            계정이 없으신가요? <Link> 가입하기</Link>
+            계정이 없으신가요? <Link to="/"> 가입하기</Link>
           </StSpan>
         </BtBox>
       </StModalBody>
@@ -100,20 +126,21 @@ const StModalBody = styled.div`
   flex-direction: column;
   background-color: #fff;
   border-radius: 30px;
-  width: 800px;
-  height: 880px;
+  width: 700px;
+  height: 700px;
   z-index: 999;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 175px;
+  padding: 60px;
 `;
 
 const StSentence = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  margin-top: 15px;
 `;
 const Stdiv = styled.div`
   font-size: 40px;
@@ -128,6 +155,7 @@ const BtBox = styled.div`
   margin-top: 35px;
   height: 400px;
   margin: 20px 0;
+  padding: 0 70px;
 `;
 const StSpan = styled.span`
   display: flex;
