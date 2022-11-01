@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
@@ -6,6 +7,8 @@ import Input from "../elem/Input";
 import useForm from "../hooks/useForm";
 
 const LoginModal = () => {
+  // const userId = useSelector((state) => state.user.user);
+
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
       memberEmail: "",
@@ -45,7 +48,7 @@ const LoginModal = () => {
               placeholder="이메일"
               mg="0 0 10px 0"
               onChange={handleChange}
-              value={values.memberEmail}
+              value={values.memberEmail || ""}
             />
             <StSpan>{errors.memberEmail}</StSpan>
             <Input
@@ -55,7 +58,7 @@ const LoginModal = () => {
               placeholder="비밀번호"
               mg="0 0 10px 0"
               onChange={handleChange}
-              value={values.memberPassword}
+              value={values.memberPassword || ""}
             />
             <StSpan>{errors.memberPassword}</StSpan>
             <Button

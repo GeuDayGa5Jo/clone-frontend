@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { ServerUrl } from "../../server";
 import { userApis } from "./API/UserAPI";
 
@@ -7,12 +8,15 @@ export const __signUpThunk = createAsyncThunk(
   "SIGN_UP",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await userApis.signup(payload);
-      console.log(payload);
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data);
+      const res = await userApis.signup(payload);
+      console.log(res);
+      alert(e["response"].data);
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+      //중복된 아이디 입니다.
+      alert(e["response"].data);
+
+      return thunkAPI.rejectWithValue(e["response"].data);
     }
   }
 );
@@ -47,17 +51,33 @@ export const userSlice = createSlice({
     // },
   },
   extraReducers: {
-    // [__getTodosThunk.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.todos = action.payload;
-    // },
-    // [__getTodosThunk.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-    // [__getTodosThunk.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
+    // 회원가입
+    [__signUpThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+      state.error = null;
+    },
+    [__signUpThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__signUpThunk.pending]: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+
+    //로그인
+    [__loginThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    [__loginThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__loginThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
