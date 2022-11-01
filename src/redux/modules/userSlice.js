@@ -10,11 +10,11 @@ export const __signUpThunk = createAsyncThunk(
     try {
       const res = await userApis.signup(payload);
       console.log(res);
-      alert(e["response"].data);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
+      // 에러가 발생할경우 alert로 백엔드에서 전송한 메시지를 띄워주어 멈추게 한다.
       //중복된 아이디 입니다.
-      alert(e["response"].data);
+      // alert(e["response"].data);
 
       return thunkAPI.rejectWithValue(e["response"].data);
     }
@@ -31,7 +31,8 @@ export const __loginThunk = createAsyncThunk(
       console.log(res.data);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+      // alert(e.response.data.errorMessage);
+      return thunkAPI.rejectWithValue(e.response.data.errorMessage);
     }
   }
 );
@@ -46,9 +47,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // clearTodo: (state, action) => {
-    //   state.isSuccess = false;
-    // },
+    clearUserState: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.error = null;
+      state.user = {};
+    },
   },
   extraReducers: {
     // 회원가입
@@ -56,30 +60,38 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
       state.error = null;
+      state.isSuccess = true;
     },
     [__signUpThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      state.isSuccess = true;
     },
     [__signUpThunk.pending]: (state) => {
       state.isLoading = true;
       state.error = null;
+      state.isSuccess = false;
     },
 
     //로그인
     [__loginThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+      state.error = null;
+      state.isSuccess = true;
     },
     [__loginThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      state.isSuccess = true;
     },
     [__loginThunk.pending]: (state) => {
       state.isLoading = true;
+      state.error = null;
+      state.isSuccess = false;
     },
   },
 });
 
-export const { clearTodo } = userSlice.actions;
+export const { clearUserState } = userSlice.actions;
 export default userSlice.reducer;

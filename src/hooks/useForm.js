@@ -6,8 +6,9 @@ import { __loginThunk, __signUpThunk } from "../redux/modules/userSlice";
 import validate from "./validate";
 
 // 초깃값과 addPost할 thunk함수를 준다.
-function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
-  const error = useSelector((state) => state.user.error);
+function useForm({ initialValues, onSubmit, isSignUp, setModalOpen }) {
+  //서버에서 발생한 에러
+  // const error = useSelector((state) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const dispatch = useDispatch();
@@ -52,10 +53,21 @@ function useForm({ initialValues, onSubmit, isModalOpen, isSignUp }) {
           delete values.memberPasswordConfirm;
           dispatch(__signUpThunk(values));
 
+          // if (!error) {
+          //   //error가 없으면 home으로 이동
+          //   setModalOpen(false);
+          // }
+
           // }
         } else if (!isSignUp) {
           //로그인인 경우
           dispatch(__loginThunk(values));
+          // if (!error) {
+          //   //error가 없으면 home으로 이동
+          //   setModalOpen(false);
+
+          //   navigate("/home");
+          // }
         }
 
         // form의 input 값들을 dispatch해준다.

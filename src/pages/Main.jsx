@@ -135,9 +135,9 @@ const BtBox = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   margin-top: 35px;
-  height: 400px;
+  height: 350px;
   margin: 20px 0;
-  width: 350px;
+  width: 300px;
 `;
 const StSpan = styled.span`
   display: flex;

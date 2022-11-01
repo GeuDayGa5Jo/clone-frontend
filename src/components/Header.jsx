@@ -1,11 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // import { RiHome7Line } from "react-icons/ri";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
   return (
     <Box>
       <BlueBird>
