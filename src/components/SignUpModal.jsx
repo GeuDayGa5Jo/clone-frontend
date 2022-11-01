@@ -1,6 +1,7 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
@@ -52,7 +53,7 @@ const SignUpModal = (props) => {
             placeholder="이름"
             mg="0 0 10px 0"
             onChange={handleChange}
-            value={values.memberName}
+            value={values.memberName || ""}
           />
           <StSpan>{errors.memberName}</StSpan>
           <Input
@@ -62,7 +63,7 @@ const SignUpModal = (props) => {
             placeholder="이메일"
             mg="0 0 10px 0"
             onChange={handleChange}
-            value={values.memberEmail}
+            value={values.memberEmail || ""}
           />
           <StSpan>{errors.memberEmail}</StSpan>
           <Input
@@ -72,7 +73,7 @@ const SignUpModal = (props) => {
             placeholder="비밀번호"
             mg="0 0 10px 0"
             onChange={handleChange}
-            value={values.memberPassword}
+            value={values.memberPassword || ""}
           />
           <StSpan>{errors.memberPassword}</StSpan>
           <Input
@@ -82,7 +83,7 @@ const SignUpModal = (props) => {
             placeholder="비밀번호 확인"
             mg="0 0 10px 0"
             onChange={handleChange}
-            value={values.memberPasswordConfirm}
+            value={values.memberPasswordConfirm || ""}
           />
           <StSpan>{errors.memberPasswordConfirm}</StSpan>
           <StSpan fontsize="20px" fw="600">
