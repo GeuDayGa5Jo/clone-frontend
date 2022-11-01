@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 import { getMyPage } from "../../redux/modules/mypageSlice";
 
-const ProfileEdit = () => {
+const ProfileEdit = ({ previewImage }) => {
   const user = useSelector((state) => state);
   console.log("user =>", user);
 
@@ -39,14 +39,14 @@ const ProfileEdit = () => {
           <p>9 Tweets</p>
         </div>
       </HeaderBox>
-      <HeaderFile>
+      <HeaderFile src={previewImage === "" ? user?.imgUrl : previewImage}>
         <ProfileFile></ProfileFile>
       </HeaderFile>
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{user.memberName}</h2>
         <p>{user.memberEmail}</p>
-        <p>안녕하세요?</p>
+        <p>{user.memberBio}</p>
       </Text>
       <DownText>
         <p>

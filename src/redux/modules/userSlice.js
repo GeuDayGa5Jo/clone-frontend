@@ -36,6 +36,7 @@ export const __loginThunk = createAsyncThunk(
     }
   }
 );
+
 const initialState = {
   user: {},
   error: null,

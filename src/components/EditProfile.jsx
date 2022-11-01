@@ -3,12 +3,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
+import axios from "axios";
 
 export const EditProfile = ({ setModalOpen }) => {
   const navigate = useNavigate();
 
   const [previewImage, setPreviewImage] = useState("");
   const [uploadImageForm, setUploadImageForm] = useState(null);
+
+  console.log(uploadImageForm);
 
   const imgFileHandler = (e) => {
     setUploadImageForm(e.target.files[0]);
@@ -24,6 +27,36 @@ export const EditProfile = ({ setModalOpen }) => {
       }
     };
   };
+
+  // const onAddContentHandler = (e) => {
+  //   e.preventDefault();
+  //   // dispatch(__addBoardThunk(content));
+  //   const accessToken = localStorage.getItem("Authorization");
+  //   const formData = new FormData();
+  //   formData.append("imageFile", uploadImageForm);
+
+  //   let entries = formData.entries();
+  //   for (const pair of entries) {
+  //     console.log(pair[0] + ", " + pair[1]);
+  //   }
+  //   console.log(formData.get("imageFile"));
+
+  //   axios
+  //     .post("http://13.124.191.202:8080/auth/boards/create", formData, {
+  //       headers: {
+  //         Authorization: accessToken,
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then(function (response) {
+  //       dispatch(getBoardContent());
+  //       alert("게시되었습니다.");
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.response);
+  //     });
+  //   setContent(init);
+  // };
 
   return (
     <StModal>
@@ -42,12 +75,14 @@ export const EditProfile = ({ setModalOpen }) => {
             </g>
           </svg>
           <h2>Edit profile</h2>
-          <Button theme="follow">save</Button>
         </HeaderTopBox>
-        <form>
-          <HeaderFile>
+        <FormBox>
+          <HeaderFile
+            previewImage={previewImage}
+            uploadImageForm={uploadImageForm}
+          >
             <label htmlFor="file" />
-            <input id="file" type="file" />
+            <input id="file" type="file" onChange={imgFileHandler} />
           </HeaderFile>
           <ProfileFile>
             <label htmlFor="file" />
@@ -57,7 +92,8 @@ export const EditProfile = ({ setModalOpen }) => {
             <Input type="text" name="name" placeholder="name" />
             <Input2 type="text" name="Bio" placeholder="Bio" />
           </StSelectBox>
-        </form>
+          <Button theme="follow">save</Button>
+        </FormBox>
       </StModalBody>
     </StModal>
   );
@@ -244,20 +280,23 @@ const Input2 = styled.input`
 
 const HeaderTopBox = styled.div`
   display: flex;
-  justify-content: space-between;
+
   & svg {
     width: 25px;
     margin-left: 20px;
-    margin-top: 10px;
+    margin-top: 13px;
     cursor: pointer;
   }
   & h2 {
-    margin-left: -150px;
-    margin-top: 20px;
+    margin-top: 16px;
+    margin-left: 20px;
   }
+`;
+
+const FormBox = styled.form`
   & button {
-    margin-top: 15px;
-    margin-right: 20px;
-    font-size: 15px;
+    position: absolute;
+    bottom: 558px;
+    left: 300px;
   }
 `;

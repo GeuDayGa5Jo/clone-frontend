@@ -15,8 +15,7 @@ export const getBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getBoardContentApi();
-      // window.location.reload();
-      // console.log("res=>", res);
+
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
