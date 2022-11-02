@@ -29,7 +29,6 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   const userEmail = board.memberEmail;
   const userIdSplit = (userEmail || "").split("@");
   const userId = userIdSplit[0];
-  console.log(userId);
 
   return (
     <CardBox>
