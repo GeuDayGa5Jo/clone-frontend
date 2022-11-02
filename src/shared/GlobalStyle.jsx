@@ -8,15 +8,18 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     text-decoration: none;
     outline : none;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Apple SD Gothic Neo",'Noto Sans KR', sans-serif;
   }
 
   body {
-    overflow: hidden;
+    display: flex;
+    /* justify-content: center; */
+    max-width: 1200px;
+    /* overflow:hidden; */
   }
 
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 
