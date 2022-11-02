@@ -4,7 +4,7 @@ import BoardContentSlice from "../redux/modules/BoardContentSlice";
 import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
 import CommentModal from "./CommentModal";
 import { useEffect } from "react";
@@ -16,6 +16,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+  console.log({ board });
 
   const navigate = useNavigate();
 
@@ -24,6 +25,11 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   const onClickComment = () => {
     setModalOpen(true);
   };
+
+  const userEmail = board.memberEmail;
+  const userIdSplit = (userEmail || "").split("@");
+  const userId = userIdSplit[0];
+  console.log(userId);
 
   return (
     <CardBox>
@@ -69,15 +75,19 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
       )}
 
       <Card>
-        <ImgFile src="https://pbs.twimg.com/profile_images/1585648241298636800/tii40Gv2_400x400.jpg"></ImgFile>
         <UserBox>
+          <ImgBox>
+            <ImgFile src={board.profileImg}></ImgFile>
+          </ImgBox>
           <TextBox>
             <h3>{board?.memberName}</h3>
-            <p>{}</p>
+            <p>@{userId}</p>
           </TextBox>
-          <Thumbnail src={board?.imageUrl}></Thumbnail>
-          <span>{board?.boardContent}</span>
         </UserBox>
+        <ContentBox>
+          <Thumbnail src={board?.imageUrl}></Thumbnail>
+          <span>{board?.boardContent || board?.commentContent}</span>
+        </ContentBox>
       </Card>
       {!isCommentModal && (
         <Menu>
@@ -166,14 +176,16 @@ const ImgFile = styled.img`
 `;
 
 const TextBox = styled.div`
-  width: 100%;
-  margin: 0px 10px 10px 5px;
+  width: 34%;
+  margin: 15px 5px 5px 5px;
+  display: inline-flex;
 `;
 
 const UserBox = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column; */
+  /* justify-content: center; */
 `;
 
 const Dot = styled.div`
@@ -251,4 +263,23 @@ const DropBox = styled.div`
   left: 550px;
   top: 30px;
   background-color: transparent;
+`;
+
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  & span {
+    margin: 20px 0px 20px 100px;
+  }
+`;
+const ImgBox = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -10,18 +10,12 @@ import CommentModal from "./CommentModal";
 import { delComment } from "../redux/modules/commentSlice";
 import { useEffect } from "react";
 
-const HomeCard = ({ board, userId, isCommentModal, userNumber }, props) => {
+const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
-  // const { id } = useParams();
   const dispatch = useDispatch();
-  // const deleteBoardContent = () => {
-  //   dispatch(delBoardContent(id));
-  // };
-  console.log("제발!!!!", { userNumber });
-
   const navigate = useNavigate();
-
   const [isModalOpen, setModalOpen] = useState(false);
+  // console.log("제발!!!!", { userNumber });
 
   const onClickComment = () => {
     setModalOpen(true);
@@ -135,7 +129,7 @@ const HomeCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   );
 };
 
-export default HomeCard;
+export default TweetCard;
 
 const CardBox = styled.div`
   width: 620px;

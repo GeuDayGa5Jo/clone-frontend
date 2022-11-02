@@ -22,7 +22,10 @@ const HomeList = () => {
   const data = useSelector((state) => state.boardContent);
   const board = data.boardContent;
 
-  // console.log("homelist data 나와=>", data);
+  const userData = useSelector((state) => state.user);
+  const userProfile = userData?.profileImg;
+  // const userImage = userData?.user;
+  console.log(" data 나와=>", userData);
 
   const init = {
     boardContent: "",
@@ -111,10 +114,7 @@ const HomeList = () => {
         <Container>
           <WritingContainer>
             <ImgBox>
-              <img
-                src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"
-                alt=""
-              />
+              <img src={userProfile} alt="" />
             </ImgBox>
             <WritingBox>
               <StTextArea
