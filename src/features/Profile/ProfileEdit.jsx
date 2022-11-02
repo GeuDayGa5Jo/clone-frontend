@@ -55,8 +55,11 @@ const ProfileEdit = ({ previewImage }) => {
           <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
-      <HeaderFile src={data}>
-        <ProfileFile></ProfileFile>
+      <HeaderFile>
+        <img src={data.headerImg} alt="" />
+        <ProfileFile>
+          <img src={data.profileImg} alt="" />
+        </ProfileFile>
       </HeaderFile>
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
@@ -119,6 +122,11 @@ const HeaderFile = styled.div`
   height: 180px;
   background-color: #cfd9de;
   position: relative;
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
 `;
 
 const ProfileFile = styled.div`
@@ -131,6 +139,14 @@ const ProfileFile = styled.div`
   position: absolute;
   bottom: -50px;
   left: 15px;
+  border-radius: 50%;
+  img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    z-index: 19px;
+    border-radius: 50%;
+  }
 `;
 
 const Text = styled.div`
