@@ -221,7 +221,7 @@ const ProfileBox = styled.div`
 `;
 
 const profileFile = styled.img`
-  width: 100vh;
+  width: 150px;
   height: auto;
   display: block;
 `;
