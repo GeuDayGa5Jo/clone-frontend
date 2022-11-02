@@ -7,15 +7,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
 import CommentModal from "./CommentModal";
+import { delComment } from "../redux/modules/commentSlice";
 import { useEffect } from "react";
 
-const HomeCard = ({ board, id, userId, isCommentModal }, props) => {
+const HomeCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
   // const { id } = useParams();
   const dispatch = useDispatch();
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+  console.log("제발!!!!", { userNumber });
 
   const navigate = useNavigate();
 
@@ -58,7 +60,11 @@ const HomeCard = ({ board, id, userId, isCommentModal }, props) => {
             <Dropdown visibility={dropdown}>
               <DropButton
                 onClick={() => {
-                  dispatch(delBoardContent(id));
+                  // if (userId) {
+                  //   dispatch(delBoardContent(userId));
+                  // } else {
+                  //   dispatch(delComment(commentId));
+                  // }
                 }}
               >
                 삭제
@@ -80,7 +86,7 @@ const HomeCard = ({ board, id, userId, isCommentModal }, props) => {
         </UserBox>
         <ContentBox>
           <Thumbnail src={board?.imageUrl}></Thumbnail>
-          <span>{board?.boardContent}</span>
+          <span>{board?.boardContent || board?.commentContent}</span>
         </ContentBox>
       </Card>
       {!isCommentModal && (

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 import { getMyPage } from "../../redux/modules/mypageSlice";
@@ -13,16 +13,17 @@ import TweetsList from "./TweetsList";
 const ProfileEdit = ({ previewImage }) => {
   const data = useSelector((state) => state.myPage.myPage);
   const content = data.boards;
-  // const comments = data.comments;
-  // const plus = [...content, ...comments];
-
-  // console.log("content, comments 합친 거 =>", plus);
+  const comments = data.comments;
+  const plus = content?.concat(comments);
+  const tweetList = plus?.sort((a, b) => {
+    return new Date(a.createAt) - new Date(b.createAt);
+  });
 
   const userEmail = data.memberEmail;
   const userIdSplit = (userEmail || "").split("@");
   const userId = userIdSplit[0];
-  console.log("get 데이터=>", data);
-
+  const userNumber = data?.memberId;
+  console.log("content, comments 합친 거 =>", userNumber);
   // const [headerpreviewImage, setHeaderPreviewImage] = useState("");
   // const [pofilepreviewImage, setProfilePreviewImage] = useState("");
   // const [uploadImageForm, setUploadImageForm] = useState(null);
@@ -84,7 +85,7 @@ const ProfileEdit = ({ previewImage }) => {
           <span>2</span> Following <span>0</span> Followers
         </p>
       </DownText>
-      <TweetsList content={content} userId={userId} />
+      <TweetsList content={tweetList} userId={userId} userNumber={userNumber} />
       {EditProfileModalOpen && (
         <EditProfile setModalOpen={setEditProfileModalOpen} />
       )}

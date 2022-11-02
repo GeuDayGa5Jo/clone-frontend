@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ServerUrl } from "../../server";
-import { commentApis } from "./API/CommentAPI";
+import { commentApis, delCommentApi } from "./API/CommentAPI";
 import { userApis } from "./API/UserAPI";
 
 export const __addCommentThunk = createAsyncThunk(
@@ -23,6 +23,20 @@ export const __addCommentThunk = createAsyncThunk(
   }
 );
 // password1!
+
+export const delComment = createAsyncThunk(
+  "post/delComment",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await delCommentApi(payload);
+      console.log("response=>", response);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
 
 const initialState = {
   user: {},
@@ -58,6 +72,21 @@ export const commentSlice = createSlice({
       state.isLoading = true;
       state.error = null;
       state.isSuccess = false;
+    },
+
+    [delComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [delComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      console.log("del action => ", state.comment);
+      state.boardContent = state.comment.filter(
+        (content) => content.commentId !== action.payload
+      );
+    },
+    [delComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
