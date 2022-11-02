@@ -86,7 +86,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
         </UserBox>
         <ContentBox>
           <Thumbnail src={board?.imageUrl}></Thumbnail>
-          <span>{board?.boardContent || board?.commentContent}</span>
+          <span>{board?.boardContent}</span>
         </ContentBox>
       </Card>
       {!isCommentModal && (
@@ -144,8 +144,8 @@ const CardBox = styled.div`
 `;
 
 const Card = styled.div`
+  width: 100%;
   margin-top: 20px;
-  display: flex;
   & h3 {
     width: 100%;
     margin-left: 10px;
@@ -167,12 +167,9 @@ const Card = styled.div`
 `;
 
 const ImgFile = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 60px;
-  border: 1px solid #f3f3f3;
-  margin-left: 10px;
-  display: flex;
+  width: 100%;
+  height: auto;
+  display: block;
 `;
 
 const TextBox = styled.div`
@@ -249,8 +246,6 @@ const DropButton = styled.button`
   background-color: transparent;
   position: absolute;
   cursor: pointer;
-
-  margin-bottom: 20px;
   &:nth-child(1) {
     margin-bottom: 25px;
   }

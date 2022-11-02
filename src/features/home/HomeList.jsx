@@ -114,7 +114,7 @@ const HomeList = () => {
         <Container>
           <WritingContainer>
             <ImgBox>
-              <img src={userProfile} alt="" />
+              <ImgFile src={content?.profileImgUrl} alt="" />
             </ImgBox>
             <WritingBox>
               <StTextArea
@@ -261,10 +261,6 @@ const BtnBox = styled.div`
   border-bottom: 1px solid #e9e9e9;
 `;
 
-const ImgBox = styled.div`
-  margin-left: 10px;
-`;
-
 const BlueButton = styled.button`
   background-color: #1d9bf0;
   border-radius: 27px;
@@ -337,3 +333,21 @@ export const ImagePreview = styled.img`
 `;
 
 export const Container = styled.div``;
+
+const ImgFile = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+`;
+
+const ImgBox = styled.div`
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
