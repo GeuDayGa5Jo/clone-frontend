@@ -1,20 +1,51 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Dropdown from "../components/Dropdown";
+import { delBoardContent } from "../redux/modules/BoardContentSlice";
 
-const TweetCard = () => {
+const TweetCard = ({ id }) => {
+  const [dropdown, setDropdown] = useState(false);
+  const dispatch = useDispatch();
   return (
     <CardBox>
       <Dot>
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
-        >
-          <g>
-            <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
-          </g>
-        </svg>
+        <Button onClick={(e) => setDropdown(!dropdown)}>
+          {dropdown ? (
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            >
+              <g>
+                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+              </g>
+            </svg>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            >
+              <g>
+                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+              </g>
+            </svg>
+          )}
+        </Button>
       </Dot>
+      <DropBox>
+        <Dropdown visibility={dropdown}>
+          <DropButton
+            onClick={() => {
+              dispatch(delBoardContent(id));
+            }}
+          >
+            삭제
+          </DropButton>
+        </Dropdown>
+      </DropBox>
       <Card>
         <ImgFile src="https://pbs.twimg.com/profile_images/1585648241298636800/tii40Gv2_400x400.jpg"></ImgFile>
         <UserBox>
@@ -140,4 +171,36 @@ const Menu = styled.div`
   justify-content: space-evenly;
   margin-top: 10px;
   margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const DropBox = styled.div`
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 570px;
+  top: 10px;
+  background-color: transparent;
+`;
+
+const DropButton = styled.button`
+  width: 50px;
+  height: 100%;
+  border: none;
+  margin: 5px 0px 5px 0px;
+  background-color: transparent;
+  position: absolute;
+  cursor: pointer;
+
+  margin-bottom: 20px;
+  &:nth-child(1) {
+    margin-bottom: 25px;
+  }
 `;
