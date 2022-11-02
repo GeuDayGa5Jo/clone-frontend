@@ -12,7 +12,9 @@ import TweetsList from "./TweetsList";
 
 const ProfileEdit = ({ previewImage }) => {
   const data = useSelector((state) => state.myPage.myPage);
+  const changingImgs = useSelector((state) => state.myPage.profileImgs);
   const content = data.boards;
+  console.log(changingImgs);
   // const comments = data.comments;
   // const plus = [...content, ...comments];
 
@@ -56,9 +58,9 @@ const ProfileEdit = ({ previewImage }) => {
         </div>
       </HeaderBox>
       <HeaderFile>
-        <img src={data.headerImg} alt="" />
+        <img src={changingImgs.previewHeader || data.headerImg} alt="" />
         <ProfileFile>
-          <img src={data.profileImg} alt="" />
+          <img src={changingImgs.previewHeader || data.profileImg} alt="" />
         </ProfileFile>
       </HeaderFile>
       <Text>

@@ -5,8 +5,11 @@ import styled from "styled-components";
 import Button from "../elem/Button";
 import axios from "axios";
 import { ServerUrl } from "../server";
+import { useDispatch } from "react-redux";
+import { changeImg } from "../redux/modules/mypageSlice";
 
 export const EditProfile = ({ setModalOpen }) => {
+  const dispatch = useDispatch();
   const INIT = {
     memberName: "",
     bio: "",
@@ -95,10 +98,22 @@ export const EditProfile = ({ setModalOpen }) => {
           },
         }
       );
+
+      dispatch(
+        changeImg({
+          previewHeader: previewHeader[0],
+          previewProfile: previewProfile[0],
+        })
+      );
+      console.log({
+        previewHeader: previewHeader[0],
+        previewProfile: previewProfile[0],
+      });
       alert(res.data);
     } catch (e) {
       alert(e);
     }
+    setModalOpen(false);
   };
 
   return (
