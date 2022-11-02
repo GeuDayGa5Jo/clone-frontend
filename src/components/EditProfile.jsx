@@ -22,9 +22,11 @@ export const EditProfile = ({ setModalOpen }) => {
     setEditProfileReq({ ...editProfileReq, [name]: value });
   };
 
+
   // 이미지 change시
   const [previewHeader, setPreviewHeader] = useState("");
   const [previewProfile, setPreviewProfile] = useState("");
+
 
   const imgFileHandler = (e) => {
     const { name, files } = e.target;
