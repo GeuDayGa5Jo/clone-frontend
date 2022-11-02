@@ -64,7 +64,7 @@ const HomeList = () => {
     console.log(formData.get("boardContent"));
 
     axios
-      .post(`${ServerUrl}/auth/boards/create`, formData, {
+      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
         headers: {
           Authorization: accessToken,
           "Content-Type": "multipart/form-data",
@@ -258,7 +258,6 @@ const BtnBox = styled.div`
   color: ${(props) => props.theme.mainC};
   padding: 0 20px;
   margin-bottom: 10px;
-
   border-bottom: 1px solid #e9e9e9;
 `;
 

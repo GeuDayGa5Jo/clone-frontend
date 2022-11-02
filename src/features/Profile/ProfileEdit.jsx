@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 import { getMyPage } from "../../redux/modules/mypageSlice";
@@ -14,17 +14,17 @@ const ProfileEdit = ({ previewImage }) => {
   const data = useSelector((state) => state.myPage.myPage);
   const changingImgs = useSelector((state) => state.myPage.profileImgs);
   const content = data.boards;
-  console.log(changingImgs);
-  // const comments = data.comments;
-  // const plus = [...content, ...comments];
-
-  // console.log("content, comments 합친 거 =>", plus);
+  const comments = data.comments;
+  const plus = content?.concat(comments);
+  const tweetList = plus?.sort((a, b) => {
+    return new Date(a.createAt) - new Date(b.createAt);
+  });
 
   const userEmail = data.memberEmail;
   const userIdSplit = (userEmail || "").split("@");
   const userId = userIdSplit[0];
-  console.log("get 데이터=>", data);
-
+  const userNumber = data?.memberId;
+  console.log("content, comments 합친 거 =>", userNumber);
   // const [headerpreviewImage, setHeaderPreviewImage] = useState("");
   // const [pofilepreviewImage, setProfilePreviewImage] = useState("");
   // const [uploadImageForm, setUploadImageForm] = useState(null);
@@ -57,12 +57,14 @@ const ProfileEdit = ({ previewImage }) => {
           <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
+
       <HeaderFile>
         <img src={changingImgs.previewHeader || data.headerImg} alt="" />
         <ProfileFile>
           <img src={changingImgs.previewHeader || data.profileImg} alt="" />
         </ProfileFile>
       </HeaderFile>
+
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{data?.memberName}</h2>
@@ -86,7 +88,7 @@ const ProfileEdit = ({ previewImage }) => {
           <span>2</span> Following <span>0</span> Followers
         </p>
       </DownText>
-      <TweetsList content={content} userId={userId} />
+      <TweetsList content={tweetList} userId={userId} userNumber={userNumber} />
       {EditProfileModalOpen && (
         <EditProfile setModalOpen={setEditProfileModalOpen} />
       )}
@@ -111,18 +113,19 @@ const HeaderBox = styled.div`
     width: 30px;
   }
   & h2 {
+    width: 100%;
     margin-left: 20px;
     margin-top: 10px;
   }
   & p {
+    width: 100%;
     margin-left: 20px;
   }
 `;
 
-const HeaderFile = styled.div`
+const HeaderFile = styled.img`
   width: 100%;
   height: 180px;
-  background-color: #cfd9de;
   position: relative;
   img {
     width: 100%;
@@ -154,6 +157,7 @@ const ProfileFile = styled.div`
 const Text = styled.div`
   margin-left: 10px;
   margin-top: 80px;
+  width: 100%;
   & h2 {
     margin-bottom: 5px;
   }
@@ -200,3 +204,24 @@ const DownText = styled.div`
     justify-content: left;
   }
 `;
+
+const ProfileBox = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  overflow: hidden;
+  z-index: 20px;
+  position: absolute;
+  bottom: 600px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ededed;
+`;
+
+// const ProfileFile = styled.img`
+//   width: 100vh;
+//   height: auto;
+//   display: block;
+// `;
