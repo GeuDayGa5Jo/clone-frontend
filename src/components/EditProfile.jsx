@@ -11,6 +11,8 @@ export const EditProfile = ({ setModalOpen }) => {
   const [previewImage, setPreviewImage] = useState("");
   const [uploadImageForm, setUploadImageForm] = useState(null);
 
+  //수정
+
   console.log(uploadImageForm);
 
   const imgFileHandler = (e) => {

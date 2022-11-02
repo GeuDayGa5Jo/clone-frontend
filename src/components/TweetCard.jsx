@@ -55,7 +55,7 @@ const TweetCard = ({ id }) => {
           </TextBox>
           <span>무슨 일이 일어나고 있나요?</span>
         </UserBox>
-      </Card>{" "}
+      </Card>
       <Menu>
         <MenuIcon>
           <svg
@@ -68,6 +68,7 @@ const TweetCard = ({ id }) => {
             </g>
           </svg>
         </MenuIcon>
+        {/* {board.commentCount} */}
         <MenuIcon>
           <svg
             viewBox="0 0 24 24"
