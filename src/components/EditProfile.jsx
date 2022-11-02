@@ -8,15 +8,30 @@ import axios from "axios";
 export const EditProfile = ({ setModalOpen }) => {
   const navigate = useNavigate();
 
-  const [previewImage, setPreviewImage] = useState("");
-  const [uploadImageForm, setUploadImageForm] = useState(null);
+  const INIT = {
+    memberName: "",
+    bio: "",
+    profileImgUrl: "",
+    headerImgUrl: "",
+  };
+  const [editProfileReq, setEditProfileReq] = useState(INIT);
 
-  //수정
+  //bio, memeberName change시
+  const onTextChange = (e) => {
+    const { name, value } = e.target;
+    setEditProfileReq({ ...editProfileReq, [name]: value });
+  };
 
-  console.log(uploadImageForm);
+
+  // 이미지 change시
+  const [previewHeader, setPreviewHeader] = useState("");
+  const [previewProfile, setPreviewProfile] = useState("");
+
 
   const imgFileHandler = (e) => {
-    setUploadImageForm(e.target.files[0]);
+    const { name, files } = e.target;
+    setEditProfileReq({ ...editProfileReq, [name]: files[0] });
+    console.log(editProfileReq);
 
     let reader = new FileReader();
     if (e.target.files[0]) {
@@ -25,9 +40,35 @@ export const EditProfile = ({ setModalOpen }) => {
     reader.onload = () => {
       const previewImgUrl = reader.result;
       if (previewImgUrl) {
-        setPreviewImage([...previewImage, previewImgUrl]);
+        // setPreviewHeader([...previewHeader, previewImgUrl]);
+
+        if (name === "headerImgFile") {
+          //헤더 이미지 파일인 경우
+          setPreviewHeader([...previewHeader, previewImgUrl]);
+        } else if (name === "profileImgUrl") {
+          //프로필 이미지 파일인 경우
+          setPreviewProfile([...previewProfile, previewImgUrl]);
+        }
       }
     };
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(editProfileReq);
+    const accessToken = localStorage.getItem("Authorization");
+    const formData = new FormData();
+    formData.append("headerImgUrl", editProfileReq.headerImgUrl);
+    formData.append("profileImgUrl", editProfileReq.profileImgUrl);
+    formData.append("memberName", editProfileReq.memberName);
+    formData.append("bio", editProfileReq.bio);
+
+    let entries = formData.entries();
+    for (const pair of entries) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+    console.log(formData.get("headerImgUrl"));
+    console.log(formData.get("profileImgUrl"));
   };
 
   // const onAddContentHandler = (e) => {
@@ -78,21 +119,40 @@ export const EditProfile = ({ setModalOpen }) => {
           </svg>
           <h2>Edit profile</h2>
         </HeaderTopBox>
-        <FormBox>
-          <HeaderFile
-            previewImage={previewImage}
-            uploadImageForm={uploadImageForm}
-          >
-            <label htmlFor="file" />
-            <input id="file" type="file" onChange={imgFileHandler} />
+        <FormBox onSubmit={onSubmitHandler}>
+          <HeaderFile previewHeader={previewHeader}>
+            <StHeaderImg src={previewHeader} alt="" />
+            <label htmlFor="headerImgFile" />
+            <input
+              id="headerImgFile"
+              name="headerImgFile"
+              type="file"
+              onChange={imgFileHandler}
+            />
           </HeaderFile>
-          <ProfileFile>
-            <label htmlFor="file" />
-            <input type="file" />
+          <ProfileFile previewProfile={previewProfile}>
+            <StProfileImg src={previewProfile} alt="" />
+            <label htmlFor="profileImgUrl" />
+            <input
+              id="profileImgUrl"
+              name="profileImgUrl"
+              type="file"
+              onChange={imgFileHandler}
+            />
           </ProfileFile>
           <StSelectBox>
-            <Input type="text" name="name" placeholder="name" />
-            <Input2 type="text" name="Bio" placeholder="Bio" />
+            <Input
+              type="text"
+              name="memberName"
+              placeholder="name"
+              onChange={onTextChange}
+            />
+            <Input2
+              type="text"
+              name="bio"
+              placeholder="bio"
+              onChange={onTextChange}
+            />
           </StSelectBox>
           <Button theme="follow">save</Button>
         </FormBox>
@@ -129,78 +189,21 @@ const StModalBody = styled.div`
   /* padding: 60px; */
 `;
 
-const StSentence = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 15px;
-`;
-
-const Stdiv = styled.div`
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 16px;
-`;
-
-const BtBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin-top: 35px;
-  height: 400px;
-  margin: 20px 0;
-  padding: 0 70px;
-`;
-const StSpan = styled.span`
-  display: flex;
+const StHeaderImg = styled.img`
   width: 100%;
-  font-size: ${(props) => props.fontsize};
-  font-weight: ${(props) => props.fw};
-  margin-bottom: 10px;
-  color: ${(props) => props.color || "#666666"};
-`;
-
-const StLoginDivier = styled.div`
-  display: flex;
-  align-items: center;
-  color: black;
-  font-size: 12px;
-  margin: 0px 0px;
-  font-size: 22px;
-  ::before,
-  ::after {
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.2);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 16px;
-  }
-`;
-
-const HeaderBox = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: #ffffff;
-  display: flex;
-  & svg {
-    margin-left: 10px;
-    width: 30px;
-  }
-  & h2 {
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-  & p {
-    margin-left: 20px;
-  }
+  object-fit: cover;
 `;
 
 const HeaderFile = styled.div`
+  display: flex;
   width: 100%;
   height: 180px;
-  background-color: #cfd9de;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
   position: relative;
   margin-top: 15px;
   & input[type="file"] {
@@ -222,7 +225,19 @@ const HeaderFile = styled.div`
     margin-left: 10px;
   }
 `;
-
+const StProfileImg = styled.img`
+  /* max-width: 100%; */
+  width: 105%;
+  /* min-width: 0%; */
+  /* max-height: 100%; */
+  height: 105%;
+  /* min-height: 0%; */
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const ProfileFile = styled.div`
   width: 120px;
   height: 120px;
@@ -230,16 +245,23 @@ const ProfileFile = styled.div`
   border: 2px solid #f3f3f3;
   z-index: 20px;
   background-color: white;
-  position: absolute;
+  position: relative;
+  transition: translateY(-60%);
   bottom: 320px;
   left: 25px;
   padding: 60px;
+  position: absolute;
+
+  overflow: hidden;
+
   & input[type="file"] {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 2;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
   }
   label {
