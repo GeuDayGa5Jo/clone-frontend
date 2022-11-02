@@ -64,7 +64,7 @@ const HomeList = () => {
     console.log(formData.get("boardContent"));
 
     axios
-      .post("http://13.124.191.202:8080/auth/boards/create", formData, {
+      .post(`${ServerUrl}/auth/boards/create`, formData, {
         headers: {
           Authorization: accessToken,
           "Content-Type": "multipart/form-data",
