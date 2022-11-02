@@ -13,11 +13,11 @@ import { useEffect } from "react";
 const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
   const dispatch = useDispatch();
-  console.log(board);
+  // console.log(board);
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
-  console.log("제발!!!!", { userNumber });
+  // console.log("제발!!!!", { userNumber });
 
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);

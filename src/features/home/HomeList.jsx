@@ -25,7 +25,7 @@ const HomeList = () => {
   const userData = useSelector((state) => state.user);
   const userProfile = userData?.profileImg;
   // const userImage = userData?.user;
-  console.log(" data 나와=>", userData);
+  // console.log(" data 나와=>", userData);
 
   const init = {
     boardContent: "",
