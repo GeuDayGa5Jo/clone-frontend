@@ -6,10 +6,26 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 import { getMyPage } from "../../redux/modules/mypageSlice";
+import userSlice from "../../redux/modules/userSlice";
+import TweetCard from "../../components/TweetCard";
+import TweetsList from "./TweetsList";
 
 const ProfileEdit = ({ previewImage }) => {
-  const user = useSelector((state) => state);
-  console.log("user =>", user);
+  const data = useSelector((state) => state.myPage.myPage);
+  const content = data.boards;
+  // const comments = data.comments;
+  // const plus = [...content, ...comments];
+
+  // console.log("content, comments 합친 거 =>", plus);
+
+  const userEmail = data.memberEmail;
+  const userIdSplit = (userEmail || "").split("@");
+  const userId = userIdSplit[0];
+  console.log("get 데이터=>", data);
+
+  // const [headerpreviewImage, setHeaderPreviewImage] = useState("");
+  // const [pofilepreviewImage, setProfilePreviewImage] = useState("");
+  // const [uploadImageForm, setUploadImageForm] = useState(null);
 
   const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
 
@@ -35,18 +51,18 @@ const ProfileEdit = ({ previewImage }) => {
           </g>
         </svg>
         <div>
-          <h2>{user.memberName}</h2>
-          <p>9 Tweets</p>
+          <h2>{data?.memberName}</h2>
+          <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
-      <HeaderFile src={previewImage === "" ? user?.imgUrl : previewImage}>
+      <HeaderFile src={data}>
         <ProfileFile></ProfileFile>
       </HeaderFile>
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
-        <h2>{user.memberName}</h2>
-        <p>{user.memberEmail}</p>
-        <p>{user.memberBio}</p>
+        <h2>{data?.memberName}</h2>
+        <span>@{userId}</span>
+        <p>{data?.memberBio}</p>
       </Text>
       <DownText>
         <p>
@@ -65,6 +81,7 @@ const ProfileEdit = ({ previewImage }) => {
           <span>2</span> Following <span>0</span> Followers
         </p>
       </DownText>
+      <TweetsList content={content} userId={userId} />
       {EditProfileModalOpen && (
         <EditProfile setModalOpen={setEditProfileModalOpen} />
       )}
@@ -137,6 +154,9 @@ const Text = styled.div`
     border-radius: 30px;
     font-size: 15px;
     cursor: pointer;
+  }
+  & span {
+    color: #536471;
   }
 `;
 

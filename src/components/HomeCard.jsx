@@ -92,7 +92,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
               </g>
             </svg>
           </MenuIcon>
-          {board.commentCount}
+          {board?.commentCount}
           <MenuIcon>
             <svg
               viewBox="0 0 24 24"
