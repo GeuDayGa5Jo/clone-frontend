@@ -24,10 +24,7 @@ const ProfileEdit = ({ previewImage }) => {
   const userIdSplit = (userEmail || "").split("@");
   const userId = userIdSplit[0];
   const userNumber = data?.memberId;
-  console.log("content, comments 합친 거 =>", userNumber);
-  // const [headerpreviewImage, setHeaderPreviewImage] = useState("");
-  // const [pofilepreviewImage, setProfilePreviewImage] = useState("");
-  // const [uploadImageForm, setUploadImageForm] = useState(null);
+  // console.log("content, comments 합친 거 =>", userNumber);
 
   const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
 

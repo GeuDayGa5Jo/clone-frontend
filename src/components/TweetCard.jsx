@@ -12,7 +12,6 @@ import { useEffect } from "react";
 
 const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
-  // const { id } = useParams();
   const dispatch = useDispatch();
   console.log(board);
   // const deleteBoardContent = () => {
@@ -21,8 +20,8 @@ const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   console.log("제발!!!!", { userNumber });
 
   const navigate = useNavigate();
-
   const [isModalOpen, setModalOpen] = useState(false);
+  // console.log("제발!!!!", { userNumber });
 
   const onClickComment = () => {
     setModalOpen(true);
@@ -170,9 +169,11 @@ const Card = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 34%;
   margin: 15px 5px 5px 5px;
   display: inline-flex;
+  & h3 {
+    display: inline;
+  }
 `;
 
 const UserBox = styled.div`

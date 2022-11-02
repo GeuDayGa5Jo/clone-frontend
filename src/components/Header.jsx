@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const Header = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
-  // console.log(user);
+  const user = useSelector((state) => state.user);
+  console.log(user);
   return (
     <Box>
       <BlueBird>
