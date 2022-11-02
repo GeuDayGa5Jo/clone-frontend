@@ -21,7 +21,6 @@ function useForm({ initialValues, onSubmit, isSignUp, setModalOpen }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
-    console.log(values);
   };
 
   // submit된다면
@@ -47,9 +46,7 @@ function useForm({ initialValues, onSubmit, isSignUp, setModalOpen }) {
             "-",
             values.day
           );
-          console.log(values.year, values.month, values.day);
           values.dob = sumDate;
-          console.log(sumDate);
           delete values.year;
           delete values.month;
           delete values.day;

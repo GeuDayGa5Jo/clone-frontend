@@ -41,10 +41,10 @@ const SignUpModal = (props) => {
   useEffect(() => {
     if (error && isSuccess) {
       alert(error);
-      navigate("/");
+      setModalOpen(false);
     } else if (!error && isSuccess) {
       alert("정상적으로 가입되셨습니다.");
-      navigate("/");
+      navigate("/", { replace: true });
     }
     return () => dispatch(clearUserState());
   }, [error, isSuccess, dispatch, navigate]);
