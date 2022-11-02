@@ -58,7 +58,10 @@ const ProfileEdit = ({ previewImage }) => {
       <HeaderFile>
         <img src={changingImgs.previewHeader || data.headerImg} alt="" />
         <ProfileFile>
-          <img src={changingImgs.previewHeader || data.profileImg} alt="" />
+          <profileFile
+            src={changingImgs.previewHeader || data.profileImg}
+            alt=""
+          />
         </ProfileFile>
       </HeaderFile>
 
@@ -142,13 +145,13 @@ const ProfileFile = styled.div`
   bottom: -50px;
   left: 15px;
   border-radius: 50%;
-  img {
+  /* img {
     width: 100%;
     height: 120px;
     object-fit: cover;
     z-index: 19px;
     border-radius: 50%;
-  }
+  } */
 `;
 
 const Text = styled.div`
@@ -217,8 +220,8 @@ const ProfileBox = styled.div`
   border: 1px solid #ededed;
 `;
 
-// const ProfileFile = styled.img`
-//   width: 100vh;
-//   height: auto;
-//   display: block;
-// `;
+const profileFile = styled.img`
+  width: 100vh;
+  height: auto;
+  display: block;
+`;

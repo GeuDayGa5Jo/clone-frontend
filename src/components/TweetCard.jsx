@@ -280,7 +280,6 @@ const ImgFile = styled.img`
   width: 100%;
   height: auto;
   display: block;
-  /* border-radius: 50%; */
 `;
 
 const ContentBox = styled.div`
