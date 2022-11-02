@@ -102,7 +102,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
               </g>
             </svg>
           </MenuIcon>
-          {board?.commentCount}
+          <p>{board?.commentCount}</p>
           <MenuIcon>
             <svg
               viewBox="0 0 24 24"
@@ -173,9 +173,11 @@ const ImgFile = styled.img`
 `;
 
 const TextBox = styled.div`
-  width: 34%;
   margin: 15px 5px 5px 5px;
   display: inline-flex;
+  & h3 {
+    display: inline;
+  }
 `;
 
 const UserBox = styled.div`
@@ -216,6 +218,11 @@ const Menu = styled.div`
   justify-content: space-evenly;
   margin-top: 10px;
   margin-bottom: 10px;
+  & p {
+    font-weight: 800;
+    margin-left: -130px;
+    margin-top: 2px;
+  }
 `;
 
 export const Thumbnail = styled.img`
@@ -224,7 +231,7 @@ export const Thumbnail = styled.img`
   border-radius: 20px;
   margin-bottom: 10px;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 80px;
   background-position: center;
   cursor: pointer;
   object-fit: cover;
@@ -264,7 +271,7 @@ const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   & span {
-    margin: 20px 0px 20px 100px;
+    margin: 20px 0px 20px 110px;
   }
 `;
 const ImgBox = styled.div`

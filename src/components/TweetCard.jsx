@@ -163,9 +163,11 @@ const Card = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 34%;
   margin: 15px 5px 5px 5px;
   display: inline-flex;
+  & h3 {
+    display: inline;
+  }
 `;
 
 const UserBox = styled.div`

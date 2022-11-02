@@ -226,11 +226,7 @@ const WritingContainer = styled.div`
     align-items: center;
     overflow: hidden;
   }
-  img:nth-child(1) {
-    object-fit: scale-down;
-    width: 50px;
-    height: 50px;
-  }
+
   form {
     width: 100%;
   }
@@ -252,7 +248,6 @@ const StTextArea = styled.textarea`
 
 const BtnBox = styled.div`
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   color: ${(props) => props.theme.mainC};
