@@ -60,7 +60,7 @@ const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
             <Dropdown visibility={dropdown}>
               <DropButton
                 onClick={() => {
-                  if (userId) {
+                  if (board.boardId) {
                     dispatch(delBoardContent(board.boardId));
                   } else {
                     dispatch(delComment(board.commentId));
