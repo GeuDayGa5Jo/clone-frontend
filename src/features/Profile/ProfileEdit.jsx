@@ -55,9 +55,12 @@ const ProfileEdit = ({ previewImage }) => {
           <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
-      <HeaderFile src={data}>
-        <ProfileFile></ProfileFile>
-      </HeaderFile>
+      {/* src={data?.headerImg} */}
+      {/* src={data?.profileImg} */}
+      <HeaderFile src={data?.headerImg}></HeaderFile>
+      <ProfileBox>
+        <ProfileFile src={data?.profileImg}></ProfileFile>
+      </ProfileBox>
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{data?.memberName}</h2>
@@ -106,36 +109,26 @@ const HeaderBox = styled.div`
     width: 30px;
   }
   & h2 {
+    width: 100%;
     margin-left: 20px;
     margin-top: 10px;
   }
   & p {
+    width: 100%;
     margin-left: 20px;
   }
 `;
 
-const HeaderFile = styled.div`
+const HeaderFile = styled.img`
   width: 100%;
   height: 180px;
-  background-color: #cfd9de;
   position: relative;
-`;
-
-const ProfileFile = styled.div`
-  width: 120px;
-  height: 120px;
-  border-radius: 120px;
-  border: 2px solid #f3f3f3;
-  z-index: 20px;
-  background-color: white;
-  position: absolute;
-  bottom: -50px;
-  left: 15px;
 `;
 
 const Text = styled.div`
   margin-left: 10px;
   margin-top: 80px;
+  width: 100%;
   & h2 {
     margin-bottom: 5px;
   }
@@ -181,4 +174,25 @@ const DownText = styled.div`
     display: flex;
     justify-content: left;
   }
+`;
+
+const ProfileBox = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  overflow: hidden;
+  z-index: 20px;
+  position: absolute;
+  bottom: 600px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ededed;
+`;
+
+const ProfileFile = styled.img`
+  width: 100vh;
+  height: auto;
+  display: block;
 `;
