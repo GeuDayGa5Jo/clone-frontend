@@ -25,6 +25,8 @@ const HomeList = () => {
   const userData = useSelector((state) => state.user);
   const userProfile = userData?.profileImg;
 
+  console.log(userData);
+
   const init = {
     boardContent: "",
     imageFile: "",
