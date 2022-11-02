@@ -92,7 +92,7 @@ const ProfileEdit = ({ previewImage }) => {
     </MainBox>
   );
 };
-
+//
 export default ProfileEdit;
 
 const MainBox = styled.div`
