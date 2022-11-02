@@ -26,11 +26,11 @@ export const getBoardContent = createAsyncThunk(
 
 export const delBoardContent = createAsyncThunk(
   "post/delComment",
-  async (params, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const response = await delBoardContentApi(params);
+      const response = await delBoardContentApi(payload);
       console.log("response=>", response);
-      return thunkAPI.fulfillWithValue(params);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error ::::::", err.response);
       return thunkAPI.rejectWithValue("<<", err);
