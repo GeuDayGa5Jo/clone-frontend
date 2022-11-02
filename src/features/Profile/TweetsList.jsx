@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import TweetCard from "../../components/TweetCard";
 
-const TweetsList = () => {
+const TweetsList = ({ content, userId }) => {
   return (
     <div>
       <MenuBar>
@@ -14,7 +14,16 @@ const TweetsList = () => {
         </GridBox>
         <BottomBar />
       </MenuBar>
-      <TweetCard />
+      {content?.map((board) => {
+        return (
+          <TweetCard
+            key={board.boardId}
+            id={board.boardId}
+            board={board}
+            userId={userId}
+          />
+        );
+      })}
     </div>
   );
 };

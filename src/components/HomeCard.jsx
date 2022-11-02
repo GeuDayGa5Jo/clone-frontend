@@ -92,6 +92,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
               </g>
             </svg>
           </MenuIcon>
+          {board?.commentCount}
           <MenuIcon>
             <svg
               viewBox="0 0 24 24"
@@ -159,6 +160,7 @@ const ImgFile = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 60px;
+  border: 1px solid #f3f3f3;
   margin-left: 10px;
   display: flex;
 `;
