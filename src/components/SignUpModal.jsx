@@ -44,7 +44,7 @@ const SignUpModal = (props) => {
       setModalOpen(false);
     } else if (!error && isSuccess) {
       alert("정상적으로 가입되셨습니다.");
-      navigate("/", { replace: true });
+      setModalOpen(false);
     }
     return () => dispatch(clearUserState());
   }, [error, isSuccess, dispatch, navigate]);

@@ -123,7 +123,7 @@ const HeaderBox = styled.div`
   }
 `;
 
-const HeaderFile = styled.img`
+const HeaderFile = styled.div`
   width: 100%;
   height: 180px;
   position: relative;

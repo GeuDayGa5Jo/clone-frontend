@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import TweetCard from "../../components/TweetCard";
+import { v4 as uuidv4 } from "uuid";
 
 const TweetsList = ({ content, userId }) => {
   return (
@@ -17,8 +18,8 @@ const TweetsList = ({ content, userId }) => {
       {content?.map((board) => {
         return (
           <TweetCard
-            key={board.boardId}
-            id={board.boardId}
+            key={uuidv4()}
+            id={uuidv4()}
             board={board}
             userId={userId}
           />
