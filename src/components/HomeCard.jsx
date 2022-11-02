@@ -16,7 +16,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
-  console.log({ board });
+  // console.log({ board });
 
   const navigate = useNavigate();
 
