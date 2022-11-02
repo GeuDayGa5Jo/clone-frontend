@@ -4,6 +4,7 @@ import { getMyPageApi } from "./API/MyPageApi";
 
 const initialState = {
   myPage: [],
+  profileImgs: {},
   isLoading: false,
   error: null,
 };
@@ -25,7 +26,12 @@ export const getMyPage = createAsyncThunk(
 export const BoardContentSlice = createSlice({
   name: "myPage",
   initialState,
-  reducers: {},
+  reducers: {
+    changeImg: (state, action) => {
+      console.log(action.payload);
+      state.profileImgs = action.payload;
+    },
+  },
   extraReducers: {
     //GET Comments
     [getMyPage.pending]: (state) => {
@@ -43,5 +49,5 @@ export const BoardContentSlice = createSlice({
   },
 });
 
-export const {} = BoardContentSlice.actions;
+export const { changeImg } = BoardContentSlice.actions;
 export default BoardContentSlice.reducer;

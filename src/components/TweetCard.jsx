@@ -13,6 +13,12 @@ import { useEffect } from "react";
 const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
   const dispatch = useDispatch();
+  console.log(board);
+  // const deleteBoardContent = () => {
+  //   dispatch(delBoardContent(id));
+  // };
+  console.log("제발!!!!", { userNumber });
+
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
   // console.log("제발!!!!", { userNumber });
@@ -54,11 +60,11 @@ const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
             <Dropdown visibility={dropdown}>
               <DropButton
                 onClick={() => {
-                  // if (userId) {
-                  //   dispatch(delBoardContent(userId));
-                  // } else {
-                  //   dispatch(delComment(commentId));
-                  // }
+                  if (userId) {
+                    dispatch(delBoardContent(board.boardId));
+                  } else {
+                    dispatch(delComment(board.commentId));
+                  }
                 }}
               >
                 삭제

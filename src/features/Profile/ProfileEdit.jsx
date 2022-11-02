@@ -12,6 +12,7 @@ import TweetsList from "./TweetsList";
 
 const ProfileEdit = ({ previewImage }) => {
   const data = useSelector((state) => state.myPage.myPage);
+  const changingImgs = useSelector((state) => state.myPage.profileImgs);
   const content = data.boards;
   const comments = data.comments;
   const plus = content?.concat(comments);
@@ -53,12 +54,14 @@ const ProfileEdit = ({ previewImage }) => {
           <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
-      {/* src={data?.headerImg} */}
-      {/* src={data?.profileImg} */}
-      <HeaderFile src={data?.headerImg}></HeaderFile>
-      <ProfileBox>
-        <ProfileFile src={data?.profileImg}></ProfileFile>
-      </ProfileBox>
+
+      <HeaderFile>
+        <img src={changingImgs.previewHeader || data.headerImg} alt="" />
+        <ProfileFile>
+          <img src={changingImgs.previewHeader || data.profileImg} alt="" />
+        </ProfileFile>
+      </HeaderFile>
+
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{data?.memberName}</h2>
@@ -117,10 +120,35 @@ const HeaderBox = styled.div`
   }
 `;
 
-const HeaderFile = styled.img`
+const HeaderFile = styled.div`
   width: 100%;
   height: 180px;
   position: relative;
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+`;
+
+const ProfileFile = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  border: 2px solid #f3f3f3;
+  z-index: 20px;
+  background-color: white;
+  position: absolute;
+  bottom: -50px;
+  left: 15px;
+  border-radius: 50%;
+  img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    z-index: 19px;
+    border-radius: 50%;
+  }
 `;
 
 const Text = styled.div`
@@ -189,8 +217,8 @@ const ProfileBox = styled.div`
   border: 1px solid #ededed;
 `;
 
-const ProfileFile = styled.img`
-  width: 100vh;
-  height: auto;
-  display: block;
-`;
+// const ProfileFile = styled.img`
+//   width: 100vh;
+//   height: auto;
+//   display: block;
+// `;
