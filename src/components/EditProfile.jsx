@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import axios from "axios";
+import { ServerUrl } from "../server";
 
 export const EditProfile = ({ setModalOpen }) => {
-  const navigate = useNavigate();
-
   const INIT = {
     memberName: "",
     bio: "",
@@ -15,7 +14,6 @@ export const EditProfile = ({ setModalOpen }) => {
     headerImgUrl: "",
   };
   const [editProfileReq, setEditProfileReq] = useState(INIT);
-
   //수정
   //bio, memeberName change시
   const onTextChange = (e) => {
@@ -27,8 +25,9 @@ export const EditProfile = ({ setModalOpen }) => {
   const [previewHeader, setPreviewHeader] = useState("");
   const [previewProfile, setPreviewProfile] = useState("");
 
-  const imgFileHandler = (e) => {
+  const headerFileHandler = (e) => {
     const { name, files } = e.target;
+    console.log(name, files[0]);
     setEditProfileReq({ ...editProfileReq, [name]: files[0] });
     console.log(editProfileReq);
 
@@ -41,18 +40,33 @@ export const EditProfile = ({ setModalOpen }) => {
       if (previewImgUrl) {
         // setPreviewHeader([...previewHeader, previewImgUrl]);
 
-        if (name === "headerImgFile") {
-          //헤더 이미지 파일인 경우
-          setPreviewHeader([...previewHeader, previewImgUrl]);
-        } else if (name === "profileImgUrl") {
-          //프로필 이미지 파일인 경우
-          setPreviewProfile([...previewProfile, previewImgUrl]);
-        }
+        setPreviewHeader([...previewHeader, previewImgUrl]);
       }
     };
   };
 
-  const onSubmitHandler = (e) => {
+  const profileFileHandler = (e) => {
+    const { name, files } = e.target;
+    console.log(name, files[0]);
+    setEditProfileReq({ ...editProfileReq, [name]: files[0] });
+    console.log(editProfileReq);
+
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        // setPreviewHeader([...previewHeader, previewImgUrl]);
+
+        //프로필 이미지 파일인 경우
+        setPreviewProfile([...previewProfile, previewImgUrl]);
+      }
+    };
+  };
+
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(editProfileReq);
     const accessToken = localStorage.getItem("Authorization");
@@ -66,39 +80,26 @@ export const EditProfile = ({ setModalOpen }) => {
     for (const pair of entries) {
       console.log(pair[0] + ", " + pair[1]);
     }
+
     console.log(formData.get("headerImgUrl"));
     console.log(formData.get("profileImgUrl"));
+
+    try {
+      const res = await axios.put(
+        `${ServerUrl}/member/auth/editProfile`,
+        formData,
+        {
+          headers: {
+            Authorization: accessToken,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert(res.data);
+    } catch (e) {
+      alert(e);
+    }
   };
-
-  // const onAddContentHandler = (e) => {
-  //   e.preventDefault();
-  //   // dispatch(__addBoardThunk(content));
-  //   const accessToken = localStorage.getItem("Authorization");
-  //   const formData = new FormData();
-  //   formData.append("imageFile", uploadImageForm);
-
-  //   let entries = formData.entries();
-  //   for (const pair of entries) {
-  //     console.log(pair[0] + ", " + pair[1]);
-  //   }
-  //   console.log(formData.get("imageFile"));
-
-  //   axios
-  //     .post("http://13.124.191.202:8080/auth/boards/create", formData, {
-  //       headers: {
-  //         Authorization: accessToken,
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then(function (response) {
-  //       dispatch(getBoardContent());
-  //       alert("게시되었습니다.");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.response);
-  //     });
-  //   setContent(init);
-  // };
 
   return (
     <StModal>
@@ -121,12 +122,12 @@ export const EditProfile = ({ setModalOpen }) => {
         <FormBox onSubmit={onSubmitHandler}>
           <HeaderFile previewHeader={previewHeader}>
             <StHeaderImg src={previewHeader} alt="" />
-            <label htmlFor="headerImgFile" />
+            <label htmlFor="headerImgUrl" />
             <input
-              id="headerImgFile"
-              name="headerImgFile"
+              id="headerImgUrl"
+              name="headerImgUrl"
               type="file"
-              onChange={imgFileHandler}
+              onChange={headerFileHandler}
             />
           </HeaderFile>
           <ProfileFile previewProfile={previewProfile}>
@@ -136,7 +137,7 @@ export const EditProfile = ({ setModalOpen }) => {
               id="profileImgUrl"
               name="profileImgUrl"
               type="file"
-              onChange={imgFileHandler}
+              onChange={profileFileHandler}
             />
           </ProfileFile>
           <StSelectBox>
