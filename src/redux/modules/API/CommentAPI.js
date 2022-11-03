@@ -27,3 +27,16 @@ export const commentApis = {
   addComment: (commentContent, boardId) =>
     api.post(`/auth/comments/${boardId}/create`, { commentContent }),
 };
+
+export const delCommentApi = async (commentId) => {
+  const res = await axios.delete(
+    `${ServerUrl}/auth/comments/${commentId}/delete`,
+    {
+      headers: {
+        Authorization: localStorage.getItem("Authorization"),
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};

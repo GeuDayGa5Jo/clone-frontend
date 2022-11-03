@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import TweetCard from "../../components/TweetCard";
+import { v4 as uuidv4 } from "uuid";
 
-const TweetsList = () => {
+const TweetsList = ({ content, userId }) => {
   return (
     <div>
       <MenuBar>
@@ -14,7 +15,16 @@ const TweetsList = () => {
         </GridBox>
         <BottomBar />
       </MenuBar>
-      <TweetCard />
+      {content?.map((board) => {
+        return (
+          <TweetCard
+            key={uuidv4()}
+            id={uuidv4()}
+            board={board}
+            userId={userId}
+          />
+        );
+      })}
     </div>
   );
 };

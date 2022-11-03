@@ -22,7 +22,12 @@ const HomeList = () => {
   const data = useSelector((state) => state.boardContent);
   const board = data.boardContent;
 
-  // console.log("homelist data 나와=>", data);
+  // console.log("게시글 데이터를 보여주세요!!!!", board);
+
+  const userData = useSelector((state) => state.user);
+  const userProfile = userData?.profileImg;
+
+  console.log(userData);
 
   const init = {
     boardContent: "",
@@ -111,10 +116,7 @@ const HomeList = () => {
         <Container>
           <WritingContainer>
             <ImgBox>
-              <img
-                src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"
-                alt=""
-              />
+              <ImgFile src={content?.profileImgUrl} alt="" />
             </ImgBox>
             <WritingBox>
               <StTextArea
@@ -226,11 +228,7 @@ const WritingContainer = styled.div`
     align-items: center;
     overflow: hidden;
   }
-  img:nth-child(1) {
-    object-fit: scale-down;
-    width: 50px;
-    height: 50px;
-  }
+
   form {
     width: 100%;
   }
@@ -252,18 +250,12 @@ const StTextArea = styled.textarea`
 
 const BtnBox = styled.div`
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   color: ${(props) => props.theme.mainC};
   padding: 0 20px;
   margin-bottom: 10px;
-
   border-bottom: 1px solid #e9e9e9;
-`;
-
-const ImgBox = styled.div`
-  margin-left: 10px;
 `;
 
 const BlueButton = styled.button`
@@ -338,3 +330,21 @@ export const ImagePreview = styled.img`
 `;
 
 export const Container = styled.div``;
+
+const ImgFile = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+`;
+
+const ImgBox = styled.div`
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

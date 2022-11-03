@@ -2,14 +2,31 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { EditProfile } from "../../components/EditProfile";
 import { getMyPage } from "../../redux/modules/mypageSlice";
+import userSlice from "../../redux/modules/userSlice";
+import TweetCard from "../../components/TweetCard";
+import TweetsList from "./TweetsList";
 
 const ProfileEdit = ({ previewImage }) => {
-  const user = useSelector((state) => state);
-  console.log("user =>", user);
+  const data = useSelector((state) => state.myPage.myPage);
+  const changingImgs = useSelector((state) => state.myPage.profileImgs);
+  const content = data.boards;
+  const comments = data.comments;
+  const plus = content?.concat(comments);
+  const tweetList = plus?.sort((a, b) => {
+    return new Date(a.createAt) - new Date(b.createAt);
+  });
+
+  console.log("전체 리덕스=>", data);
+
+  const userEmail = data.memberEmail;
+  const userIdSplit = (userEmail || "").split("@");
+  const userId = userIdSplit[0];
+  const userNumber = data?.memberId;
+  // console.log("content, comments 합친 거 =>", userNumber);
 
   const [EditProfileModalOpen, setEditProfileModalOpen] = useState(false);
 
@@ -21,6 +38,12 @@ const ProfileEdit = ({ previewImage }) => {
   useEffect(() => {
     dispatch(getMyPage());
   }, [dispatch]);
+
+  console.log(data);
+  // console.log( changingImgs.previewHeader, data.headerImg);
+  // console.log("헤더:", data.headerImg);
+  // console.log("프로필", data.profileImg);
+  // console.log(changingImgs.previewProfile, data.profileImg);
 
   return (
     <MainBox>
@@ -35,18 +58,26 @@ const ProfileEdit = ({ previewImage }) => {
           </g>
         </svg>
         <div>
-          <h2>{user.memberName}</h2>
-          <p>9 Tweets</p>
+          <h2>{data?.memberName}</h2>
+          <p>{content?.length} Tweets</p>
         </div>
       </HeaderBox>
-      <HeaderFile src={previewImage === "" ? user?.imgUrl : previewImage}>
-        <ProfileFile></ProfileFile>
+
+      <HeaderFile>
+        <img src={changingImgs.previewHeader || data.headerImg} alt="" />
+        <ImgBox>
+          <ImgFile
+            src={changingImgs.previewProfile || data.profileImg}
+            alt=""
+          />
+        </ImgBox>
       </HeaderFile>
+
       <Text>
         <button onClick={showEditProfileModal}>Edit profile</button>
-        <h2>{user.memberName}</h2>
-        <p>{user.memberEmail}</p>
-        <p>{user.memberBio}</p>
+        <h2>{data?.memberName}</h2>
+        <span>@{userId}</span>
+        <p>{data?.bio}</p>
       </Text>
       <DownText>
         <p>
@@ -65,13 +96,14 @@ const ProfileEdit = ({ previewImage }) => {
           <span>2</span> Following <span>0</span> Followers
         </p>
       </DownText>
+      <TweetsList content={tweetList} userId={userId} userNumber={userNumber} />
       {EditProfileModalOpen && (
         <EditProfile setModalOpen={setEditProfileModalOpen} />
       )}
     </MainBox>
   );
 };
-
+//
 export default ProfileEdit;
 
 const MainBox = styled.div`
@@ -89,10 +121,12 @@ const HeaderBox = styled.div`
     width: 30px;
   }
   & h2 {
+    width: 100%;
     margin-left: 20px;
     margin-top: 10px;
   }
   & p {
+    width: 100%;
     margin-left: 20px;
   }
 `;
@@ -100,8 +134,12 @@ const HeaderBox = styled.div`
 const HeaderFile = styled.div`
   width: 100%;
   height: 180px;
-  background-color: #cfd9de;
   position: relative;
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
 `;
 
 const ProfileFile = styled.div`
@@ -114,11 +152,13 @@ const ProfileFile = styled.div`
   position: absolute;
   bottom: -50px;
   left: 15px;
+  border-radius: 50%;
 `;
 
 const Text = styled.div`
   margin-left: 10px;
   margin-top: 80px;
+  width: 100%;
   & h2 {
     margin-bottom: 5px;
   }
@@ -137,6 +177,9 @@ const Text = styled.div`
     border-radius: 30px;
     font-size: 15px;
     cursor: pointer;
+  }
+  & span {
+    color: #536471;
   }
 `;
 
@@ -161,4 +204,46 @@ const DownText = styled.div`
     display: flex;
     justify-content: left;
   }
+`;
+
+const ProfileBox = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  overflow: hidden;
+  z-index: 20px;
+  position: absolute;
+  bottom: 600px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ededed;
+`;
+
+const ImageFile = styled.img`
+  width: 150px;
+  height: auto;
+  display: block;
+`;
+
+const ImgBox = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+  left: 15px;
+`;
+
+const ImgFile = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
 `;

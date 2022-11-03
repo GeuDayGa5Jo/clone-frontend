@@ -4,19 +4,35 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import axios from "axios";
+import { ServerUrl } from "../server";
+import { useDispatch } from "react-redux";
+import { changeImg } from "../redux/modules/mypageSlice";
 
 export const EditProfile = ({ setModalOpen }) => {
-  const navigate = useNavigate();
-
-  const [previewImage, setPreviewImage] = useState("");
-  const [uploadImageForm, setUploadImageForm] = useState(null);
-
+  const dispatch = useDispatch();
+  const INIT = {
+    memberName: "",
+    bio: "",
+    profileImgUrl: "",
+    headerImgUrl: "",
+  };
+  const [editProfileReq, setEditProfileReq] = useState(INIT);
   //수정
+  //bio, memeberName change시
+  const onTextChange = (e) => {
+    const { name, value } = e.target;
+    setEditProfileReq({ ...editProfileReq, [name]: value });
+  };
 
-  console.log(uploadImageForm);
+  // 이미지 change시
+  const [previewHeader, setPreviewHeader] = useState("");
+  const [previewProfile, setPreviewProfile] = useState("");
 
-  const imgFileHandler = (e) => {
-    setUploadImageForm(e.target.files[0]);
+  const headerFileHandler = (e) => {
+    const { name, files } = e.target;
+    console.log(name, files[0]);
+    setEditProfileReq({ ...editProfileReq, [name]: files[0] });
+    console.log(editProfileReq);
 
     let reader = new FileReader();
     if (e.target.files[0]) {
@@ -25,40 +41,80 @@ export const EditProfile = ({ setModalOpen }) => {
     reader.onload = () => {
       const previewImgUrl = reader.result;
       if (previewImgUrl) {
-        setPreviewImage([...previewImage, previewImgUrl]);
+        // setPreviewHeader([...previewHeader, previewImgUrl]);
+
+        setPreviewHeader([...previewHeader, previewImgUrl]);
       }
     };
   };
 
-  // const onAddContentHandler = (e) => {
-  //   e.preventDefault();
-  //   // dispatch(__addBoardThunk(content));
-  //   const accessToken = localStorage.getItem("Authorization");
-  //   const formData = new FormData();
-  //   formData.append("imageFile", uploadImageForm);
+  const profileFileHandler = (e) => {
+    const { name, files } = e.target;
+    console.log(name, files[0]);
+    setEditProfileReq({ ...editProfileReq, [name]: files[0] });
+    console.log(editProfileReq);
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        // setPreviewHeader([...previewHeader, previewImgUrl]);
 
-  //   let entries = formData.entries();
-  //   for (const pair of entries) {
-  //     console.log(pair[0] + ", " + pair[1]);
-  //   }
-  //   console.log(formData.get("imageFile"));
+        //프로필 이미지 파일인 경우
+        setPreviewProfile([...previewProfile, previewImgUrl]);
+      }
+    };
+  };
 
-  //   axios
-  //     .post("http://13.124.191.202:8080/auth/boards/create", formData, {
-  //       headers: {
-  //         Authorization: accessToken,
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then(function (response) {
-  //       dispatch(getBoardContent());
-  //       alert("게시되었습니다.");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.response);
-  //     });
-  //   setContent(init);
-  // };
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    console.log(editProfileReq);
+    const accessToken = localStorage.getItem("Authorization");
+    const formData = new FormData();
+    //form data는 백엔드와 순서를 맞춰줘야 한다!!!!!!!!!!!!!!!!!!!!!!!
+    formData.append("headerImgUrl", editProfileReq.headerImgUrl);
+    formData.append("profileImgUrl", editProfileReq.profileImgUrl);
+    formData.append("bio", editProfileReq.bio);
+    formData.append("memberName", editProfileReq.memberName);
+
+    let entries = formData.entries();
+    for (const pair of entries) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    // console.log(formData.get("headerImgUrl"));
+    // console.log(formData.get("profileImgUrl"));
+
+    try {
+      const res = await axios.put(
+        `${ServerUrl}/member/auth/editProfile`,
+        formData,
+        {
+          headers: {
+            Authorization: accessToken,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      dispatch(
+        changeImg({
+          previewHeader: previewHeader[0],
+          previewProfile: previewProfile[0],
+        })
+      );
+      console.log({
+        previewHeader: previewHeader[0],
+        previewProfile: previewProfile[0],
+      });
+      alert(res.data);
+    } catch (e) {
+      alert(e);
+    }
+    setModalOpen(false);
+  };
 
   return (
     <StModal>
@@ -78,21 +134,40 @@ export const EditProfile = ({ setModalOpen }) => {
           </svg>
           <h2>Edit profile</h2>
         </HeaderTopBox>
-        <FormBox>
-          <HeaderFile
-            previewImage={previewImage}
-            uploadImageForm={uploadImageForm}
-          >
-            <label htmlFor="file" />
-            <input id="file" type="file" onChange={imgFileHandler} />
+        <FormBox onSubmit={onSubmitHandler}>
+          <HeaderFile previewHeader={previewHeader}>
+            <StHeaderImg src={previewHeader} alt="" />
+            <label htmlFor="headerImgUrl" />
+            <input
+              id="headerImgUrl"
+              name="headerImgUrl"
+              type="file"
+              onChange={headerFileHandler}
+            />
           </HeaderFile>
-          <ProfileFile>
-            <label htmlFor="file" />
-            <input type="file" />
+          <ProfileFile previewProfile={previewProfile}>
+            <StProfileImg src={previewProfile} alt="" />
+            <label htmlFor="profileImgUrl" />
+            <input
+              id="profileImgUrl"
+              name="profileImgUrl"
+              type="file"
+              onChange={profileFileHandler}
+            />
           </ProfileFile>
           <StSelectBox>
-            <Input type="text" name="name" placeholder="name" />
-            <Input2 type="text" name="Bio" placeholder="Bio" />
+            <Input
+              type="text"
+              name="memberName"
+              placeholder="name"
+              onChange={onTextChange}
+            />
+            <Input2
+              type="text"
+              name="bio"
+              placeholder="bio"
+              onChange={onTextChange}
+            />
           </StSelectBox>
           <Button theme="follow">save</Button>
         </FormBox>
@@ -129,78 +204,21 @@ const StModalBody = styled.div`
   /* padding: 60px; */
 `;
 
-const StSentence = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 15px;
-`;
-
-const Stdiv = styled.div`
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 16px;
-`;
-
-const BtBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin-top: 35px;
-  height: 400px;
-  margin: 20px 0;
-  padding: 0 70px;
-`;
-const StSpan = styled.span`
-  display: flex;
+const StHeaderImg = styled.img`
   width: 100%;
-  font-size: ${(props) => props.fontsize};
-  font-weight: ${(props) => props.fw};
-  margin-bottom: 10px;
-  color: ${(props) => props.color || "#666666"};
-`;
-
-const StLoginDivier = styled.div`
-  display: flex;
-  align-items: center;
-  color: black;
-  font-size: 12px;
-  margin: 0px 0px;
-  font-size: 22px;
-  ::before,
-  ::after {
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.2);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 16px;
-  }
-`;
-
-const HeaderBox = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: #ffffff;
-  display: flex;
-  & svg {
-    margin-left: 10px;
-    width: 30px;
-  }
-  & h2 {
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-  & p {
-    margin-left: 20px;
-  }
+  object-fit: cover;
 `;
 
 const HeaderFile = styled.div`
+  display: flex;
   width: 100%;
   height: 180px;
-  background-color: #cfd9de;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
   position: relative;
   margin-top: 15px;
   & input[type="file"] {
@@ -222,7 +240,19 @@ const HeaderFile = styled.div`
     margin-left: 10px;
   }
 `;
-
+const StProfileImg = styled.img`
+  /* max-width: 100%; */
+  width: 105%;
+  /* min-width: 0%; */
+  /* max-height: 100%; */
+  height: 105%;
+  /* min-height: 0%; */
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const ProfileFile = styled.div`
   width: 120px;
   height: 120px;
@@ -230,16 +260,23 @@ const ProfileFile = styled.div`
   border: 2px solid #f3f3f3;
   z-index: 20px;
   background-color: white;
-  position: absolute;
+  position: relative;
+  transition: translateY(-60%);
   bottom: 320px;
   left: 25px;
   padding: 60px;
+  position: absolute;
+
+  overflow: hidden;
+
   & input[type="file"] {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 2;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
   }
   label {

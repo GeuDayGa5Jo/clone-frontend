@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { getMyPageApi } from "./API/MyPageApi";
 
 const initialState = {
-  boardContent: [],
+  myPage: [],
+  profileImgs: {},
   isLoading: false,
   error: null,
 };
@@ -13,6 +14,7 @@ export const getMyPage = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getMyPageApi();
+      console.log("res에서 무얼 받고 있을까요?", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
@@ -22,9 +24,14 @@ export const getMyPage = createAsyncThunk(
 );
 
 export const BoardContentSlice = createSlice({
-  name: "boardContent",
+  name: "myPage",
   initialState,
-  reducers: {},
+  reducers: {
+    changeImg: (state, action) => {
+      console.log(action.payload);
+      state.profileImgs = action.payload;
+    },
+  },
   extraReducers: {
     //GET Comments
     [getMyPage.pending]: (state) => {
@@ -32,8 +39,8 @@ export const BoardContentSlice = createSlice({
     },
     [getMyPage.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log("get myPage action => ", action.payload);
-      state.boardContent = action.payload;
+      state.myPage = action.payload;
+      // console.log("get myPage state => ", action.payload);
     },
     [getMyPage.rejected]: (state, action) => {
       state.isLoading = false;
@@ -42,5 +49,5 @@ export const BoardContentSlice = createSlice({
   },
 });
 
-export const {} = BoardContentSlice.actions;
+export const { changeImg } = BoardContentSlice.actions;
 export default BoardContentSlice.reducer;

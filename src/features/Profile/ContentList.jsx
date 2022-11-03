@@ -7,7 +7,6 @@ const ContentList = () => {
   return (
     <Box>
       <ProfileEdit />
-      <TweetsList></TweetsList>
     </Box>
   );
 };

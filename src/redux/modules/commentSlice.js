@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ServerUrl } from "../../server";
-import { commentApis } from "./API/CommentAPI";
+import { commentApis, delCommentApi } from "./API/CommentAPI";
 import { userApis } from "./API/UserAPI";
 
 export const __addCommentThunk = createAsyncThunk(
@@ -11,18 +11,34 @@ export const __addCommentThunk = createAsyncThunk(
     try {
       console.log(commentContent, boardId);
       const res = await commentApis.addComment(commentContent, boardId);
-      console.log(res);
+      window.location.reload(0);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
       // 에러가 발생할경우 alert로 백엔드에서 전송한 메시지를 띄워주어 멈추게 한다.
       //중복된 아이디 입니다.
       // alert(e["response"].data);
-      console.log(e);
+
       return thunkAPI.rejectWithValue(e["response"].data);
     }
   }
 );
 // password1!
+
+export const delComment = createAsyncThunk(
+  "post/delComment",
+  async (payload, thunkAPI) => {
+    console.log("payload=>", payload);
+    try {
+      const response = await delCommentApi(payload);
+      console.log("del response=>", response);
+      window.location.reload();
+      return thunkAPI.fulfillWithValue(response);
+    } catch (err) {
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
 
 const initialState = {
   user: {},
@@ -45,7 +61,7 @@ export const commentSlice = createSlice({
     // 회원가입
     [__addCommentThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.comment = action.payload;
       state.error = null;
       state.isSuccess = true;
     },
@@ -58,6 +74,22 @@ export const commentSlice = createSlice({
       state.isLoading = true;
       state.error = null;
       state.isSuccess = false;
+    },
+
+    [delComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [delComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // content.commentId !== action.payload
+      console.log("comment 나와=>", current(state.comment));
+      state.comment = state.comment.filter(
+        (content) => content.commentId !== action.payload
+      );
+    },
+    [delComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

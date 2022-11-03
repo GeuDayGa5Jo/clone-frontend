@@ -4,7 +4,7 @@ import BoardContentSlice from "../redux/modules/BoardContentSlice";
 import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
 import CommentModal from "./CommentModal";
 import { useEffect } from "react";
@@ -16,6 +16,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
+  console.log({ id });
 
   const navigate = useNavigate();
 
@@ -24,6 +25,10 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
   const onClickComment = () => {
     setModalOpen(true);
   };
+
+  const userEmail = board.memberEmail;
+  const userIdSplit = (userEmail || "").split("@");
+  const userId = userIdSplit[0];
 
   return (
     <CardBox>
@@ -69,15 +74,19 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
       )}
 
       <Card>
-        <ImgFile src="https://pbs.twimg.com/profile_images/1585648241298636800/tii40Gv2_400x400.jpg"></ImgFile>
         <UserBox>
+          <ImgBox>
+            <ImgFile src={board.profileImg}></ImgFile>
+          </ImgBox>
           <TextBox>
             <h3>{board?.memberName}</h3>
-            <p>{}</p>
+            <p>@{userId}</p>
           </TextBox>
+        </UserBox>
+        <ContentBox>
           <Thumbnail src={board?.imageUrl}></Thumbnail>
           <span>{board?.boardContent}</span>
-        </UserBox>
+        </ContentBox>
       </Card>
       {!isCommentModal && (
         <Menu>
@@ -92,7 +101,7 @@ const HomeCard = ({ board, id, isCommentModal }, props) => {
               </g>
             </svg>
           </MenuIcon>
-          {board.commentCount}
+          <p>{board?.commentCount}</p>
           <MenuIcon>
             <svg
               viewBox="0 0 24 24"
@@ -134,8 +143,8 @@ const CardBox = styled.div`
 `;
 
 const Card = styled.div`
+  width: 100%;
   margin-top: 20px;
-  display: flex;
   & h3 {
     width: 100%;
     margin-left: 10px;
@@ -157,23 +166,24 @@ const Card = styled.div`
 `;
 
 const ImgFile = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 60px;
-  border: 1px solid #f3f3f3;
-  margin-left: 10px;
-  display: flex;
+  width: 100%;
+  height: auto;
+  display: block;
 `;
 
 const TextBox = styled.div`
-  width: 100%;
-  margin: 0px 10px 10px 5px;
+  margin: 15px 5px 5px 5px;
+  display: inline-flex;
+  & h3 {
+    display: inline;
+  }
 `;
 
 const UserBox = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column; */
+  /* justify-content: center; */
 `;
 
 const Dot = styled.div`
@@ -207,6 +217,11 @@ const Menu = styled.div`
   justify-content: space-evenly;
   margin-top: 10px;
   margin-bottom: 10px;
+  & p {
+    font-weight: 800;
+    margin-left: -130px;
+    margin-top: 2px;
+  }
 `;
 
 export const Thumbnail = styled.img`
@@ -215,7 +230,7 @@ export const Thumbnail = styled.img`
   border-radius: 20px;
   margin-bottom: 10px;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 80px;
   background-position: center;
   cursor: pointer;
   object-fit: cover;
@@ -237,8 +252,6 @@ const DropButton = styled.button`
   background-color: transparent;
   position: absolute;
   cursor: pointer;
-
-  margin-bottom: 20px;
   &:nth-child(1) {
     margin-bottom: 25px;
   }
@@ -251,4 +264,23 @@ const DropBox = styled.div`
   left: 550px;
   top: 30px;
   background-color: transparent;
+`;
+
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  & span {
+    margin: 20px 0px 20px 110px;
+  }
+`;
+const ImgBox = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

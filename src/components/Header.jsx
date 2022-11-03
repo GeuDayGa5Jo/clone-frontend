@@ -6,8 +6,14 @@ import styled from "styled-components";
 
 const Header = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.myPage.myPage);
+
+  const userEmail = user.memberEmail;
+  const userIdSplit = (userEmail || "").split("@");
+  const userId = userIdSplit[0];
+
   // console.log(user);
+
   return (
     <Box>
       <BlueBird>
@@ -193,12 +199,13 @@ const Header = () => {
       </BlueSize>
       <Bottom>
         <Profile>
-          <ImgFile src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"></ImgFile>
+          <ImgBox>
+            <ImgFile src={user.Profile}></ImgFile>
+          </ImgBox>
           <User>
             <p>
-              소영
-              <br />
-              @soyoung
+              {user.memberName}
+              <br />@{userId}
             </p>
           </User>
           <svg
@@ -237,9 +244,6 @@ const Box = styled.div`
 const Size2 = styled.div`
   width: 24px;
   height: 24px;
-  /* & :hover {
-    color: white;
-  } */
 `;
 
 const Category = styled.div`
@@ -310,11 +314,11 @@ const BlueBird = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  & :hover {
+  /* & :hover {
     transition: all 0.5s;
     background-color: #afd1f7;
     cursor: pointer;
-  }
+  } */
 `;
 
 const Profile = styled.div`
@@ -339,22 +343,38 @@ const Bottom = styled.div`
   position: fixed;
   bottom: 30px;
   justify-content: center;
-  & div:hover {
+  cursor: pointer;
+  /* & div:hover {
     transition: all 0.5s;
     background-color: #dddddd88;
     border-radius: 50px;
     cursor: pointer;
-  }
+  } */
 `;
 
 const User = styled.div`
   display: flex;
   justify-content: center;
+  margin-left: 30px;
+`;
+
+const ImgBox = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  border: 1px solid #ededed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 130px;
 `;
 
 const ImgFile = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 45px;
-  margin-right: 10px;
+  width: 100%;
+  height: auto;
+  display: block;
 `;
