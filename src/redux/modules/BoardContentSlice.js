@@ -15,7 +15,7 @@ export const getBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getBoardContentApi();
-      console.log("리덕스... 그것이 알고 싶다...=>", res);
+      // console.log("리덕스... 그것이 알고 싶다...=>", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");
@@ -29,7 +29,7 @@ export const delBoardContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await delBoardContentApi(payload);
-      console.log("response=>", response);
+      // console.log("response=>", response);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error ::::::", err.response);
