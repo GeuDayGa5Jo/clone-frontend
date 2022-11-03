@@ -53,7 +53,6 @@ export const EditProfile = ({ setModalOpen }) => {
     console.log(name, files[0]);
     setEditProfileReq({ ...editProfileReq, [name]: files[0] });
     console.log(editProfileReq);
-
     let reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -84,8 +83,8 @@ export const EditProfile = ({ setModalOpen }) => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    console.log(formData.get("headerImgUrl"));
-    console.log(formData.get("profileImgUrl"));
+    // console.log(formData.get("headerImgUrl"));
+    // console.log(formData.get("profileImgUrl"));
 
     try {
       const res = await axios.put(
