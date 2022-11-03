@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log(user);
+  console.log(user.memberId);
   return (
     <Box>
       <BlueBird>

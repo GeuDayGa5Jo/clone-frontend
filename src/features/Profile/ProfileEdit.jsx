@@ -62,11 +62,9 @@ const ProfileEdit = ({ previewImage }) => {
       </HeaderBox>
 
       <HeaderFile>
-        {/* <img src={data.headerImg} alt="" /> */}
         <img src={changingImgs.previewHeader || data.headerImg} alt="" />
         <ImgBox>
           <ImgFile
-            // src={data.profileImg}
             src={changingImgs.previewProfile || data.profileImg}
             alt=""
           />
