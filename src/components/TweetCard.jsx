@@ -4,7 +4,7 @@ import BoardContentSlice from "../redux/modules/BoardContentSlice";
 import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { delBoardContent } from "../redux/modules/BoardContentSlice";
 import CommentModal from "./CommentModal";
 import { delComment } from "../redux/modules/commentSlice";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
   const [dropdown, setDropdown] = useState(false);
   const dispatch = useDispatch();
-  // console.log(board);
+
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
@@ -77,7 +77,7 @@ const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
       <Card>
         <UserBox>
           <ImgBox>
-            <ImgFile src={board.profileImg}></ImgFile>
+            <ImgFile src={board?.profileImg}></ImgFile>
           </ImgBox>
           <TextBox>
             <h3>{board?.memberName}</h3>

@@ -15,7 +15,12 @@ import HomeCard from "./HomeCard";
 const CommentModal = ({ setModalOpen, board }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, error, isSuccess } = useSelector((state) => state.user);
+  const { myPage, user, error, isSuccess } = useSelector(
+    (state) => state.myPage
+  );
+
+  console.log(myPage);
+
   const init = {
     commentContent: "",
     boardId: board.boardId,
@@ -66,10 +71,7 @@ const CommentModal = ({ setModalOpen, board }) => {
           <Container>
             <WritingContainer>
               <ImgBox>
-                <img
-                  src="https://pbs.twimg.com/profile_images/1586041191048818688/8T_01Rml_400x400.jpg"
-                  alt=""
-                />
+                <img src={myPage.profileImg} alt="" />
               </ImgBox>
               <WritingBox>
                 <StTextArea

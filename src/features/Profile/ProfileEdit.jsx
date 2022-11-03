@@ -20,6 +20,8 @@ const ProfileEdit = ({ previewImage }) => {
     return new Date(a.createAt) - new Date(b.createAt);
   });
 
+  console.log("전체 리덕스=>", data);
+
   const userEmail = data.memberEmail;
   const userIdSplit = (userEmail || "").split("@");
   const userId = userIdSplit[0];
