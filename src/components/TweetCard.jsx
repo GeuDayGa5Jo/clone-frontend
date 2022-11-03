@@ -10,10 +10,14 @@ import CommentModal from "./CommentModal";
 import { delComment } from "../redux/modules/commentSlice";
 import { useEffect } from "react";
 
-const TweetCard = ({ board, userId, isCommentModal, userNumber }, props) => {
+const TweetCard = (
+  { id, board, userId, isCommentModal, userNumber },
+  props
+) => {
   const [dropdown, setDropdown] = useState(false);
   const dispatch = useDispatch();
 
+  console.log({ id });
   // const deleteBoardContent = () => {
   //   dispatch(delBoardContent(id));
   // };
