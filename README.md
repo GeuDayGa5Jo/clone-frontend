@@ -2,7 +2,7 @@
 
 <h1>Twitter Clone Coding</h1>
 <h3>D반 / 5조) FE: 서지운, 박소영 BE: 강희인, 박성민, 박영성 </h3>
-<p> 사용 언어 : <b>React, Spring</b></p>
+<p> 사용 언어 : <b>React, Spring</b> </p>
 <p> 프로젝트 작업 기간 : 2022.10.28~2022.11.03</p>
 <br />
 <h2>💻 프로젝트 소개</h2>
