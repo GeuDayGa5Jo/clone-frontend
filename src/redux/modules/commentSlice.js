@@ -11,6 +11,7 @@ export const __addCommentThunk = createAsyncThunk(
     try {
       console.log(commentContent, boardId);
       const res = await commentApis.addComment(commentContent, boardId);
+      window.location.reload(0);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (e) {
       // 에러가 발생할경우 alert로 백엔드에서 전송한 메시지를 띄워주어 멈추게 한다.

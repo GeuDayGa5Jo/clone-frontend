@@ -14,7 +14,7 @@ export const getMyPage = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await getMyPageApi();
-      // console.log("res에서 무얼 받고 있을까요?", res);
+      console.log("res에서 무얼 받고 있을까요?", res);
       return thunkAPI.fulfillWithValue(res);
     } catch (err) {
       console.log("error");

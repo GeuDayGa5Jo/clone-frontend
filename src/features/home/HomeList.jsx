@@ -22,6 +22,8 @@ const HomeList = () => {
   const data = useSelector((state) => state.boardContent);
   const board = data.boardContent;
 
+  // console.log("게시글 데이터를 보여주세요!!!!", board);
+
   const userData = useSelector((state) => state.user);
   const userProfile = userData?.profileImg;
 
