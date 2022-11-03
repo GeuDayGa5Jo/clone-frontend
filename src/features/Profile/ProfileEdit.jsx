@@ -39,6 +39,12 @@ const ProfileEdit = ({ previewImage }) => {
     dispatch(getMyPage());
   }, [dispatch]);
 
+  console.log(data);
+  // console.log( changingImgs.previewHeader, data.headerImg);
+  // console.log("헤더:", data.headerImg);
+  // console.log("프로필", data.profileImg);
+  // console.log(changingImgs.previewProfile, data.profileImg);
+
   return (
     <MainBox>
       <HeaderBox>
@@ -58,10 +64,12 @@ const ProfileEdit = ({ previewImage }) => {
       </HeaderBox>
 
       <HeaderFile>
-        <img src={changingImgs.previewHeader || data.headerImg} alt="" />
+        <img src={data.headerImg} alt="" />
+        {/* <img src={changingImgs.previewHeader || data.headerImg} alt="" /> */}
         <ImgBox>
           <ImgFile
-            src={changingImgs.previewProfile || data.profileImg}
+            src={data.profileImg}
+            // src={changingImgs.previewProfile || data.profileImg}
             alt=""
           />
         </ImgBox>
