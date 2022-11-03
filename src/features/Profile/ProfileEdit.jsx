@@ -77,7 +77,7 @@ const ProfileEdit = ({ previewImage }) => {
         <button onClick={showEditProfileModal}>Edit profile</button>
         <h2>{data?.memberName}</h2>
         <span>@{userId}</span>
-        <p>{data?.memberBio}</p>
+        <p>{data?.bio}</p>
       </Text>
       <DownText>
         <p>
