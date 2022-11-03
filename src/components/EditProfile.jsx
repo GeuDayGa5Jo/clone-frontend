@@ -73,10 +73,11 @@ export const EditProfile = ({ setModalOpen }) => {
     console.log(editProfileReq);
     const accessToken = localStorage.getItem("Authorization");
     const formData = new FormData();
+    //form data는 백엔드와 순서를 맞춰줘야 한다....
     formData.append("headerImgUrl", editProfileReq.headerImgUrl);
     formData.append("profileImgUrl", editProfileReq.profileImgUrl);
-    formData.append("memberName", editProfileReq.memberName);
     formData.append("bio", editProfileReq.bio);
+    formData.append("memberName", editProfileReq.memberName);
 
     let entries = formData.entries();
     for (const pair of entries) {
