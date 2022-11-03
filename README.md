@@ -19,7 +19,7 @@
 <p><i>My Page</i>에서 <i>Header Image, Profile Image, User Name, Bio</i> 변경 가능</p>
 <p><i>My Page</i>에서 내 글 삭제 가능</p>
 <br />
-<h2> 팀원 소개 </h2>
+<h2>👫🏻 팀원 소개 </h2>
 
 | 이름   | github | position |
 |------|--------|----------|
@@ -29,6 +29,6 @@
 | 박소영 | https://github.com/0001401   | 프론트엔드     |
 | 서지운 | https://github.com/MildColor   | 프론트엔드     |
 <br />
-<h2>ERD</h2>
+<h2>📃 ERD</h2>
 
 ![Screen Shot 2022-11-03 at 16 59 54](https://user-images.githubusercontent.com/83463300/199676468-a8948b20-2799-4cf2-8f45-b4068340fa5f.png)
