@@ -5,7 +5,7 @@
 <p> 프로젝트 작업 기간 : 2022.10.28~2022.11.03</p>
 <p>서버 URL : http://twitter-clone-aws-bucket.s3-website.ap-northeast-2.amazonaws.com/</p>
 <p>영상 URL : </p>
-<p>클론 프로잭트 팀 노션 : https://www.notion.so/5-5-6bb6e460bbb94acbb622bc7ab22e79e5</p>
+<p>클론 프로젝트 팀 노션 : https://www.notion.so/5-5-6bb6e460bbb94acbb622bc7ab22e79e5</p>
 <br />
 <h2>💻 프로젝트 소개</h2>
 <p>어디서나 함께 하는 소셜네트워크(sns) 앱을 클론코딩 해봤습니다</p>
